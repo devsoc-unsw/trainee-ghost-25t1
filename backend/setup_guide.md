@@ -6,7 +6,9 @@ To run the backend locally, you must:
 - Run the server
 
 ## Setting up MySQL ##
-- Still worfking on this, i may make is so i will just host it
+Install MySQL on you machine then run the setup query on your database. If you have any questionds message Will on discord.
+
+You should then copy and paste the contents of init.sql into the MySQL command line client. This should initialise the database. There may be some sort of bug though.
 
 
 ## Setting up enviromental variables ##
@@ -22,4 +24,14 @@ DB_NAME=projectemon
 
 >**Note:** Make sure that your database is named projectemon for this to work
 
-This may be expanded later as we add more variables
+This may be expanded later as we add more env variables
+
+## Running the server ##
+To run the server all you need to do is run the following command in your terminal:
+
+`node server.js`
+
+This will allow you and the frontend to access the server on http://localhost:5000 (Although you will probably have to suffix it with /api if decide to put that before all of the routes)
+
+
+>**Note:** Also, when you set up this repository on your computer make sure to run `npm install` to install all of the dependencies we are using

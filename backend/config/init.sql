@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     description TEXT NOT NULL,
     due_date TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    aproval_votes INT DEFAULT 0,
     completed_at TIMESTAMP,
     created_by INT NOT NULL,
     FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
