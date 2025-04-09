@@ -2,6 +2,8 @@
 
 CREATE DATABASE IF NOT EXISTS projectemon;
 
+USE projectemon;
+
 CREATE TABLE IF NOT EXISTS users (
    id INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
@@ -12,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS teams (
-    id INT AUTO_INCREMENT PRIMARY_KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     admin_user_id INT NULL,
     class_code VARCHAR(8),
@@ -28,7 +30,6 @@ CREATE TABLE IF NOT EXISTS teams (
     -- I'm thinking we can just make it so team rocket comes when three tasks
     -- are currently overdue, so we do not need to store anything here. This 
     -- will simplify things
-    FOREIGN KEY (admin_user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 ALTER TABLE users
@@ -37,7 +38,7 @@ FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL;
 
 ALTER TABLE teams
 ADD CONSTRAINT fk_team_admin
-FOREIGN KEY (admin_user_id) REFERENCES user(id) ON DELETE SET NULL;
+FOREIGN KEY (admin_user_id) REFERENCES users(id) ON DELETE SET NULL;
 
 CREATE TABLE IF NOT EXISTS tasks (
     id INT AUTO_INCREMENT PRIMARY KEY,
