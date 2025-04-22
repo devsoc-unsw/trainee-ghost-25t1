@@ -22,6 +22,12 @@ DB_PASSWORD=[your mysql password]
 DB_NAME=projectemon
 ``` 
 
+## NEW enviromental variables ##
+As the project grows, we may add more env variables. I am putting them here so it is easy to see what is new
+```
+JWT_SECRET=[mysupersecretstring]
+```
+
 >**Note:** Make sure that your database is named projectemon for this to work
 
 This may be expanded later as we add more env variables

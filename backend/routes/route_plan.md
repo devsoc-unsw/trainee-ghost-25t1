@@ -28,3 +28,8 @@ In theory, this should be all of the routes we need. Tbh though we will probably
 
 ## /user ##
  - PUT /:userId/join/:teamId - Change the id of the team the player is in to a new team. You can pass -1 as the new team if you want to join a current team and not join a new team 
+
+ # Other information about working with routes #
+
+### Authorisation ###
+At the time of writing, the login function and authorisaton middleware does not exist. However, we are still able to make routes that are supposed to be authorised. Just do them without auth for now. It will be extremely easy to make them all require auth later with middleware (changing one line per route)
