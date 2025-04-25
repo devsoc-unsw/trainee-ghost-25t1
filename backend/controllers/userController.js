@@ -1,5 +1,5 @@
+const errorMap = require('../constants/errorMap')
 const userServices = require('../services/userServices')
-
 
 /**
  * Attempts to add a user to a database then returns a JSON Web Token that will
@@ -13,20 +13,40 @@ exports.signup = async (req, res) => {
     const { name, email, password } = req.body
     
     try {
-        const {user, token} = await userServices.signup({email, name, password})
+        const { user, token } = await userServices.signup({email, name, password})
         return res.status(201).json({ success: true, user, token})
     } catch (err) {
         console.error("Error signing up:, ", err)
-        // Default status and message
-        let status = 500;
-        let message = "Internal server error"
+        // Determine the error status and message
+        let status = errorMap[err.code].statusCode || 500;
+        let message = err.message || "Internal server error"
 
-        if (err.code === 'INVALID_INPUT') {
-            status = 400
-        } else if (err.code === "USER_EXISTS") {
-            status = 409
-            message = err.message
-        }
+        return res.status(status).json({ success: false, error: message })
+    }
+}
+
+
+/**
+ * Logs in a user by validating their credentials and returns a JSON Web Token.
+ * @param {Object} req - The request object containing user credentials.
+ * @param {Object} req.body - The body of the request.
+ * @param {string} req.body.email - The email of the user.
+ * @param {string} req.body.password - The password of the user.
+ * @param {Object} res - The response object to send the result.
+ * @returns {Promise<void>} Sends a JSON response with the user and token on success.
+ */
+
+exports.login = async (req, res) => {
+    const { email, password }  = req.body;
+    
+    try {
+        const { user, token } = await userServices.login({email, password})
+        return res.status(201).json({ success: true, user, token})
+    } catch (err) {
+        console.error("Error logging in: ", err)
+        let status = errorMap[err.code].statusCode || 500;
+        let message = err.message || "Internal server error"
+        
         return res.status(status).json({ success: false, error: message })
     }
 }

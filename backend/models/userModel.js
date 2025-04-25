@@ -1,18 +1,86 @@
-const db = require('../config/db.js')
+const db = require("../config/db.js");
 
-exports.findByEmail = async (email) => {
-    const query = `SELECT * FROM users WHERE email = ?`
-    const result = await db.query(query, [email]);
-    return result[0];
-}
+/**
+ * Inserts a new user into the database.
+ *
+ * @param {Object} userData - The data for the new user.
+ * @param {string} userData.name - The full name of the user.
+ * @param {string} userData.email - The user's email address.
+ * @param {string} userData.password - The user's hashed password.
+ * @returns {Promise<Object>} A promise resolving to the result of the operation
+ */
 
-exports.createUser = async ({name, email, password}) => {
-    const query = `
+exports.createUser = async ({ name, email, password }) => {
+  const query = `
         INSERT INTO users
         (name, email, hashed_password)
-        VALUES (?, ?, ?)`
+        VALUES (?, ?, ?)`;
 
-    return await db.query(query, [name, email, password]);
+  const [result] = await db.query(query, [name, email, password]);
+  return result.insertId;
+};
 
-}
+/**
+ * Retrieves the hashed password for a given email address.
+ *
+ * @param {string} email - The email address of the user
+ * @returns {Promise<string|undefined>} A promise that resolves to the hashed
+ * password string if found, or undefined.
+ */
 
+exports.getHashedPassword = async (email) => {
+  const query = `
+        SELECT hashed_password FROM users WHERE email = ?
+        `;
+  const [rows] = await db.query(query, [email]);
+  return rows[0]?.hashed_password;
+};
+
+/**
+ * Takes the email of a user and gets the id of that user
+ * @param {string} email - The email address of the user
+ * @returns {Promise<id|undefined>} A promise that resolves to the an id or
+ * undefined
+ */
+
+exports.emailToId = async (email) => {
+  const query = `
+        SELECT id FROM users WHERE email = ?
+        `;
+  const [rows] = await db.query(query, [email]);
+  return rows[0]?.id;
+};
+
+/**
+ * A broad function that allows you to get any core data about a user
+ *
+ * @param {number} id - The ID of the user.
+ * @param {string[]} columns - Array of column names to fetch.
+ * @returns {Promise<Object|undefined>} A promise resolving to the user data object or undefined if not found.
+ * @throws {Error} If no valid columns are requested.
+ */
+
+exports.getData = async (id, columns) => {
+  // Make sure only valid columns are passed
+  const allowedColumns = [
+    "id",
+    "name",
+    "email",
+    "hashed_password",
+    "created_at",
+    "team_id",
+  ];
+  columns = columns.filter((col) => allowedColumns.includes(col));
+
+  if (columns.length === 0) {
+    const err = new Error("No valid columns requested");
+    err.code = "SERVER_ERROR";
+    throw err;
+  }
+
+  const query = `
+    SELECT ${columns.join(", ")} FROM users WHERE id = ?
+    `;
+  const [rows] = await db.query(query, [id]);
+  return rows[0];
+};
