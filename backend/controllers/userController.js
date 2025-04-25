@@ -17,8 +17,7 @@ exports.signup = async (req, res) => {
         return res.status(201).json({ success: true, user, token})
     } catch (err) {
         console.error("Error signing up:, ", err)
-        // Determine the error status and message
-        let status = errorMap[err.code].statusCode || 500;
+        let status = errorMap[err.code]?.httpStatus || 500;
         let message = err.message || "Internal server error"
 
         return res.status(status).json({ success: false, error: message })
@@ -44,7 +43,7 @@ exports.login = async (req, res) => {
         return res.status(201).json({ success: true, user, token})
     } catch (err) {
         console.error("Error logging in: ", err)
-        let status = errorMap[err.code].statusCode || 500;
+        let status = errorMap[err.code]?.httpStatus || 500;
         let message = err.message || "Internal server error"
         
         return res.status(status).json({ success: false, error: message })
