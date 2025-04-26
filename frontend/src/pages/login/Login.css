@@ -1,42 +1,56 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button, input {
+  background-color: rgba(217, 217, 217, 70%);
+  min-height: 70px;
+  min-width: 500px;
+
+  font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  color: black;
+
+  padding: 10px;
+  border-radius: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+button {
+  background-color: rgb(50, 145, 245);
+  border-radius: 40px;
 }
 
-.card {
-  padding: 2em;
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1vh;
+
+  min-height: 70vh;
+
+  background-color: rgba(0, 0, 0, 50%);
+  border-radius: 15px;
+  font-size: 60px;
+  color: white;
+
+  padding: 50px;
 }
 
-.read-the-docs {
-  color: #888;
+.button-toptext {
+  font-size: 20px
+}
+
+.signup-button {
+  background-color: rgb(175, 229, 110);
 }

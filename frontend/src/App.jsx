@@ -20,7 +20,7 @@ function App() {
         </BrowserRouter>
 
         <div>
-          <p1>Anything written below the browser router will appear below the pages we import! wink wink we can make a footer</p1>
+
         </div>
       </main>
     </>
