@@ -10,7 +10,7 @@ function InputBox() {
     // Connect to backend later...
     const onSubmit = (data) => {
         console.log(data);
-        if (!errors.username?.message && !errors.password?.message) {
+        if (!errors.email?.message && !errors.password?.message) {
             navigate('/main')
         }
     }
@@ -18,12 +18,12 @@ function InputBox() {
     return (
         <>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("username", {required: 'Please enter a username!'})} placeholder='Username' />
+            <input {...register("email", {required: 'Please enter an email!'})} placeholder='Email Address' />
             <input {...register("password", {required: 'Please enter a password!'})} placeholder='Password' />
 
             <Button
                 className='signup-button'
-                topText={errors.username?.message || errors.password?.message}
+                topText={errors.email?.message || errors.password?.message}
                 innerText='Sign In'
             />
         </form>
