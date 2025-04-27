@@ -30,6 +30,10 @@ button {
   border-radius: 40px;
 }
 
+button:hover {
+  background-color: rgb(44, 125, 212);
+}
+
 .auth-box {
   display: flex;
   flex-direction: column;
@@ -53,4 +57,8 @@ button {
 
 .signup-button {
   background-color: rgb(175, 229, 110);
+}
+
+.signup-button:hover {
+  background-color: rgb(145, 190, 90);
 }
