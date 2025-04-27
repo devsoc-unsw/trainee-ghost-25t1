@@ -1,60 +1,65 @@
 const userModel = require('../models/userModel')
-const taskModel = require('../models/taskModel')
+const taskModel = require('../models/taskModel');
+const { sqlColumns } = require('../constants/sqlColumns');
+const queryParams = require('../constants/queryParams');
+
+/**
+ * Retrieves task data specific to a user based on query parameters
+ * 
+ * @param {number} userId - The ID of the user requesting thh task data 
+ * @param {Object} queryParams  - The parameters for determining what task data
+ * to retrieve
+ * 
+ * @returns {Promise<Object[]} A promise that resolves to an array of task objs
+ */
 
 const getTaskData = async (userId, queryParams) => {
-
-  const params = sanitiseTaskQueryParams(queryParms)
-
   const teamId = await userModel.getData(userId, ['team_id'])
-
-
   // A user not being a team is not necessarily an error, it just means they 
-  // won't have any tasks
+  // won't have any tasks. Early return if this occurs
   if (!teamId) {
     return []
   }
 
-  const baseData = await taskModel.getData()
+  const params = sanitiseTaskQueryParams(queryParams)
+  // Detach cols and other params
+  const {cols, ...otherParams} = params
 
-  const returnData = [...baseData]
-
-  
-  
-
- 
-  // Make sure that the user actually exists, and is in a team
-
-  // Collect all the data that they need
+  return await taskModel.getData(teamId, cols, otherParams)
 };
 
+/**
+ * Ensures all query parameters relating to task fetching are valid and throws
+ * an error if they are not. It also cleans data in ways such as standardising
+ * all data that can be an array into an array and parsing numbers
+ * 
+ * @param {Object} queryParams - The query parameters to filter and format task data.
+ * @param {string} [queryParams.limit] - Max number of tasks to return (1-100).
+ * @param {string} [queryParams.offset] - Number of tasks to skip (1-100).
+ * @param {string} [queryParams.orderBy] - Column to order by ('dueDate', etc.).
+ * @param {string} [queryParams.sortDirection] - Sorting direction ('asc' or 'desc').
+ * @param {string} [queryParams.status] - Task status filter.
+ * @param {string|string[]} [queryParams.assignedTo] - User IDs.
+ * @param {stringstring|string[]} [queryParams.cols] - Columns to select.
+ * 
+ * @returns {Promise<Object[]} A promise that resolves to an array of task objs
+ */
+
 const sanitiseTaskQueryParams = (params) => {
-  const validParams = [
-    "limit",
-    "offset",
-    "sortBy",
-    "sortDirection",
-    "status",
-    "assignedTo",
-    ""    
-  ];
-
-  const validOptions = {
-    sortBy: ["dueDate", "alphabetical", "completionDate"],
-    sortDirection: ["asc", "desc"],
-    status: ["complete", "incomplete", "pending"],
-  };
-
+  // We will store errors as we go along
   const errors = []
   
-  // Store 'cleaned' data (E.g. parsed nums) (Destructuring done to create a clone)
+  // Store 'cleaned' data (Eg parsed nums) (Destructuring done to make a clone)
   const cleaned = {...params}
 
-  // Integer checks
+  // Check for invlaid data
   Object.keys(params).forEach(key => {
-    if (!validParams.includes(key)) {
+    if (!queryParams.tasks.params.includes(key)) {
       errors.push(`${key} is not a valid query parameter`)
     }
   })
+  
+  // Integer checks
   ["limit", "offset"].forEach(queryKey => {
     if (params[queryKey] !== undefined) {
         const num = Number(params[queryKey])
@@ -66,13 +71,44 @@ const sanitiseTaskQueryParams = (params) => {
     }
   })
 
+  // Enumerated string literal values that certain query parameters must be
+  const queryEnums = queryParams.tasks.paramEnums
+
   // Enumerated value checks
-  ["sortBy", "sortDirection", "status"].forEach(queryKey => {
-    const validString = validOptions[queryKey].includes(params[queryKey])
+  ["orderBy", "sortDirection", "status"].forEach(queryKey => {
+    const validString = queryEnums[queryKey].includes(params[queryKey])
     if (params[queryKey] !== undefined && !validString) {
-      errors.push(`${queryKey} must be one of [${validOptions[queryKey].join(", ")}]`)
+      errors.push(`${queryKey} must be one of [${queryEnums[queryKey].join(", ")}]`)
     }
   })
+
+  // Check the assignedTo is either a number or array of numbers
+  if (params.assignedTo !== undefined) {
+    const ids = Array.isArray(params.assignedTo)
+      ? params.assignedTo?.map(id => Number(id))
+      : [Number(params.assignedTo)]
+
+      if (ids.some(id => !Number.isInteger(id))) {
+        errors.push("All assignedTo IDs must be an integer")
+      } else {
+        cleaned.assignedTo = ids
+      }
+  }
+
+  // Select all cols if no specific cols provided
+  if (params.cols === undefined) {
+    cleaned.cols = ["*"]
+  } else {
+    const arrCols = Array.isArray(params.cols)
+      ? params.cols
+      : [params.cols]
+      // Check that the inputted columns are actually in the sql table
+      if (arrCols.some(col => !sqlColumns.tasks.includes(col))) {
+        errors.push(`Invalid SQL table column provided in the 'cols parameter`)
+      } else {
+        cleaned.cols = arrCols.map(col => col.toLowerCase())
+      }
+  } 
 
   if (errors.length) {
     const err = new Error(`Errors: ${errors.join("\n")}`)

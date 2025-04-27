@@ -10,7 +10,7 @@ In theory, this should be all of the routes we need. Tbh though we will probably
 - GET / (Base route) - We will have one base get route that will handle the majority of tasks relating to accessing tasks. It should get all the data relating to a task. There will be several query paramters (e.g. ?param1=val&param2=val2) used for customising what is being fetched, such as:
     * limit (integer)
     * offset (integer)
-    * sortBy string (dueDate, alphabetical, completedDate)
+    * orderBy string (due_date, name, completed_at)
     * sortDirection string (asc or desc)
     * status string (incomplete, pending, complete). Leaving this blank will lead to the selection of all
     * assignedTo array of integrers (The ids of who tasks are assigned to)

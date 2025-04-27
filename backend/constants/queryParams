@@ -1,0 +1,20 @@
+const queryParams = {
+    tasks: {
+        params: [
+            "limit",
+            "offset",
+            "orderBy",
+            "sortDirection",
+            "status",
+            "assignedTo",
+            "cols"
+          ],
+        paramEnums: {
+            orderBy: ["due_date", "name", "completed_at"],
+            sortDirection: ["asc", "desc"],
+            status: ["complete", "incomplete", "pending"]
+        }
+    }
+}
+
+modules.exports = queryParams

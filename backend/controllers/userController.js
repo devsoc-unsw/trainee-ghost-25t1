@@ -33,8 +33,9 @@ exports.signup = async (req, res) => {
  * @param {Object} req - The request object containing user credentials.
  * @param {string} req.body.email - The email of the user.
  * @param {string} req.body.password - The unhashed password of the user.
- * @param {Object} res - The response object t
- * @returns {Promise<void>} Sends a JSON response with the user and token on success.
+ * @param {Object} res - The response object
+ * @returns {Promise<void>} Sends a JSON response with the user and token on
+ * success or an error message.
  */
 
 exports.login = async (req, res) => {
