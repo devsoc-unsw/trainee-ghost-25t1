@@ -1,5 +1,8 @@
 const db = require("../config/db.js");
 
+const sqlColumns = require("../constants/sqlColumns");
+
+
 /**
  * Inserts a new user into the database.
  *
@@ -62,15 +65,7 @@ exports.emailToId = async (email) => {
 
 exports.getData = async (id, columns) => {
   // Make sure only valid columns are passed
-  const allowedColumns = [
-    "id",
-    "name",
-    "email",
-    "hashed_password",
-    "created_at",
-    "team_id",
-  ];
-  columns = columns.filter((col) => allowedColumns.includes(col));
+  columns = columns.filter((col) => sqlColumns.users.includes(col));
 
   if (columns.length === 0) {
     const err = new Error("No valid columns requested");

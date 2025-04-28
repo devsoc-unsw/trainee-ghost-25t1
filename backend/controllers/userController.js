@@ -4,8 +4,11 @@ const userServices = require('../services/userServices')
 /**
  * Attempts to add a user to a database then returns a JSON Web Token that will
  * allow them to login
- * @param {*} req - The request object of the user
- * @param {*} res 
+ * @param {Object} req - The request object of the user containing user data
+ * @param {string} req.body.name - The username of the user.
+ * @param {string} req.body.email - The email of the user.
+ * @param {string} req.body.password - The unhashed password of the user.
+ * @param {Object} res - The response object
  * @returns 
  */
 
@@ -28,11 +31,11 @@ exports.signup = async (req, res) => {
 /**
  * Logs in a user by validating their credentials and returns a JSON Web Token.
  * @param {Object} req - The request object containing user credentials.
- * @param {Object} req.body - The body of the request.
  * @param {string} req.body.email - The email of the user.
- * @param {string} req.body.password - The password of the user.
- * @param {Object} res - The response object to send the result.
- * @returns {Promise<void>} Sends a JSON response with the user and token on success.
+ * @param {string} req.body.password - The unhashed password of the user.
+ * @param {Object} res - The response object
+ * @returns {Promise<void>} Sends a JSON response with the user and token on
+ * success or an error message.
  */
 
 exports.login = async (req, res) => {
