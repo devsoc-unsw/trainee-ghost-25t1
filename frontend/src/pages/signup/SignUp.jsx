@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import './SignUp.css'
+import InputBox from '../../components/InputBox';
+import '../../components/InputBox.css';
 
-function SignIn() {
-  const [count, setCount] = useState(0)
+function SignUp() {
 
   return (
     <>
-      <div>
-        <h1>Signup Page</h1>
-      </div>
+        <div className='auth-box'>
+            Register
+            <InputBox fields={["new email", "new password", "confirm password"]} buttonText="Register"/>
+        </div>
     </>
   )
 }
 
-export default SignIn
+export default SignUp
