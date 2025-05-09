@@ -42,7 +42,6 @@ const getTaskData = async (userId, queryParams) => {
  * @param {string|string[]} [queryParams.assignedTo] - User IDs.
  * @param {stringstring|string[]} [queryParams.cols] - Columns to select.
  * 
- * @returns {Promise<Object[]} A promise that resolves to an array of task objs
  */
 
 const sanitiseTaskQueryParams = (params) => {
@@ -79,7 +78,10 @@ const sanitiseTaskQueryParams = (params) => {
     const validString = queryEnums[queryKey].includes(params[queryKey])
     if (params[queryKey] !== undefined && !validString) {
       errors.push(`${queryKey} must be one of [${queryEnums[queryKey].join(", ")}]`)
+    } else {
+      cleaned[queryKey] = params[queryKey]
     }
+    
   })
 
   // Check the assignedTo is either a number or array of numbers

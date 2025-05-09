@@ -17,4 +17,4 @@ const queryParams = {
     }
 }
 
-modules.exports = queryParams
+module.exports = queryParams

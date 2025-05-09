@@ -1,3 +1,4 @@
+const taskServices = require("../services/taskServices")
 const errorMap = require("../constants/errorMap");
 
 /**
@@ -11,7 +12,8 @@ const errorMap = require("../constants/errorMap");
 
 exports.getTaskData = async (req, res) => {
     try {
-        return userData = taskService.getTaskData(req.user.id, req.query);
+        const user_data =  taskServices.getTaskData(req.user.id, req.query)
+        return res.status(200).json({ success: true, data: user_data})
     } catch (err) {
         const status = errorMap[err.code]?.httpStatus || 500
         let message = err.message || 'Internal server error'
