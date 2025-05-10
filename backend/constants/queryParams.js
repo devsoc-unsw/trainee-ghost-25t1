@@ -10,7 +10,7 @@ const queryParams = {
             "cols"
           ],
         paramEnums: {
-            orderBy: ["due_date", "name", "completed_at"],
+            orderBy: ["due_date", "title", "completed_at"],
             sortDirection: ["asc", "desc"],
             status: ["complete", "incomplete", "pending"]
         }

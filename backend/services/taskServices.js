@@ -36,7 +36,7 @@ const getTaskData = async (userId, queryParams) => {
  * @param {Object} queryParams - The query parameters to filter and format task data.
  * @param {string} [queryParams.limit] - Max number of tasks to return (1-100).
  * @param {string} [queryParams.offset] - Number of tasks to skip (1-100).
- * @param {string} [queryParams.orderBy] - Column to order by ('dueDate', etc.).
+ * @param {string} [queryParams.orderBy] - Column to order by ('due_date', etc.).
  * @param {string} [queryParams.sortDirection] - Sorting direction ('asc' or 'desc').
  * @param {string} [queryParams.status] - Task status filter.
  * @param {string|string[]} [queryParams.assignedTo] - User IDs.
@@ -44,81 +44,86 @@ const getTaskData = async (userId, queryParams) => {
  * 
  */
 
-const sanitiseTaskQueryParams = (params) => {
+const sanitiseTaskQueryParams = (params = {}) => {
+  params = params || {};
   // We will store errors as we go along
-  const errors = []
+  const errors = [];
   
   // Store 'cleaned' data (Eg parsed nums) (Destructuring done to make a clone)
-  const cleaned = {...params}
-
-  // Check for invlaid data
+  const cleaned = {...params};
+  
   Object.keys(params).forEach(key => {
     if (!queryParams.tasks.params.includes(key)) {
-      errors.push(`${key} is not a valid query parameter`)
+      errors.push(`'${key}' is not a valid query parameter`);
     }
-  })
+  });
+
+  console.log("Test");
   
   // Integer checks
   ["limit", "offset"].forEach(queryKey => {
     if (params[queryKey] !== undefined) {
-        const num = Number(params[queryKey])
-        if (!Number.isInteger(num) || num < 1 || num > 100) {
-          errors.push(`${queryKey} must be an integer between 1 and 100`)
+        const num = Number(params[queryKey]);
+        if (!Number.isInteger(num) || num < 0) {
+          errors.push(`'${queryKey}' must be an integer >= 0`);
         } else {
           cleaned[queryKey] = num;
         }
     }
-  })
+  });
 
   // Enumerated string literal values that certain query parameters must be
-  const queryEnums = queryParams.tasks.paramEnums
+  const queryEnums = queryParams.tasks.paramEnums;
 
   // Enumerated value checks
   ["orderBy", "sortDirection", "status"].forEach(queryKey => {
-    const validString = queryEnums[queryKey].includes(params[queryKey])
-    if (params[queryKey] !== undefined && !validString) {
-      errors.push(`${queryKey} must be one of [${queryEnums[queryKey].join(", ")}]`)
-    } else {
-      cleaned[queryKey] = params[queryKey]
+    if (params[queryKey] !== undefined) {
+      const value = String(params[queryKey]).toLowerCase();
+      
+      const validString = queryEnums[queryKey].includes(value);
+      if (!validString) {
+        errors.push(`'${queryKey}' must be one of [${queryEnums[queryKey].join(", ")}]`);
+      } else {
+        cleaned[queryKey] = value;
+      }
     }
-    
-  })
+  });
 
   // Check the assignedTo is either a number or array of numbers
   if (params.assignedTo !== undefined) {
     const ids = Array.isArray(params.assignedTo)
-      ? params.assignedTo?.map(id => Number(id))
-      : [Number(params.assignedTo)]
+      ? params.assignedTo.flatMap(id => String(id).split(",")).map(Number)
+      : String(params.assignedTo).split(",").map(Number);
 
-      if (ids.some(id => !Number.isInteger(id))) {
-        errors.push("All assignedTo IDs must be an integer")
-      } else {
-        cleaned.assignedTo = ids
-      }
+    if (ids.some(id => !Number.isInteger(id) || id < 0)) {
+      errors.push("All assignedTo IDs must be integers >= 0");
+    } else {
+      cleaned.assignedTo = ids;
+    }
   }
 
   // Select all cols if no specific cols provided
   if (params.cols === undefined) {
-    cleaned.cols = ["*"]
+    cleaned.cols = ["*"];
   } else {
     const arrCols = Array.isArray(params.cols)
-      ? params.cols
-      : [params.cols]
-      // Check that the inputted columns are actually in the sql table
-      if (arrCols.some(col => !sqlColumns.tasks.includes(col))) {
-        errors.push(`Invalid SQL table column provided in the 'cols parameter`)
-      } else {
-        cleaned.cols = arrCols.map(col => col.toLowerCase())
-      }
+      ? params.cols.map(col => String(col).split(","))
+      : String(params.cols).split(",");
+    const arrColsLower = arrCols.map(col => col.toLowerCase());
+    if (arrColsLower.some(col => !sqlColumns.tasks.includes(col))) {
+      errors.push(`Invalid SQL table column provided in the 'cols' parameter`);
+    } else {
+      cleaned.cols = arrColsLower;
+    }
   } 
 
   if (errors.length) {
-    const err = new Error(`Errors: ${errors.join("\n")}`)
-    err.code = 'INVALID_INPUT'
-    throw err
+    const err = new Error(`Errors: ${errors.join("\n")}`);
+    err.code = 'INVALID_INPUT';
+    throw err;
   }
 
-  return cleaned
+  return cleaned;
 };
 
-module.exports = { getTaskData };
+module.exports = { getTaskData, sanitiseTaskQueryParams };

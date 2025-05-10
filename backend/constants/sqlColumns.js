@@ -36,6 +36,17 @@ const sqlColumns = {
         "sp_defense",
         "speed",
         "pokemon_name"
+    ],
+    tasks: [
+        "id",
+        "difficulty",
+        "title",
+        "description",
+        "due_date",
+        "created_at",
+        "aproval_votes",
+        "completed_at",
+        "created_by"
     ]
 };
 
