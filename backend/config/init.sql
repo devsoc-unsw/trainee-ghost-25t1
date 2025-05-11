@@ -49,13 +49,13 @@ CREATE TABLE IF NOT EXISTS tasks (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     aproval_votes INT DEFAULT 0,
     completed_at TIMESTAMP,
-    created_by INT,
-    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+    team_id INT,
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS tasks_doers (
-    user_id INT NOT NULL,
     task_id INT NOT NULL,
+    user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, task_id)

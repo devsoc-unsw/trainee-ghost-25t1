@@ -45,8 +45,6 @@ const getTaskData = async (userId, queryParams) => {
  */
 
 const sanitiseTaskQueryParams = (params = {}) => {
-  params = params || {};
-  // We will store errors as we go along
   const errors = [];
 
   // Store 'cleaned' data (Eg parsed nums) (Destructuring done to make a clone)
@@ -76,7 +74,7 @@ const sanitiseTaskQueryParams = (params = {}) => {
   // Enumerated value checks
   ["orderBy", "sortDirection", "status"].forEach((queryKey) => {
     if (params[queryKey] !== undefined) {
-      const value = String(params[queryKey]).toLowerCase();
+      const value = params[queryKey].toLowerCase();
 
       const validString = queryEnums[queryKey].includes(value);
       if (!validString) {
@@ -92,7 +90,8 @@ const sanitiseTaskQueryParams = (params = {}) => {
   // Check the assignedTo is either a number or array of numbers
   if (params.assignedTo !== undefined) {
     const ids = Array.isArray(params.assignedTo)
-      ? params.assignedTo.flatMap((id) => String(id).split(",")).map(Number)
+      // A lot of this logic might be pointless but it work
+      ? params.assignedTo.map((id) => String(id).split(",")).map(Number)
       : String(params.assignedTo).split(",").map(Number);
 
     if (ids.some((id) => !Number.isInteger(id) || id < 0)) {
@@ -126,12 +125,39 @@ const sanitiseTaskQueryParams = (params = {}) => {
   return cleaned;
 };
 
-// Santise task data, get the team the user is on and upload the post
+// Validate and clean data, get the team the user is on and upload the post
 const postTask = async (userId, taskData) => {
-  // Validate all post data in the body
-  // Get the team that the user is on
-  // Make sure all the assigned to users exist
-  // SQL query to post
+
+
+   const cleanedTaskData = sanitisePostTaskData(taskData);
+
+    cleanedTaskData.teamId = await userModel.getData(userId, ["team_id"]).team_id;
+    if (!cleanedTaskData.teamId) {
+      const err = new Error("User must be part of a team to perform this action")
+      err.code = "NO_TEAM_MEMBERSHIP"
+      throw err;
+    }
+
+    // Make sure all the users actually exist
+    for (id in cleanedTaskData.assignedTo) {
+      const name = userModel.getData(id, ['name'])
+      if (!name.length == 0) {
+        const err = new Error(`Cannot assign to ${id} as they do not exist`)
+        err.code = "USER_NOT_FOUND"
+        throw err;
+      } 
+    }
+
+    // Split data that will go in different tables
+    const { assignedTo, ...coreTaskData } = cleanedTaskData;
+    
+    // Insert the task and get the ID of that new task
+    const taskId = await taskModel.postTask(coreTaskData);
+
+    await taskModel.addAssignedUsersToTask(taskId, assignedTo)
+
+    // Return all of the cleaned task data
+    return cleanedTaskData;
 };
 
 const sanitisePostTaskData = (taskData = {}) => {
@@ -157,7 +183,7 @@ const sanitisePostTaskData = (taskData = {}) => {
 
   if (
     !taskData.assignedTo ||
-    Array.isArray(taskData.assignedTo) ||
+    !Array.isArray(taskData.assignedTo) ||
     !taskData.assignedTo.length ||
     !taskData.assignedTo.every((id) => id > 0 && Number.isInteger(id))
   ) {
@@ -171,12 +197,15 @@ const sanitisePostTaskData = (taskData = {}) => {
   if (isNaN(timestamp) || timestamp <= Date.now()) {
     errors.push(`'dueDate' must be a valid ISO date string in the future`)
   }
+  cleaned.dueDate = dateObj;
 
   if (errors.length) {
     const err = new Error(`Errors: ${errors.join("\n")}`);
     err.code = "INVALID_INPUT";
     throw err;
   }
+
+  return cleaned;
 };
 
 module.exports = { getTaskData, sanitiseTaskQueryParams, postTask, sanitisePostTaskData };

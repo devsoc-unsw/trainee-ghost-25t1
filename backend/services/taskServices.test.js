@@ -130,9 +130,10 @@ describe("taskServices.sanitisePostTaskData", () => {
     }
 
     test('Valid data returns cleaned data successfully', () => {
-        const cleanedData = baseValidData;
+        const cleanedData = { ...baseValidData};
         cleanedData.dueDate = new Date(cleanedData.dueDate);
-        expect(baseValidData).toEqual(cleanedData);
+        expect(taskServices.sanitisePostTaskData(baseValidData))
+            .toEqual(cleanedData);
     })
 
     // Test each missing field
