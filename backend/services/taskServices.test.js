@@ -116,3 +116,85 @@ describe('taskServices.sanitiseTaskQueryParams', () => {
             .toThrow(expectedErr)
     })
 })
+
+
+describe("taskServices.sanitisePostTaskData", () => {
+
+    // Base data that should pass tests
+    const baseValidData =  {
+        title: 'MyTask',
+        description: 'This is my task',
+        difficulty: 5,
+        assignedTo: [1, 2],
+        dueDate: '2025-12-31T23:59:00.000Z'
+    }
+
+    test('Valid data returns cleaned data successfully', () => {
+        const cleanedData = baseValidData;
+        cleanedData.dueDate = new Date(cleanedData.dueDate);
+        expect(baseValidData).toEqual(cleanedData);
+    })
+
+    // Test each missing field
+    for (key of Object.keys(baseValidData)) {
+        const data = {...baseValidData}
+        delete data[key]
+        test(`Throws error for missing '${key}'`, () => {
+            expect(() => taskServices.sanitisePostTaskData(data))
+                .toThrow()
+                // Error messages are different for each field so we just check
+                // whether an error is thrown or not
+        })
+    }
+
+    const badStrings = [7, ""];
+
+    for (badString of badStrings) {
+        test(`Throws error when title is '${badString}'`, () => {
+            const data = {...baseValidData};
+            data.title = badString;
+            expect(() => taskServices.sanitisePostTaskData(data))
+                .toThrow(`'title' must be a non-empty string`)
+        })
+
+        test(`Throws error when description is '${badString}'`, () => {
+            const data = {...baseValidData};
+            data.description = badString;
+            expect(() => taskServices.sanitisePostTaskData(data))
+                .toThrow(`'description' must be a non-empty string`)
+        })
+    }
+
+    const badInts = [-15, 3.1415, "qwerty"];
+
+    for (badInt of badInts) {
+        test(`throws error when difficulty is "${badInt}"`, () => {
+            const data = {...baseValidData};
+            data.difficulty = badInt;
+            expect(() => taskServices.sanitisePostTaskData(data))
+                .toThrow("'difficulty' must be an integer from 0-10")
+        })
+    }
+
+    const badIntArrs = ['Hello', [], [-1, 2, 0, -5], [1.2, 3.1415, 4]]
+
+    for (badIntArr of badIntArrs) {
+        test(`throws error when assignedTo is "[${badIntArr}]"`, () => {
+        const data = {...baseValidData};
+        data.assignedTo = badIntArr;
+        expect(() => taskServices.sanitisePostTaskData(data))
+            .toThrow("'assignedTo' must be an array of positive integers")
+        })
+    }
+
+    const badDates = ['A long time ago', "2015-05-12T10:15:30.000Z"]
+
+    for (const badDate of badDates) {
+        test(`throws error when dueDate is "${badDate}"`, () => {
+            const data = { ...baseValidData };
+            data.dueDate = badDate;
+            expect(() => taskServices.sanitisePostTaskData(data))
+                .toThrow("'dueDate' must be a valid ISO date string in the future");
+        });
+    }
+})

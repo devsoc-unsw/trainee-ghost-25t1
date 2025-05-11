@@ -1,6 +1,6 @@
 const db = require("../config/db.js");
 
-const sqlColumns = require("../constants/sqlColumns");
+const { sqlColumns } = require("../constants/sqlColumns");
 
 
 /**
