@@ -1,10 +1,20 @@
+const teamModel = require('../models/teamModel')
+const userModel = require("../models/userModel");
+
 // To do add comment
 const createTeam = async (userId, teamData) => {
-  // Validate the team data is ok
-  // Create the team
+
+  validateTeamData(teamData);
+
+  const teamId = await teamModel.createTeam({ ...teamData, adminUserId: userId})
+  // The user is the admin of the team on the team table, but their user table
+  // does not store that they are a member of the team. We must change that
+  await userModel.addUserToTeam(teamId, userId)
+
+  return {...teamData, teamId};
 };
 
-// Go through team data and throw an error if there is an issue
+// Go through team data and throw an error if there is an issue (No return)
 const validateTeamData = (data) => {
   const errors = [];
 
@@ -18,9 +28,9 @@ const validateTeamData = (data) => {
     }
   })
 
-  const stringMaxLens =  {
+  const stringMaxLens = {
     name: 255,
-    class_code: 8,
+    classCode: 8,
     assignment: 255,
     pokemonName: 100
   }

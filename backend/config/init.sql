@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     admin_user_id INT NULL,
-    class_code VARCHAR(8),
+    classCode VARCHAR(8),
     assignment VARCHAR(255) NULL,
     xp INT NOT NULL DEFAULT 0,
     hp INT NOT NULL DEFAULT 0,

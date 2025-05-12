@@ -4,7 +4,7 @@ describe("validateTeamData", () => {
   // Base valid data
   const baseValidData = {
     name: "Alpha Squad",
-    class_code: "A1B2C3",
+    classCode: "A1B2C3",
     assignment: "Final Project",
     pokemonName: "Pikachu",
     hp: 100,
@@ -44,7 +44,7 @@ describe("validateTeamData", () => {
   // String fields to test
   const stringFieldReqs = [
     { key: "name", max: 255 },
-    { key: "class_code", max: 8 },
+    { key: "classCode", max: 8 },
     { key: "assignment", max: 255 },
     { key: "pokemonName", max: 100 },
   ];

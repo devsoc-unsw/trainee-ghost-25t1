@@ -12,7 +12,7 @@ const userServices = require('../services/userServices')
  * @returns 
  */
 
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
     const { name, email, password } = req.body
     
     try {
@@ -38,7 +38,7 @@ exports.signup = async (req, res) => {
  * success or an error message.
  */
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     const { email, password }  = req.body;
     
     try {
@@ -52,3 +52,5 @@ exports.login = async (req, res) => {
         return res.status(status).json({ success: false, error: message })
     }
 }
+
+module.exports = { signup, login }

@@ -79,3 +79,23 @@ exports.getData = async (id, columns) => {
   const [rows] = await db.query(query, [id]);
   return rows[0];
 };
+
+exports.addUserToTeam = async (userId, teamId) => {
+  const query = ` 
+    UPDATE users
+    SET team_id = ?
+    WHERE id = ?
+  `
+  const params = [teamId, userId]
+
+  const [result] = await db.query(query, params)
+
+  // We need to throw an error if this user isnt found 
+  if (result.affectedRows === 0) {
+    const err = new Error(`Either team '${teamId}' or user '${userId}' could not be found or user is in this team`);
+    err.code = 'USER_NOT_FOUND'
+    throw err;
+  }
+
+  return result;
+}

@@ -26,7 +26,7 @@ const sqlColumns = {
         "id",
         "name",
         "admin_user_id",
-        "class_code",
+        "classCode",
         "assignment",
         "xp",
         "hp",
