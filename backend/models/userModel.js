@@ -76,7 +76,9 @@ exports.getData = async (id, columns) => {
   const query = `
     SELECT ${columns.join(", ")} FROM users WHERE id = ?
     `;
+
   const [rows] = await db.query(query, [id]);
+
   return rows[0];
 };
 

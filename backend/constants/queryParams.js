@@ -5,14 +5,14 @@ const queryParams = {
             "offset",
             "orderBy",
             "sortDirection",
-            "status",
+            "taskStatus",
             "assignedTo",
             "cols"
           ],
         paramEnums: {
             orderBy: ["due_date", "title", "completed_at"],
             sortDirection: ["asc", "desc"],
-            status: ["complete", "incomplete", "pending"]
+            taskStatus: ["complete", "incomplete", "pending"]
         }
     }
 }

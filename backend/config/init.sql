@@ -48,12 +48,13 @@ CREATE TABLE IF NOT EXISTS tasks (
     due_date TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     aproval_votes INT DEFAULT 0,
+    task_status ENUM('complete', 'incomplete', 'pending') DEFAULT 'incomplete',
     completed_at TIMESTAMP,
     team_id INT,
     FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS tasks_doers (
+CREATE TABLE IF NOT EXISTS task_doers (
     task_id INT NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,

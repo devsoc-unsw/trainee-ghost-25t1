@@ -12,7 +12,7 @@ In theory, this should be all of the routes we need. Tbh though we will probably
     * offset (integer)
     * orderBy string (due_date, name, completed_at)
     * sortDirection string (asc or desc)
-    * status string (incomplete, pending, complete). Leaving this blank will lead to the selection of all
+    * taskStatus string (incomplete, pending, complete). Leaving this blank will lead to the selection of all
     * assignedTo array of integrers (The ids of who tasks are assigned to)
 - POST / (Base route) - Create a task, this should accept all the data needed to fill int the SQL table
 - PUT /:id (Base route) - Edit a tasks deatils (but not the status). this should allow you to modify the details of a task in the SQL table. 'id' refers to the ID of the task you want to modify.

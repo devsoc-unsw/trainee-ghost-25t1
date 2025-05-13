@@ -43,10 +43,10 @@ const sqlColumns = {
         "title",
         "description",
         "due_date",
+        "task_status",
         "created_at",
         "aproval_votes",
         "completed_at",
-        "created_by"
     ]
 };
 

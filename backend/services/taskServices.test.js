@@ -7,7 +7,7 @@ describe('taskServices.sanitiseTaskQueryParams', () => {
             offset: '5',
             orderBy: 'due_date',
             sortDirection: 'asc',
-            status: 'complete',
+            taskStatus: 'complete',
             assignedTo: '1,2',
             cols: 'id,title'
         }
@@ -17,7 +17,7 @@ describe('taskServices.sanitiseTaskQueryParams', () => {
             offset: 5,
             orderBy: 'due_date',
             sortDirection: 'asc',
-            status: 'complete',
+            taskStatus: 'complete',
             assignedTo: [1, 2],
             cols: ['id', 'title']
         }
@@ -34,7 +34,7 @@ describe('taskServices.sanitiseTaskQueryParams', () => {
             offset: '5',
             orderBy: 'due_date',
             sortDirection: 'asc',
-            status: 'complete',
+            taskStatus: 'complete',
             assignedTo: '1',
             cols: 'id'
         }
@@ -44,7 +44,7 @@ describe('taskServices.sanitiseTaskQueryParams', () => {
             offset: 5,
             orderBy: 'due_date',
             sortDirection: 'asc',
-            status: 'complete',
+            taskStatus: 'complete',
             assignedTo: [1],
             cols: ['id']
         }
@@ -81,8 +81,8 @@ describe('taskServices.sanitiseTaskQueryParams', () => {
             .toThrow("Errors: 'sortDirection' must be one of [asc, desc]")
     })
     
-    test('throws error for invalid status', () => {
-        expect(() => taskServices.sanitiseTaskQueryParams({ status: ':('}))
+    test('throws error for invalid taskStatus', () => {
+        expect(() => taskServices.sanitiseTaskQueryParams({ taskStatus: ':('}))
             .toThrow("Errors: 'status' must be one of [complete, incomplete, pending]")
     })
 
