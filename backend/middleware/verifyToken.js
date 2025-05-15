@@ -13,9 +13,7 @@ const jwt = require('jsonwebtoken');
 
 
 exports.verifyToken = (req, res, next) => {
-  // We expect the auth string to look like 'Bearer: [token]'
-  const authHeader = req.headers["authorization"];
-  const token = authHeader?.split(" ")[1];
+  const token = req.cookies.jwt;
   if (!token) {
     return res
       .status(401)

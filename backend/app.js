@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
 require('dotenv').config();
 
 const userRoutes = require('./routes/userRoutes');
@@ -15,6 +16,7 @@ const app = express();
 app.use(cors());
 // Middleware for parsing JSON payloads available on req.body
 app.use(express.json());
+app.use(cookieParser())
 
 // We can configure our base routes here
 // e.g. /users, /settings, /posts /replies.
@@ -22,5 +24,11 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/teams', teamRoutes);
+
+// Test route
+
+app.get('/', (req, res) => {
+    res.send('API is running')
+})
 
 module.exports = app;

@@ -13,6 +13,7 @@ const userServices = require('../services/userServices')
  */
 
 const signup = async (req, res) => {
+
     const { name, email, password } = req.body
     
     try {
@@ -26,7 +27,6 @@ const signup = async (req, res) => {
         return res.status(status).json({ success: false, error: message })
     }
 }
-
 
 /**
  * Logs in a user by validating their credentials and returns a JSON Web Token.
