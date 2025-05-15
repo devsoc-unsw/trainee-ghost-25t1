@@ -1,17 +1,23 @@
-const teamModel = require('../models/teamModel')
+const teamModel = require("../models/teamModel");
 const userModel = require("../models/userModel");
+const strUtils = require("../utils/strUtils");
 
-// To do add comment
+// Validates data, gets a random join code, creates the team then adds a user to
+// the team
 const createTeam = async (userId, teamData) => {
-
   validateTeamData(teamData);
 
-  const teamId = await teamModel.createTeam({ ...teamData, adminUserId: userId})
+  teamData.randomCode = strUtils.getRandomStr(8);
+
+  const teamId = await teamModel.createTeam({
+    ...teamData,
+    adminUserId: userId,
+  });
   // The user is the admin of the team on the team table, but their user table
   // does not store that they are a member of the team. We must change that
-  await userModel.addUserToTeam(teamId, userId)
+  await userModel.addUserToTeam(teamId, userId);
 
-  return {...teamData, teamId};
+  return { ...teamData, teamId };
 };
 
 // Go through team data and throw an error if there is an issue (No return)
@@ -20,27 +26,27 @@ const validateTeamData = (data) => {
 
   const stats = ["hp", "attack", "defence", "spAttack", "spDefense", "speed"];
 
-  stats.forEach(stat => {
+  stats.forEach((stat) => {
     if (data[stat] !== undefined) {
-        if (isNaN(data[stat])) {
-            errors.push(`'${stat}' must be a number`);
-        }
+      if (isNaN(data[stat])) {
+        errors.push(`'${stat}' must be a number`);
+      }
     }
-  })
+  });
 
   const stringMaxLens = {
     name: 255,
     classCode: 8,
     assignment: 255,
-    pokemonName: 100
-  }
+    pokemonName: 100,
+  };
 
   Object.entries(stringMaxLens).forEach(([key, len]) => {
     // Deal non-strings, empty strings and strings too long
-    if (!data[key] || typeof data[key] !== 'string' || data[key].length > len) {
-        errors.push(`'${key}' must be a string of 1 - ${len} characters `);
+    if (!data[key] || typeof data[key] !== "string" || data[key].length > len) {
+      errors.push(`'${key}' must be a string of 1 - ${len} characters `);
     }
-  })
+  });
 
   if (errors.length) {
     const err = new Error(`Errors: ${errors.join("\n")}`);
@@ -49,4 +55,22 @@ const validateTeamData = (data) => {
   }
 };
 
-module.exports = { createTeam, validateTeamData };
+// Determine if the join code a user has is valid and add them to the team if so
+const joinTeam = async (userId, randomCode) => {
+  const teamData = teamModel.getTeamByCode(randomCode);
+  if (!teamData) {
+    const err = new Error("Random code does not match any team");
+    err.code = "TEAM_NOT_FOUND";
+    throw err;
+  }
+
+  await userModel.addUserToTeam(teamData.id, userId);
+
+  return teamData;
+};
+
+const leaveTeam = async (userId) => {
+  await userModel.removeUserFromTeam(userId)
+} 
+
+module.exports = { createTeam, validateTeamData, joinTeam, leaveTeam };

@@ -6,6 +6,7 @@ const { verifyToken } = require('../middleware/verifyToken');
 const teamController = require('../controllers/teamController');
 
 router.post('/', verifyToken, teamController.createTeam)
+router.post('/join/:randomCode', verifyToken, teamController.joinTeam)
 
 // Route stuff
 

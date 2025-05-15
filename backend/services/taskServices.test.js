@@ -83,7 +83,7 @@ describe('taskServices.sanitiseTaskQueryParams', () => {
     
     test('throws error for invalid taskStatus', () => {
         expect(() => taskServices.sanitiseTaskQueryParams({ taskStatus: ':('}))
-            .toThrow("Errors: 'status' must be one of [complete, incomplete, pending]")
+            .toThrow("Errors: 'taskStatus' must be one of [complete, incomplete, pending]")
     })
 
     const badInts = [-15, 3.1415, "qwerty"]

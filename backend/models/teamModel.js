@@ -47,5 +47,18 @@ const createTeam = async (data) => {
   return result.insertId;
 };
 
+// Get team data based on a joining code
+const getTeamByCode = async (randomCode) => {
+  const query = `SELECT * FROM teams WHERE random_code = ?`;
+  const params = [randomCode];
 
-module.exports = { createTeam };
+  const [rows] = await db.query(query, params);
+  if (rows.length === 0) {
+    return null
+  }
+
+  return rows[0]
+}
+
+
+module.exports = { createTeam, getTeamByCode };
