@@ -1,7 +1,6 @@
 const db = require("../config/db.js");
 
-const sqlColumns = require("../constants/sqlColumns");
-
+const { sqlColumns } = require("../constants/sqlColumns");
 
 /**
  * Inserts a new user into the database.
@@ -76,6 +75,63 @@ exports.getData = async (id, columns) => {
   const query = `
     SELECT ${columns.join(", ")} FROM users WHERE id = ?
     `;
+
   const [rows] = await db.query(query, [id]);
+
   return rows[0];
 };
+
+exports.addUserToTeam = async (userId, teamId) => {
+  // Query to check if team and user exist, we do this prior so we can be
+  // certain failure in the next query is because of a duplicate entry
+  const [[user]] = await db.query("SELECT 1 FROM users WHERE id = ?", [userId]);
+  const [[team]] = await db.query("SELECT 1 FROM teams WHERE id = ?", [teamId]);
+
+  if (!user) {
+    const err = new Error(`User '${userId}' not found`);
+    err.code = "USER_NOT_FOUND";
+    throw err;
+  }
+  if (!team) {
+    const err = new Error(`Team '${teamId}' not found`);
+    err.code = "TEAM_NOT_FOUND";
+    throw err;
+  }
+
+  const query = ` 
+    UPDATE users
+    SET team_id = ?
+    WHERE id = ?
+  `;
+  const params = [teamId, userId];
+
+  const [result] = await db.query(query, params);
+
+  // Condition for a duplicate entry
+  if (result.affectedRows === 0) {
+    const err = new Error(`User is already in this team`);
+    err.code = "USER_IN_TEAM";
+    throw err;
+  }
+
+  return result;
+};
+
+// Remove user from a team if possible
+// We don't actually need to pass the team id because the user can only
+// be part of on team
+exports.removeUserFromTeam = async (userId) => {
+  const query = `
+    UPDATE TABLE users
+    SET team_id = NULL
+    WHERE id = ?
+    `
+    const params = userId
+
+    const [result] = await db.query(query, params)
+    if (result.affectedRows === 0) {
+      const err = new Error('Cannot remove user from team that is not in a team')
+      err.code = 'NO_TEAM_TO_REMOVE_FROM'
+    }
+    return result
+}

@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     admin_user_id INT NULL,
-    class_code VARCHAR(8),
+    classCode VARCHAR(8),
+    random_code CHAR(8) UNIQUE, -- A random code used for joining
     assignment VARCHAR(255) NULL,
     xp INT NOT NULL DEFAULT 0,
     hp INT NOT NULL DEFAULT 0,
@@ -48,14 +49,15 @@ CREATE TABLE IF NOT EXISTS tasks (
     due_date TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     aproval_votes INT DEFAULT 0,
+    task_status ENUM('complete', 'incomplete', 'pending') DEFAULT 'incomplete',
     completed_at TIMESTAMP,
-    created_by INT,
-    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+    team_id INT,
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS tasks_doers (
-    user_id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS task_doers (
     task_id INT NOT NULL,
+    user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, task_id)

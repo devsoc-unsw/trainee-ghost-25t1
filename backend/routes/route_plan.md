@@ -12,7 +12,7 @@ In theory, this should be all of the routes we need. Tbh though we will probably
     * offset (integer)
     * orderBy string (due_date, name, completed_at)
     * sortDirection string (asc or desc)
-    * status string (incomplete, pending, complete). Leaving this blank will lead to the selection of all
+    * taskStatus string (incomplete, pending, complete). Leaving this blank will lead to the selection of all
     * assignedTo array of integrers (The ids of who tasks are assigned to)
 - POST / (Base route) - Create a task, this should accept all the data needed to fill int the SQL table
 - PUT /:id (Base route) - Edit a tasks deatils (but not the status). this should allow you to modify the details of a task in the SQL table. 'id' refers to the ID of the task you want to modify.
@@ -22,7 +22,7 @@ In theory, this should be all of the routes we need. Tbh though we will probably
 - PUT :/id/statusApprovalVote - Vote on whether or not a task should be approved. After voting, it should check the new total number of votes then set the task to completed if it should be completed now.
 ## /teams ##
 - GET /:id (Base Route) Get all the data from the main SQL table relating to the user, along with every member of that team as an array. The data for this is so small (Mostly just integers and maybe some floating point numbers) that it will not be an issue to import all of the data at once. This will be called when the user goes on the main screen and maybe cached on the frontend somehow? Although its not a big deal if we call it a bunch. 'id' refers to the ID of the team you want to access
-- POST / (Base route) - Create a team. You can pass all the data you need, including all of the members of a team
+- POST / (Base route) - Create a team. Y    ou can pass all the data you need, including all of the members of a team
 - POST /:id/xp - Alter the XP of your team, there will be a query param 'add' where you enter in the amount of XP you want to add, so this might be like mylike?add=125. Or you may enter a negative value of subtraction. Id is the id of the team you want to modify the XP of
 
 ## /user ##
@@ -30,5 +30,14 @@ In theory, this should be all of the routes we need. Tbh though we will probably
 
  # Other information about working with routes #
 
-### Authorisation ###
-At the time of writing, the login function and authorisaton middleware does not exist. However, we are still able to make routes that are supposed to be authorised. Just do them without auth for now. It will be extremely easy to make them all require auth later with middleware (changing one line per route)
+
+Priority of routes
+- Change the team creation route so it creates a random string you can join with
+- Add a route to join a team
+- Add a route to expel someone from a team
+- Add a route to leave a team voluntarily
+- Add a route to allow an admin to access the team code
+- Add a route to allow an admin to change the team code
+- Add a route to change the say you have completed a task (mark as pending)
+- Add a route to say you have completed a task
+- Add a route to get notificiatons of tasks to vote on

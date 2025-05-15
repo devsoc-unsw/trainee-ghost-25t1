@@ -10,9 +10,16 @@ function InputBox({fields, buttonText}) {
     // Connect to backend later...
     const onSubmit = (data) => {
         console.log(data);
+
+        // Note from Will here - I havent worked with RHF in a while but I
+        // believe the forum just wont submit with RHF errors so you dont have
+        // to do with here. However, thats not to say you should immediatley
+        // navigate them to main because you still need to check stuff like
+        // the password which can only be verified with an api request
         if (fields.reduce((result, field) => result && !errors[field]?.message)) {
             navigate('/main');
         }
+
         // try {
         //     // Make login request to backend
         //     const response = await fetch('http://localhost:5000/login', {

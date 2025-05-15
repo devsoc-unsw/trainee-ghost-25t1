@@ -12,7 +12,8 @@ const userServices = require('../services/userServices')
  * @returns 
  */
 
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
+
     const { name, email, password } = req.body
     
     try {
@@ -27,7 +28,6 @@ exports.signup = async (req, res) => {
     }
 }
 
-
 /**
  * Logs in a user by validating their credentials and returns a JSON Web Token.
  * @param {Object} req - The request object containing user credentials.
@@ -38,7 +38,7 @@ exports.signup = async (req, res) => {
  * success or an error message.
  */
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     const { email, password }  = req.body;
     
     try {
@@ -52,3 +52,5 @@ exports.login = async (req, res) => {
         return res.status(status).json({ success: false, error: message })
     }
 }
+
+module.exports = { signup, login }

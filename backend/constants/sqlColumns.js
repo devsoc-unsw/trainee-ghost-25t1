@@ -26,7 +26,7 @@ const sqlColumns = {
         "id",
         "name",
         "admin_user_id",
-        "class_code",
+        "classCode",
         "assignment",
         "xp",
         "hp",
@@ -36,6 +36,17 @@ const sqlColumns = {
         "sp_defense",
         "speed",
         "pokemon_name"
+    ],
+    tasks: [
+        "id",
+        "difficulty",
+        "title",
+        "description",
+        "due_date",
+        "task_status",
+        "created_at",
+        "aproval_votes",
+        "completed_at",
     ]
 };
 
