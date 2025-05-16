@@ -11,5 +11,6 @@ router.put(
   verifyToken,
   taskController.claimTaskCompletion
 );
+router.put("/:id/voteOnCompletion", verifyToken, taskController.voteOnCompletion);
 
 module.exports = router;

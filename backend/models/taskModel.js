@@ -1,6 +1,6 @@
 const db = require("../config/db.js");
 const { sqlColumns } = require("../constants/sqlColumns");
-const validationUtils = require("../utils/validationUtils")
+const validationUtils = require("../utils/validationUtils");
 
 /**
  * Retrieves task data from the database for a given task ID with optional
@@ -14,9 +14,10 @@ const validationUtils = require("../utils/validationUtils")
 
 const getData = async (teamId, cols, params) => {
   // Allow wildcard '*' or no columns param to select all allowed columns
-  let selectedCols = (!cols.length || cols.includes("*"))
-    ? sqlColumns.tasks
-    : cols.filter((col) => sqlColumns.tasks.includes(col))
+  let selectedCols =
+    !cols.length || cols.includes("*")
+      ? sqlColumns.tasks
+      : cols.filter((col) => sqlColumns.tasks.includes(col));
 
   if (!selectedCols.length) {
     const err = new Error("No valid columns requested");
@@ -25,11 +26,11 @@ const getData = async (teamId, cols, params) => {
   }
 
   let query = `
-      SELECT ${selectedCols.map(_ => "??").join(", ")}
+      SELECT ${selectedCols.map((_) => "??").join(", ")}
       FROM tasks
       WHERE team_id = ?
       `;
-    
+
   const values = [...selectedCols, teamId];
 
   if (params.taskStatus) {
@@ -38,11 +39,10 @@ const getData = async (teamId, cols, params) => {
   }
 
   if (params.assignedTo) {
-    const placeholders = params.assignedTo.map(_ => "?").join(", ");
+    const placeholders = params.assignedTo.map((_) => "?").join(", ");
     query += ` AND id IN (SELECT task_id FROM task_doers WHERE user_id IN (${placeholders}))`;
     values.push(...params.assignedTo);
   }
-
 
   if (params.orderBy) {
     query += ` ORDER BY ??`;
@@ -65,6 +65,34 @@ const getData = async (teamId, cols, params) => {
 
   const [rows] = await db.query(query, values);
   return rows;
+};
+
+// Given an array of task ids, get an array of who needs to do these tasks in
+// the format taskId: [userid1, userid2, userid3]:
+// {
+//   1: [1, 4, 10],
+//   2, [3, 4, 5]
+// }
+const getTaskDoers = async (taskIds) => {
+  if (taskIds.length === 0) return {};
+  const query = `
+    SELECT t.task_id, t.user_id, u.name
+    FROM task_doers t
+    JOIN users u
+      ON u.id = t.user_id 
+    WHERE task_id IN (?)
+  `;
+  const params = [taskIds];
+
+  const [rows] = await db.query(query, params);
+
+  const taskDoersMap = {};
+
+  for (const { task_id, user_id, name } of rows) {
+    (taskDoersMap[task_id] ??= []).push({user_id, name});
+  }
+
+  return taskDoersMap;
 };
 
 /**
@@ -109,45 +137,47 @@ const addAssignedUsersToTask = async (taskId, userIds) => {
 /**
  * Edit the SQL data for a task. This route only edits tasks if that task is
  * assigned to the team of the teamId passed
- * @param {object} data - An object with camelcase equivilant data to the sql 
+ * @param {object} data - An object with camelcase equivilant data to the sql
  * tasks table.
- * @param {number} teamId - The team id which a task must be on to be changed 
+ * @param {number} teamId - The team id which a task must be on to be changed
  */
 
 const editTaskOnTeam = async (data, taskId, teamId) => {
   const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
-  const secureData = validationUtils(snakeCaseData, sqlColumns.tasks)
+  const secureData = validationUtils(snakeCaseData, sqlColumns.tasks);
 
   if (Object.keys(secureData).length === 0) {
-    const err = new Error("No valid fields provided to update")
-    err.code = 'NO_UPDATE_DATA';
+    const err = new Error("No valid fields provided to update");
+    err.code = "NO_UPDATE_DATA";
     throw err;
   }
 
-  const placeholders = Object.keys(secureData).map(_ => '?? = ?');
-  
+  const placeholders = Object.keys(secureData).map((_) => "?? = ?");
+
   let query = `
   UPDATE tasks
   SET ${placeholders.join(", ")}
   WHERE team_id = ?
   AND task_id = ?
   `;
-  
-  const params = [
-    ...Object.entries(secureData).flat(),
-    teamId,
-    taskId
-  ];
+
+  const params = [...Object.entries(secureData).flat(), teamId, taskId];
 
   const [result] = await db.query(query, params);
 
   if (result.affectedRows === 0) {
     const err = new Error("Task does not exist or data was the same or prior");
-    err.code = 'NO_UPDATE_OCCURRED';
+    err.code = "NO_UPDATE_OCCURRED";
     throw err;
-  } 
+  }
 
   return result;
-}
+};
 
-module.exports = { getData, postTask, addAssignedUsersToTask, editTaskOnTeam };
+module.exports = {
+  getData,
+  postTask,
+  addAssignedUsersToTask,
+  editTaskOnTeam,
+  getTaskDoers,
+};

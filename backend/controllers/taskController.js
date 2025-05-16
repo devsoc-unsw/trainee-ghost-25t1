@@ -5,8 +5,8 @@ const errorMap = require("../constants/errorMap");
 // of a team that the user is in
 exports.getTaskData = async (req, res) => {
     try {
-        const user_data = await taskServices.getTaskData(req.user.id, req.query);
-        return res.status(200).json({ success: true, data: user_data});
+        const taskData = await taskServices.getTaskData(req.user.id, req.query);
+        return res.status(200).json({ success: true, data: taskData});
     } catch (err) {
         const status = errorMap[err.code]?.httpStatus || 500;
         let message = err.message || 'Internal server error';
@@ -31,8 +31,20 @@ exports.postTask = async (req, res) => {
 // actually done
 exports.claimTaskCompletion = async (req, res) => {
     try {
-        await taskServices.claimTaskCompletion(taskId);
+        await taskServices.claimTaskCompletion(req.taskId);
         return res.status(200).json({ success: true, message: 'Claimed task was completed' });
+    } catch (err) {
+        const status = errorMap[err.code]?.httpStatus || 500;
+        let message = err.message || 'Internal server error';
+
+        return res.status(status).json({ success: false, error: message});
+    }
+}
+
+exports.voteOnCompletion = async (req, res) => {
+    try {
+        await taskServices.voteOnCompletion(req.taskId);
+        return res.status(200).json({ success: true, /**Add something here */});
     } catch (err) {
         const status = errorMap[err.code]?.httpStatus || 500;
         let message = err.message || 'Internal server error';

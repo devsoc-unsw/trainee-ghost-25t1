@@ -25,7 +25,16 @@ const getTaskData = async (userId, queryParams) => {
   // Detach cols and other params
   const { cols, ...otherParams } = params;
 
-  return await taskModel.getData(teamId, cols, otherParams);
+  const mainTaskData = await taskModel.getData(teamId, cols, otherParams);
+  if ((cols === "*")) {
+    const taskIds = mainTaskData.map((task) => task.id);
+    const taskDoers = await taskModel.getTaskDoers(taskIds);
+    // Add task doers to main task data
+    for (const task of mainTaskData) {
+      task.taskDoers = taskDoers[task.id] || [];
+    }
+  }
+  return mainTaskData;
 };
 
 /**
@@ -222,17 +231,22 @@ const claimTaskCompletion = async (taskId) => {
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
   if (!teamId) {
     const err = new Error("User is not on a team so they cant edit any tasks");
-    err.code = 'TEAM_NOT_FOUND';
+    err.code = "TEAM_NOT_FOUND";
     throw err;
   }
 
-  await taskModel.editTaskOnTeam({ status: pending }, taskId, teamId)
+  await taskModel.editTaskOnTeam({ status: pending }, taskId, teamId);
 };
+
+const voteOnCompletion = async (taskId) => {
+  // Just realised we need to handle counting who has voted for who, the curent
+  // sql setup and stuff will not work 
+}
 
 module.exports = {
   getTaskData,
   sanitiseTaskQueryParams,
   postTask,
   sanitisePostTaskData,
-  claimTaskCompletion
+  claimTaskCompletion,
 };
