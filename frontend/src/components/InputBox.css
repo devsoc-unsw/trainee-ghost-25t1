@@ -26,11 +26,10 @@ button {
 .auth-box {
   display: flex;
   flex-direction: column;
+  flex-basis: 70vh;
   align-items: center;
   justify-content: flex-end;
   gap: 1vh;
-
-  min-height: 70vh;
 
   background-color: rgba(0, 0, 0, 50%);
   border-radius: 15px;
