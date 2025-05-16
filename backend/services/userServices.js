@@ -114,7 +114,7 @@ exports.login = async ({ email, password }) => {
     const err = new Error("Invalid credentials");
     err.code = "INVALID_CREDENTIALS";
     throw err;
-  }
+  };
 
   const token = jwt.sign(
     // Payload of what the token should contain

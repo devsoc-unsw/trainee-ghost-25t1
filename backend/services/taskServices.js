@@ -101,7 +101,6 @@ const sanitiseTaskQueryParams = (params = {}) => {
     }
   }
 
-
   // Select all cols if no specific cols provided
   if (params.cols === undefined) {
     cleaned.cols = ["*"];
@@ -131,7 +130,7 @@ const postTask = async (userId, taskData) => {
   const cleanedTaskData = sanitisePostTaskData(taskData);
 
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
-  cleanedTaskData.teamId = teamId
+  cleanedTaskData.teamId = teamId;
 
   if (!cleanedTaskData.teamId) {
     const err = new Error("User must be part of a team to perform this action");
@@ -219,9 +218,21 @@ const sanitisePostTaskData = (taskData = {}) => {
   return cleaned;
 };
 
+const claimTaskCompletion = async (taskId) => {
+  const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
+  if (!teamId) {
+    const err = new Error("User is not on a team so they cant edit any tasks");
+    err.code = 'TEAM_NOT_FOUND';
+    throw err;
+  }
+
+  await taskModel.editTaskOnTeam({ status: pending }, taskId, teamId)
+};
+
 module.exports = {
   getTaskData,
   sanitiseTaskQueryParams,
   postTask,
   sanitisePostTaskData,
+  claimTaskCompletion
 };

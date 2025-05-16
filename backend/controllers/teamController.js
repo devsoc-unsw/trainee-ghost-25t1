@@ -45,16 +45,48 @@ const joinTeam = async (req, res) => {
   }
 };
 
+// Route for voluntarily leaving a team
 const leaveTeam = async (req, res) => {
-    try {
-        await teamServices.leaveTeam(req.user.id)
-        return res.status(200).json({ success: true, message: 'Team left sucessfully'})
-    } catch (err) {
-        const status = errorMap(err.code)?.httpStats || 500;
-        let message = err.message || "Internal server error";
+  try {
+    await teamServices.leaveTeam(req.user.id);
+    return res
+      .status(200)
+      .json({ success: true, message: "Team left sucessfully" });
+  } catch (err) {
+    const status = errorMap(err.code)?.httpStats || 500;
+    let message = err.message || "Internal server error";
 
-        return res.status(status).json({ success: false, message: message });
-    }
+    return res.status(status).json({ success: false, message: message });
+  }
+};
+
+// Route for an admin to forcefully remove someone from a team
+const kickFromTeam = async (req, res) => {
+  try {
+    const adminId = req.user.id;
+    const kickedId = req.params.kickedId;
+    await teamServices.kickFromTeam(adminId, kickedId);
+    return res
+      .status(200)
+      .json({ sucecss: true, message: `User ${kickedId} removed from team` });
+  } catch (err) {
+    const status = errorMap(err.code)?.httpStats || 500;
+    let message = err.message || "Internal server error";
+
+    return res.status(status).json({ success: false, message: message });
+  }
+};
+
+const changeTeamCode = async (req, res) => {
+  try  {
+    const newCode = await teamServices.changeTeamCode(req.user.id);
+    return newCode;
+  } catch (err) {
+    const status = errorMap(err.code)?.httpStats || 500;
+    let message = err.message || "Internal server error";
+
+    return res.status(status).json({ success: false, message: message });
+  }
 }
 
-module.exports = { createTeam, joinTeam, leaveTeam };
+module.exports = { createTeam, joinTeam, leaveTeam, kickFromTeam, changeTeamCode };

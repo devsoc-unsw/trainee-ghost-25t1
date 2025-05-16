@@ -39,5 +39,11 @@ Priority of routes
 - Add a route to allow an admin to access the team code
 - Add a route to allow an admin to change the team code
 - Add a route to change the say you have completed a task (mark as pending)
-- Add a route to say you have completed a task
 - Add a route to get notificiatons of tasks to vote on
+- The route to vote on completion
+- A function that triggers if we find the task has been completed, which provides
+the rewards for that task 
+
+
+Possible things we could do
+- Write some tests for stuff we havent (e.g. the validation utils)

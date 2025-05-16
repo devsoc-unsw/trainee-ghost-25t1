@@ -5,24 +5,38 @@ const errorMap = require("../constants/errorMap");
 // of a team that the user is in
 exports.getTaskData = async (req, res) => {
     try {
-        const user_data = await taskServices.getTaskData(req.user.id, req.query)
-        return res.status(200).json({ success: true, data: user_data})
+        const user_data = await taskServices.getTaskData(req.user.id, req.query);
+        return res.status(200).json({ success: true, data: user_data});
     } catch (err) {
-        const status = errorMap[err.code]?.httpStatus || 500
-        let message = err.message || 'Internal server error'
+        const status = errorMap[err.code]?.httpStatus || 500;
+        let message = err.message || 'Internal server error';
         
-        return res.status(status).json({ success: false, error: message})
+        return res.status(status).json({ success: false, error: message});
     }
 }
 
 exports.postTask = async (req, res) => {
     try {
-        const taskData = await taskServices.postTask(req.user.id, req.body)
-        return res.status(201).json({ success: true, data: taskData })
+        const taskData = await taskServices.postTask(req.user.id, req.body);
+        return res.status(201).json({ success: true, data: taskData });
     } catch (err) {
-        const status = errorMap[err.code]?.httpStatus || 500
-        let message = err.message || 'Internal server error'
+        const status = errorMap[err.code]?.httpStatus || 500;
+        let message = err.message || 'Internal server error';
 
-        return res.status(status).json({ success: false, error: message})
+        return res.status(status).json({ success: false, error: message});
+    }
+}
+
+// Claim a task is completed, making it pending while others verify whether its
+// actually done
+exports.claimTaskCompletion = async (req, res) => {
+    try {
+        await taskServices.claimTaskCompletion(taskId);
+        return res.status(200).json({ success: true, message: 'Claimed task was completed' });
+    } catch (err) {
+        const status = errorMap[err.code]?.httpStatus || 500;
+        let message = err.message || 'Internal server error';
+
+        return res.status(status).json({ success: false, error: message});
     }
 }
