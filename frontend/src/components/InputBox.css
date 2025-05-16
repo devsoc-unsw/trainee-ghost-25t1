@@ -1,9 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -26,12 +20,7 @@ button, input {
 }
 
 button {
-  background-color: rgb(50, 145, 245);
   border-radius: 40px;
-}
-
-button:hover {
-  background-color: rgb(44, 125, 212);
 }
 
 .auth-box {
@@ -55,10 +44,18 @@ button:hover {
   font-size: 20px
 }
 
-.signup-button {
+.signin-button {
   background-color: rgb(175, 229, 110);
 }
 
-.signup-button:hover {
+.signin-button:hover {
   background-color: rgb(145, 190, 90);
+}
+
+.register-button {
+  background-color: rgb(50, 145, 245);
+}
+
+.register-button:hover {
+  background-color: rgb(44, 125, 212);
 }
