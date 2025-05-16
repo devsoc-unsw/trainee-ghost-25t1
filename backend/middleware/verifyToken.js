@@ -4,14 +4,7 @@ const jwt = require('jsonwebtoken');
 /**
  * Middleware to verify that a JWT passed in the Authorization header is
  * legitimate
- * 
- * @param {*} req - The request object
- * @param {*} res - The response object
- * @param {*} next - A function to move onto the next, protected function
- * @returns 
- */
-
-
+ **/ 
 exports.verifyToken = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {

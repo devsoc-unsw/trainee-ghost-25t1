@@ -1,10 +1,15 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const taskController = require('../controllers/taskController');
-const { verifyToken } = require('../middleware/verifyToken');
+const taskController = require("../controllers/taskController");
+const { verifyToken } = require("../middleware/verifyToken");
 
-router.get('/', verifyToken, taskController.getTaskData);
-router.post('/', verifyToken, taskController.postTask);
+router.get("/", verifyToken, taskController.getTaskData);
+router.post("/", verifyToken, taskController.postTask);
+router.put(
+  "/:id/claimCompleted",
+  verifyToken,
+  taskController.claimTaskCompletion
+);
 
 module.exports = router;

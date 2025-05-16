@@ -1,5 +1,6 @@
 const db = require("../config/db.js");
 const { sqlColumns } = require("../constants/sqlColumns");
+const validationUtils = require("../utils/validationUtils")
 
 /**
  * Retrieves task data from the database for a given task ID with optional
@@ -105,4 +106,48 @@ const addAssignedUsersToTask = async (taskId, userIds) => {
   return result;
 };
 
-module.exports = { getData, postTask, addAssignedUsersToTask };
+/**
+ * Edit the SQL data for a task. This route only edits tasks if that task is
+ * assigned to the team of the teamId passed
+ * @param {object} data - An object with camelcase equivilant data to the sql 
+ * tasks table.
+ * @param {number} teamId - The team id which a task must be on to be changed 
+ */
+
+const editTaskOnTeam = async (data, taskId, teamId) => {
+  const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
+  const secureData = validationUtils(snakeCaseData, sqlColumns.tasks)
+
+  if (Object.keys(secureData).length === 0) {
+    const err = new Error("No valid fields provided to update")
+    err.code = 'NO_UPDATE_DATA';
+    throw err;
+  }
+
+  const placeholders = Object.keys(secureData).map(_ => '?? = ?');
+  
+  let query = `
+  UPDATE tasks
+  SET ${placeholders.join(", ")}
+  WHERE team_id = ?
+  AND task_id = ?
+  `;
+  
+  const params = [
+    ...Object.entries(secureData).flat(),
+    teamId,
+    taskId
+  ];
+
+  const [result] = await db.query(query, params);
+
+  if (result.affectedRows === 0) {
+    const err = new Error("Task does not exist or data was the same or prior");
+    err.code = 'NO_UPDATE_OCCURRED';
+    throw err;
+  } 
+
+  return result;
+}
+
+module.exports = { getData, postTask, addAssignedUsersToTask, editTaskOnTeam };
