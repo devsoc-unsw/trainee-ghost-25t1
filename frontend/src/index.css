@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -10,6 +16,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-position-y: 75%;
   background-attachment: fixed;
 
   font-synthesis: none;
@@ -51,6 +58,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
