@@ -1,4 +1,5 @@
 import InputBox from '../../components/InputBox';
+import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { registerUser } from '../../api/users';
@@ -40,6 +41,12 @@ function SignUp() {
                 buttonText="Register"
                 buttonTopText={errorMsg}
                 onSubmit={onSubmit}
+            />
+            <Button
+                className="signin-button"
+                topText="already have an account?"
+                innerText='Sign In'
+                onClick={() => navigate('/login')}
             />
         </div>
     </>
