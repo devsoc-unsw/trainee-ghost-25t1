@@ -267,6 +267,12 @@ const voteOnCompletion = async (userId, taskId) => {
   return { vote, totalVotes, completed };
 };
 
+const getTeamSettings = async (userId) => {
+  const data = await teamModel.viewTeamData(userId);
+  return data;
+}
+
+
 module.exports = {
   getTaskData,
   sanitiseTaskQueryParams,
@@ -274,4 +280,5 @@ module.exports = {
   sanitisePostTaskData,
   claimTaskCompletion,
   voteOnCompletion,
+  getTeamSettings
 };

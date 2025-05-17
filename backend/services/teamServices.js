@@ -93,6 +93,10 @@ const changeTeamCode = async (adminId) => {
   return randomCode;
 };
 
+const getTeamSettings = async (userId) => {
+  const data = await teamModel.viewTeamData(userId);
+  return data;
+}
 
 
 module.exports = {
