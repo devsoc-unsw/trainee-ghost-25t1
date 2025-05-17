@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS teams (
     sp_defense INT NOT NULL DEFAULT 0,
     speed INT NOT NULL DEFAULT 0,
     pokemon_name VARCHAR(100)
-    -- I'm thinking we can just make it so team rocket comes when three tasks
+    -- I'm thinking we can ust make it so team rocket comes when three tasks
     -- are currently overdue, so we do not need to store anything here. This 
     -- will simplify things
 );
@@ -54,6 +54,15 @@ CREATE TABLE IF NOT EXISTS tasks (
     team_id INT,
     FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
 );
+
+-- Votes for people to verify that at ask is actually completed
+CREATE TABLE IF NOT EXISTS task_completion_votes (
+    task_id INT NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, task_id)
+)
 
 CREATE TABLE IF NOT EXISTS task_doers (
     task_id INT NOT NULL,
