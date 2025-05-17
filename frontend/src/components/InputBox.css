@@ -1,60 +1,68 @@
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
 }
 
 button, input {
-  background-color: rgba(217, 217, 217, 70%);
-  min-height: 70px;
-  min-width: 500px;
+    background-color: rgba(217, 217, 217, 70%);
+    min-height: 70px;
+    min-width: 500px;
 
-  font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  color: black;
+    font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    color: black;
 
-  padding: 10px;
-  border-radius: 5px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 button {
-  border-radius: 40px;
+    border-radius: 40px;
 }
 
-.auth-box {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 70vh;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1vh;
+.input-box {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 70vh;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1vh;
 
-  background-color: rgba(0, 0, 0, 50%);
-  border-radius: 15px;
-  font-size: 60px;
-  color: white;
+    background-color: rgba(0, 0, 0, 50%);
+    border-radius: 15px;
+    font-size: 60px;
+    color: white;
 
-  padding: 50px;
+    padding: 50px;
 }
 
 .button-toptext {
-  font-size: 20px
+    font-size: 20px
 }
 
 .signin-button {
-  background-color: rgb(175, 229, 110);
+    background-color: rgb(175, 229, 110);
 }
 
 .signin-button:hover {
-  background-color: rgb(145, 190, 90);
+    background-color: rgb(145, 190, 90);
 }
 
 .register-button {
-  background-color: rgb(50, 145, 245);
+    background-color: rgb(50, 145, 245);
 }
 
 .register-button:hover {
-  background-color: rgb(44, 125, 212);
+    background-color: rgb(44, 125, 212);
+}
+
+.createteam-button {
+    background-color: rgb(255, 222, 0);
+}
+
+.createteam-button:hover {
+    background-color: rgb(194, 168, 2);
 }

@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+body {
+  /*We don't need the horizontal scrollbar, trust me this makes the pikachu animation MUCH better*/
+  overflow-x: hidden;
+}
+
 :root {
   font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
