@@ -18,7 +18,15 @@ const signup = async (req, res) => {
     
     try {
         const { user, token } = await userServices.signup({email, name, password})
-        return res.status(201).json({ success: true, user, token})
+        
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: false,
+            maxAge: 2147483647
+        });
+
+        return res.status(201).json({ success: true, user})
     } catch (err) {
         console.error("Error signing up:, ", err)
         let status = errorMap[err.code]?.httpStatus || 500;
@@ -43,7 +51,15 @@ const login = async (req, res) => {
     
     try {
         const { user, token } = await userServices.login({email, password})
-        return res.status(201).json({ success: true, user, token})
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: false,
+            maxAge: 2147483647
+        });
+
+        return res.status(201).json({ success: true, user})
     } catch (err) {
         console.error("Error logging in: ", err)
         let status = errorMap[err.code]?.httpStatus || 500;

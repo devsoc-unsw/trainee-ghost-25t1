@@ -13,9 +13,15 @@ const app = express();
 
 // We need cors (Cross origin resource requests) for development at least
 // because we will locally host the backend and frontend on different ports
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+}
+app.use(cors(corsOptions));
+
 // Middleware for parsing JSON payloads available on req.body
-app.use(express.json());
+app.use(express.json())
 app.use(cookieParser())
 
 // We can configure our base routes here

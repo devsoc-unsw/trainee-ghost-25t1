@@ -15,7 +15,7 @@ const createTeam = async (userId, teamData) => {
   });
   // The user is the admin of the team on the team table, but their user table
   // does not store that they are a member of the team. We must change that
-  await userModel.addUserToTeam(teamId, userId);
+  await userModel.addUserToTeam(userId, teamId);
 
   return { ...teamData, teamId };
 };
@@ -64,7 +64,7 @@ const joinTeam = async (userId, randomCode) => {
     throw err;
   }
 
-  await userModel.addUserToTeam(teamData.id, userId);
+  await userModel.addUserToTeam(userId, teamData.id);
 
   return teamData;
 };

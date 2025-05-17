@@ -3,7 +3,6 @@ import { useState } from 'react';
 import InputBox from '../../components/InputBox';
 import Button from '../../components/Button';
 import { loginUser } from '../../api/users';
-import { setTokenCookie } from '../../utils/cookies';
 import '../../components/InputBox.css';
 
 function Login() {
@@ -13,10 +12,9 @@ function Login() {
     const onSubmit = async (data) => {
            const resData = await loginUser(data.email, data.password);
 
-            // Route to main on success and store token in cookies
+            // Route to main on success
             if (resData.success) {
                 navigate('/main');
-                setTokenCookie(resData.token);
             } else {
                 console.error(`Login error: ${resData.error}`);
                 setErrorMsg(resData.error || 'Something went wrong, please try again');
