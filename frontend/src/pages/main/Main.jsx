@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import createTeam from '../../assets/createTeam.png';
 import joinTeam from '../../assets/joinTeam.png';
+import pikachu from '../../assets/running.gif';
 import './Main.css'
 
 function Main() {
@@ -17,6 +18,7 @@ function Main() {
         <h2>Set off on your journey to be the very best...</h2>
         <img className='create-team-button' src={createTeam} onClick={onClick}/>
         <img className='join-team-button' src={joinTeam}/>
+        <img className='pikachu' src={pikachu}/>
       </div>
     </>
   )

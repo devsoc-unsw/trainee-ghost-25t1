@@ -3,6 +3,7 @@ import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { registerUser } from '../../api/users';
+import { setTokenCookie } from '../../utils/cookies';
 import '../../components/InputBox.css';
 
 function SignUp() {
@@ -20,7 +21,7 @@ function SignUp() {
         // Route to main on success and store token in cookies
         if (resData.success) {
             navigate('/main');
-            document.cookie = `${resData.user}=${resData.token}`;
+            setTokenCookie(resData.token);
         } else {
             console.error(`Signup error: ${resData.error}`);
             setErrorMsg(resData.error || 'Something went wrong, please try again');

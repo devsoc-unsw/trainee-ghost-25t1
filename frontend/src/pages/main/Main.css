@@ -1,3 +1,16 @@
+body {
+  overflow: hidden;
+}
+
+img {
+  /*Make undraggable so it doesn't look like an image*/
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 img:hover {
   filter:brightness(75%);
   cursor: pointer;
@@ -5,4 +18,23 @@ img:hover {
 
 img:active{
   filter:brightness(60%);
+}
+
+.pikachu {
+  position: absolute;
+  height: 10vh;
+  left: 0vw;
+  bottom: 20vh;
+  right: auto;
+  animation: runningPokemon 5s infinite linear;
+  z-index: -1;
+}
+
+@keyframes runningPokemon {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100vw);
+  }
 }
