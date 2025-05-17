@@ -23,7 +23,7 @@ img:active{
 .pikachu {
   position: absolute;
   height: 10vh;
-  left: 0vw;
+  left: -10vw;
   bottom: 20vh;
   right: auto;
   animation: runningPokemon 5s infinite linear;
@@ -35,6 +35,6 @@ img:active{
     transform: translateX(0);
   }
   to {
-    transform: translateX(100vw);
+    transform: translateX(110vw);
   }
 }
