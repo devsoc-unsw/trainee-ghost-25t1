@@ -1,6 +1,9 @@
 const userModel = require("../models/userModel");
 const taskModel = require("../models/taskModel");
+const teamModel = require("../models/teamModel");
+const pokeServices = require("../services/pokeServices");
 const { sqlColumns } = require("../constants/sqlColumns");
+const voting = require("../constants/voting");
 const queryParams = require("../constants/queryParams");
 
 /**
@@ -26,7 +29,7 @@ const getTaskData = async (userId, queryParams) => {
   const { cols, ...otherParams } = params;
 
   const mainTaskData = await taskModel.getData(teamId, cols, otherParams);
-  if ((cols === "*")) {
+  if (cols === "*") {
     const taskIds = mainTaskData.map((task) => task.id);
     const taskDoers = await taskModel.getTaskDoers(taskIds);
     // Add task doers to main task data
@@ -227,6 +230,7 @@ const sanitisePostTaskData = (taskData = {}) => {
   return cleaned;
 };
 
+// Allow someone a task is assigned to to claim a task is complete
 const claimTaskCompletion = async (taskId) => {
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
   if (!teamId) {
@@ -238,10 +242,30 @@ const claimTaskCompletion = async (taskId) => {
   await taskModel.editTaskOnTeam({ status: pending }, taskId, teamId);
 };
 
-const voteOnCompletion = async (taskId) => {
-  // Just realised we need to handle counting who has voted for who, the curent
-  // sql setup and stuff will not work 
-}
+// Try and vote for a task, then return that vote along with the total vote
+// count
+const voteOnCompletion = async (userId, taskId) => {
+  // Object that will contain the new vote, total votes and whether the task is
+  // now complete or not
+
+  const vote = await taskModel.voteOnCompletion(userId, taskId);
+  const totalVotes = await taskModel.getTaskVoteCount(taskId);
+
+  // Handle setting the task to complete if this is the case
+  // Get the size of a team
+  const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
+  const teamSize = await teamModel.getTeamSize(teamId);
+
+  let completed = false;
+  const percentApproved = totalVotes / teamSize;
+  // We may have a possible floating point error here?
+  if (percentApproved >= voting.teamPercentNeededToApprove) {
+    await taskModel.handleTaskCompletion(taskId);
+    completed = true;
+  }
+
+  return { vote, totalVotes, completed };
+};
 
 module.exports = {
   getTaskData,
@@ -249,4 +273,5 @@ module.exports = {
   postTask,
   sanitisePostTaskData,
   claimTaskCompletion,
+  voteOnCompletion,
 };

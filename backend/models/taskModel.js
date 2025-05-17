@@ -89,7 +89,7 @@ const getTaskDoers = async (taskIds) => {
   const taskDoersMap = {};
 
   for (const { task_id, user_id, name } of rows) {
-    (taskDoersMap[task_id] ??= []).push({user_id, name});
+    (taskDoersMap[task_id] ??= []).push({ user_id, name });
   }
 
   return taskDoersMap;
@@ -174,10 +174,69 @@ const editTaskOnTeam = async (data, taskId, teamId) => {
   return result;
 };
 
+// Try and vote for a task as being completed
+const voteOnCompletion = async (userId, taskId) => {
+  // Make sure the task exists (We could check affected rows later but that
+  // wouldnt allow for distinguishing between already voted and a 404 error)
+  const [rows] = await db.query(`SELECT 1 FROM tasks WHERE id = ?`, [taskId]);
+  if (rows.length === 0) {
+    const err = new Error("Task or user not found");
+    err.code = "RESOURCE_NOT_FOUND";
+    throw err;
+  }
+
+  const voteQuery = `
+    INSERT INTO task_completion_votes
+    (task_id, user_id)
+    VALUES (?, ?)
+  `;
+  voteParams = [taskId, userId];
+
+  const [result] = await db.query(voteQuery, voteParams);
+  if (result.affectedRows === 0) {
+    // We have already checked for missing resource errors so this error should
+    // only occur for duplicate entries
+    const err = new Error("User is attempting to vote twice");
+    err.code = "REPEAT_VOTE";
+    throw err;
+  }
+  return { userId, taskId };
+};
+
+// Determine how many people have voted for a task as being completed
+const getTaskVoteCount = async (taskId) => {
+  const query = `
+    SELECT COUNT(*) AS vote_count
+    FROM task_votes
+    WHERE task_id = ?
+    `;
+
+  const [rows] = await db.query(query, [taskId]);
+  return rows[0].vote_count;
+};
+
+// Mark a task as completed
+const handleTaskCompletion = async (taskId) => {
+  const completingQuery = `
+    UPDATE tasks
+    SET task_status = 'complete'
+    WHERE task_id = ?
+  `;
+  const [completingResults] = await db.query(completingQuery, [taskId])
+  if (completingResults.affectedRows === 0) {
+    const err = new Error('Task already complete or task not found');
+    err.code = 'NO_UPDATE_OCCURRED';
+    throw err;
+  }
+}
+
 module.exports = {
   getData,
   postTask,
   addAssignedUsersToTask,
   editTaskOnTeam,
   getTaskDoers,
+  voteOnCompletion,
+  getTaskVoteCount,
+  handleTaskCompletion
 };

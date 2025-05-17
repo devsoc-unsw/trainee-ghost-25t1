@@ -70,25 +70,36 @@ const joinTeam = async (userId, randomCode) => {
 };
 
 const kickFromTeam = async (adminId, kickedId) => {
-  const adminIsLegit = await teamModel.userIsAdminForAnother(adminId, kickedId)
+  const adminIsLegit = await teamModel.userIsAdminForAnother(adminId, kickedId);
   if (!adminIsLegit) {
-    const err = new Error("User is not the admin of the user they wish to kick")
-    err.code = 'FORBIDDEN'
+    const err = new Error(
+      "User is not the admin of the user they wish to kick"
+    );
+    err.code = "FORBIDDEN";
     throw err;
   }
 
-  await removeUserFromTeam(kickedId)
-}
+  await removeUserFromTeam(kickedId);
+};
 
 const leaveTeam = async (userId) => {
-  await userModel.removeUserFromTeam(userId)
-}
+  await userModel.removeUserFromTeam(userId);
+};
 
 const changeTeamCode = async (adminId) => {
   const teamId = await teamModel.getTeamOfAdmin(adminId);
   const randomCode = strUtils.getRandomStr(8);
   await teamModel.changeTeamData({ randomCode }, teamId);
-  return randomCode
-}
+  return randomCode;
+};
 
-module.exports = { createTeam, validateTeamData, joinTeam, leaveTeam, kickFromTeam, changeTeamCode };
+
+
+module.exports = {
+  createTeam,
+  validateTeamData,
+  joinTeam,
+  leaveTeam,
+  kickFromTeam,
+  changeTeamCode,
+};

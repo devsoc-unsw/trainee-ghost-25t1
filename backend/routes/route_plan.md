@@ -30,16 +30,12 @@ In theory, this should be all of the routes we need. Tbh though we will probably
 
  # Other information about working with routes #
 
-
 Priority of routes
-- Change the team creation route so it creates a random string you can join with
-- Add a route to join a team
-- Add a route to expel someone from a team
-- Add a route to leave a team voluntarily
-- Add a route to allow an admin to access the team code
-- Add a route to allow an admin to change the team code
-- Add a route to change the say you have completed a task (mark as pending)
-- The route to vote on completion
+- Team voting stuff
+- Fetching team data
+- Level up stuff
+
+
 - A function that triggers if we find the task has been completed, which provides
 the rewards for that task 
 
@@ -47,5 +43,9 @@ Frontend stuff to do
 - To get tasks to vote on, just request all 'pending' tasks along with how many
 votes they have 
 
-Possible things we could do
-- Write some tests for stuff we havent (e.g. the validation utils)
+
+STRETCH goals
+- Several ways of communicating with users (Email, a discord bot) and reminding
+them to do their work. Have some AI discord bot get mad at you and send angry
+gifs. also chrome extension
+

@@ -7,6 +7,7 @@ const errorMap = {
     NO_UPDATE_DATA: { httpStatus: 400 },
     USER_EXISTS: { httpStatus: 409 },
     USER_IN_TEAM: { httpStatus: 409 },
+    REPEAT_VOTE: { httpStatus: 409 },
     USER_NOT_FOUND: { httpStatus: 404 },
     TEAM_NOT_FOUND: { httpStatus: 404 },
     RESOURCE_NOT_FOUND: { httpStatus: 404 },
