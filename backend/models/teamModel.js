@@ -147,8 +147,11 @@ const getTeamSize = async (teamId) => {
   `;
 
   const params = [teamId];
-  const teamId = await db.query(query, params);
+  const [rows] = await db.query(query, params);
+  return teamSize
 };
+
+
 
 module.exports = {
   createTeam,

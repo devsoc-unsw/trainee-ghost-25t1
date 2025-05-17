@@ -11,11 +11,16 @@ const taskDifficultyToXp = (difficulty) => {
 };
 
 // Calculates the stats of a pokemon based on XP
-// 
+//
 const levelToStatObj = async (pokemonName, level) => {
   const response = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
   );
+  if (!response.ok) {
+    throw new Error(
+      `Request failed: ${response.status} ${response.statusText}`
+    );
+  }
   const data = await response.json();
   const baseStatsArr = data.stats.map((obj) => [
     obj.stat.name,

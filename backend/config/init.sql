@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     admin_user_id INT NULL,
-    classCode VARCHAR(8),
+    class_code VARCHAR(8),
     random_code CHAR(8) UNIQUE, -- A random code used for joining
     assignment VARCHAR(255) NULL,
     xp INT NOT NULL DEFAULT 0,

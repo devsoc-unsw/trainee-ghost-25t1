@@ -11,7 +11,7 @@ const teamServices = require("../services/teamServices");
  * @param {string} [req.body.pokemonName]
  * @param {number} [req.body.xp]
  * @param {number} [req.body.hp]
- * @param {number} [req.body.attasdack]
+ * @param {number} [req.body.attack]
  * @param {number} [req.body.defence]
  * @param {number} [req.body.spAttack]
  * @param {number} [req.body.spDefense]
@@ -88,5 +88,7 @@ const changeTeamCode = async (req, res) => {
     return res.status(status).json({ success: false, message: message });
   }
 }
+
+
 
 module.exports = { createTeam, joinTeam, leaveTeam, kickFromTeam, changeTeamCode };

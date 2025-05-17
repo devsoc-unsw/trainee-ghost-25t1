@@ -7,6 +7,7 @@ const { isAdmin } = require('../middleware/isAdmin');
 const teamController = require('../controllers/teamController');
 
 router.post('/', verifyToken, teamController.createTeam);
+// TO DO: create the get join code route
 router.post('/join/:randomCode', verifyToken, teamController.joinTeam);
 router.delete('/leave', verifyToken, teamController.leaveTeam);
 router.delete('/kick/:kickedId', verifyToken, teamController.kickFromTeam);

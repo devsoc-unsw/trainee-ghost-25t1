@@ -43,5 +43,9 @@ Frontend stuff to do
 - To get tasks to vote on, just request all 'pending' tasks along with how many
 votes they have 
 
-Possible things we could do
-- Write some tests for stuff we havent (e.g. the validation utils)
+
+STRETCH goals
+- Several ways of communicating with users (Email, a discord bot) and reminding
+them to do their work. Have some AI discord bot get mad at you and send angry
+gifs. also chrome extension
+
