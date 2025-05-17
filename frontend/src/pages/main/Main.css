@@ -1,7 +1,3 @@
-body {
-  overflow: hidden;
-}
-
 img {
   /*Make undraggable so it doesn't look like an image*/
   user-select: none;
@@ -28,6 +24,10 @@ img:active{
   right: auto;
   animation: runningPokemon 5s infinite linear;
   z-index: -1;
+}
+
+.main-box {
+  color: black;
 }
 
 @keyframes runningPokemon {

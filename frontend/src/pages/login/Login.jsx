@@ -25,7 +25,7 @@ function Login() {
 
     return (
         <>
-            <div className='auth-box'>
+            <div className='input-box'>
                 Login
                 <InputBox
                     fields={[

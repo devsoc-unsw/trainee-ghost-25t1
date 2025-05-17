@@ -30,7 +30,7 @@ function SignUp() {
 
   return (
     <>
-        <div className='auth-box'>
+        <div className='input-box'>
             Register
             <InputBox
                 fields={[
