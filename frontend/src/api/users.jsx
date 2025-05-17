@@ -1,5 +1,5 @@
 /**
- * Makes a login reques to backend
+ * Makes a login request to backend
  * @returns response parsed as JSON object
  */
 const loginUser = async (email, password) => {
@@ -12,8 +12,6 @@ const loginUser = async (email, password) => {
             body: JSON.stringify({ email, password })
         });
 
-        console.log(response)
-
         return await response.json();
     } catch (error) {
         console.error(`Login error: ${error}`);
@@ -21,7 +19,7 @@ const loginUser = async (email, password) => {
 };
 
 /**
- * Makes a signup reques to backend
+ * Makes a signup request to backend
  * @returns response parsed as JSON object
  */
 const registerUser = async (name, email, password) => {
@@ -33,7 +31,6 @@ const registerUser = async (name, email, password) => {
             },
             body: JSON.stringify({name, email, password})
         });
-        console.log(response);
         return await response.json();
 
     } catch (error) {
@@ -41,4 +38,4 @@ const registerUser = async (name, email, password) => {
     }
 };
 
-export { loginUser, registerUser};
+export { loginUser, registerUser };

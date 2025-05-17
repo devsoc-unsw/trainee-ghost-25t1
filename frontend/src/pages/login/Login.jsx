@@ -7,7 +7,7 @@ import { setTokenCookie } from '../../utils/cookies';
 import '../../components/InputBox.css';
 
 function Login() {
-    const [ errorMsg, setErrorMsg ] = useState();
+    const [ errorMsg, setErrorMsg ] = useState('');
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {

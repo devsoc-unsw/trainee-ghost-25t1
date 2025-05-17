@@ -8,7 +8,7 @@ import '../../components/InputBox.css';
 
 function SignUp() {
     const navigate = useNavigate();
-    const [ errorMsg, setErrorMsg ] = useState();
+    const [ errorMsg, setErrorMsg ] = useState('');
 
     const onSubmit = async (data) => {
         if (data.password !== data.confirmPassword) {

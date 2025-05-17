@@ -2,7 +2,7 @@ import { useState } from 'react'
 import createTeamBtn from '../../assets/createTeam.png';
 import joinTeamBtn from '../../assets/joinTeam.png';
 import pikachu from '../../assets/running.gif';
-import CreateTeam from '../../components/CreateTeam';
+import CreateTeam from './CreateTeam';
 import Popup from '../../components/Popup';
 import './Main.css'
 
