@@ -151,7 +151,53 @@ const getTeamSize = async (teamId) => {
   return teamSize
 };
 
+//  Obtains all data required for settings in an object form
+const viewTeamData = async (userId) => {
+  const query = `
+    SELECT
+      id,
+      name,
+      admin_user_id,
+      class_code,
+      assignment,
+      xp,
+      hp,
+      attack,
+      defence,
+      sp_attack,
+      sp_defense,
+      speed,
+      pokemon_name
+    FROM
+      teams t
+    JOIN users u on t.id = u.team_id
+    WHERE u.id = ?`;
 
+  const [rows] = await db.query(query, [userId]);
+
+  if (rows.length === 0) {
+    const err = new Error("Team does not exist");
+    err.code = 'TEAM_NOT_FOUND';
+    throw err;
+  }
+
+  const team = rows[0];
+  const members = await getTeamMembers(rows[0].id);
+
+  return { team, members };
+};
+
+// A method to get all team members with the corresponding team id
+// currently is unimported since it's a helper function for viewTeamData
+const getTeamMembers = async (teamId) => {
+  const query = `
+  SELECT name
+  FROM Users
+  WHERE team_id = ?`;
+
+  const [rows] = await db.query(query, [teamId]);
+  return rows.map(user => user.name);
+}
 
 module.exports = {
   createTeam,
@@ -160,4 +206,5 @@ module.exports = {
   changeTeamData,
   getTeamOfAdmin,
   getTeamSize,
+  viewTeamData,
 };
