@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import Button from './Button';
 import './InputBox.css';
 
+// Component containing a form with a dynamic number of input fields and a submit button
 function InputBox({fields, buttonText, buttonTopText, onSubmit}) {
     const {register, handleSubmit, formState: {errors}} = useForm();
 
@@ -20,7 +21,7 @@ function InputBox({fields, buttonText, buttonTopText, onSubmit}) {
                 />
             ))}
 
-            {/*Replace all spaces with empty string*/}
+            {/*Replace all spaces with empty string to generate classname of button*/}
             <Button
                 className={buttonText.replace(/\s+/g, '').toLowerCase() + '-button'}
                 topText={firstError || buttonTopText}
