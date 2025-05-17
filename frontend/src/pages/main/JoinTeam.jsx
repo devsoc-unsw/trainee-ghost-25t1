@@ -1,18 +1,18 @@
 import {useState} from 'react';
 import InputBox from '../../components/InputBox';
-import { createTeam } from '../../api/teams';
+import { joinTeam } from '../../api/teams';
 import '../../components/InputBox.css';
 import './Team.css';
 
-function CreateTeam({setActive}) {
+function JoinTeam({setActive}) {
     const [ errorMsg, setErrorMsg ] = useState('');
 
     const onSubmit = async (data) => {
-        const resData = await createTeam(data.teamName, data.classCode, data.assignment, data.pokemonName);
+        const resData = await joinTeam(data.randomCode);
         console.log(resData);
         if (resData.success) {
             console.log('yay it worked!')
-            // Navigate to the main dashboard or something
+            // Navigate to the main team dashboard or something
         } else {
             setErrorMsg(resData.error || 'Something went wrong, please try again');
         }
@@ -22,16 +22,13 @@ function CreateTeam({setActive}) {
         <>
             <div className="background-mask" onClick={() => setActive(false)}>
                 {/*Prevent popup from closing when you click the input box*/}
-                <div className="create input-box" onClick={(e) => e.stopPropagation()}>
-                    Create Team
+                <div className="join input-box" onClick={(e) => e.stopPropagation()}>
+                    Join Team
                    <InputBox
                     fields={[
-                        {name: "New Team Name", value: "teamName"},
-                        {name: "Class Code (e.g. COMP1511)", value: "classCode"},
-                        {name: "Assignment Name", value: "assignment"},
-                        {name: "Team Pokemon (e.g. pikachu)", value: "pokemonName"}
+                        {name: "Team Code", value: "randomCode"}
                     ]}
-                    buttonText="Create Team"
+                    buttonText="Join Team"
                     buttonTopText={errorMsg}
                     onSubmit={onSubmit}/>
                 </div>
@@ -40,4 +37,4 @@ function CreateTeam({setActive}) {
     );
 }
 
-export default CreateTeam;
+export default JoinTeam;

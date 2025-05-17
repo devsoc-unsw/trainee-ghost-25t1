@@ -13,7 +13,13 @@
     background-color: rgba(0, 0, 0, 50%);
 }
 
-.background-mask .input-box {
+.create {
     background-color: rgb(59, 76, 202);
     color: rgb(255, 222, 0);
+}
+
+.join {
+    background-color: rgb(204, 0, 0);
+    color: rgb(255, 222, 0);
+    flex-basis: 40vh;
 }

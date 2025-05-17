@@ -59,10 +59,10 @@ button {
     background-color: rgb(44, 125, 212);
 }
 
-.createteam-button {
+.createteam-button, .jointeam-button {
     background-color: rgb(255, 222, 0);
 }
 
-.createteam-button:hover {
+.createteam-button:hover, .jointeam-button:hover {
     background-color: rgb(194, 168, 2);
 }
