@@ -106,4 +106,5 @@ module.exports = {
   leaveTeam,
   kickFromTeam,
   changeTeamCode,
+  getTeamSettings
 };

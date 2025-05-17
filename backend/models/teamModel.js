@@ -155,19 +155,19 @@ const getTeamSize = async (teamId) => {
 const viewTeamData = async (userId) => {
   const query = `
     SELECT
-      id,
-      name,
-      admin_user_id,
-      class_code,
-      assignment,
-      xp,
-      hp,
-      attack,
-      defence,
-      sp_attack,
-      sp_defense,
-      speed,
-      pokemon_name
+      t.id,
+      t.name,
+      t.admin_user_id,
+      t.class_code,
+      t.assignment,
+      t.xp,
+      t.hp,
+      t.attack,
+      t.defence,
+      t.sp_attack,
+      t.sp_defense,
+      t.speed,
+      t.pokemon_name
     FROM
       teams t
     JOIN users u on t.id = u.team_id

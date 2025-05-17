@@ -38,7 +38,7 @@ const joinTeam = async (req, res) => {
     );
     return res.status(200).json({ success: true, data: teamData });
   } catch (err) {
-    const status = errorMap(err.code)?.httpStats || 500;
+    const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
 
     return res.status(status).json({ success: false, message: message });
@@ -53,7 +53,7 @@ const leaveTeam = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Team left sucessfully" });
   } catch (err) {
-    const status = errorMap(err.code)?.httpStats || 500;
+    const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
 
     return res.status(status).json({ success: false, message: message });
@@ -70,7 +70,7 @@ const kickFromTeam = async (req, res) => {
       .status(200)
       .json({ sucecss: true, message: `User ${kickedId} removed from team` });
   } catch (err) {
-    const status = errorMap(err.code)?.httpStats || 500;
+    const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
 
     return res.status(status).json({ success: false, message: message });
@@ -82,7 +82,7 @@ const changeTeamCode = async (req, res) => {
     const newCode = await teamServices.changeTeamCode(req.user.id);
     return newCode;
   } catch (err) {
-    const status = errorMap(err.code)?.httpStats || 500;
+    const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
 
     return res.status(status).json({ success: false, message: message });
@@ -94,7 +94,7 @@ const viewTeamSettings = async (req, res) => {
     const data = await teamServices.getTeamSettings(req.user.id);
     return res.status(200).json({ success: true, data: data });
   } catch (err) {
-    const status = errorMap(err.code)?.httpStats || 500;
+    const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
 
     return res.status(status).json({ success: false, message: message });

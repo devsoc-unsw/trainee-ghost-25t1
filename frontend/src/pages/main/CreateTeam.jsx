@@ -12,6 +12,15 @@ function CreateTeam({setActive}) {
         console.log(resData);
         if (resData.success) {
             console.log('yay it worked!')
+            const d = await fetch('http://localhost:5000/api/teams/settings', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+            })
+            const e = d.json();
+            console.log(e)
             // Navigate to the main dashboard or something
         } else {
             setErrorMsg(resData.error || 'Something went wrong, please try again');
