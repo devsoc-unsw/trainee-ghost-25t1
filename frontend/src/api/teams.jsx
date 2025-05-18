@@ -26,7 +26,7 @@ const createTeam = async (name, classCode, assignment, pokemonName) => {
  */
 const joinTeam = async (randomCode) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/teams/join/:${randomCode}`, {
+        const response = await fetch(`http://localhost:5000/api/teams/join/${randomCode}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
