@@ -57,7 +57,7 @@ const validateTeamData = (data) => {
 
 // Determine if the join code a user has is valid and add them to the team if so
 const joinTeam = async (userId, randomCode) => {
-  const teamData = teamModel.getTeamByCode(randomCode);
+  const teamData = await teamModel.getTeamByCode(randomCode);
   if (!teamData) {
     const err = new Error("Random code does not match any team");
     err.code = "TEAM_NOT_FOUND";
@@ -95,6 +95,7 @@ const changeTeamCode = async (adminId) => {
 
 const getTeamSettings = async (userId) => {
   const data = await teamModel.viewTeamData(userId);
+  console.log(data)
   return data;
 }
 

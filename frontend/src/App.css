@@ -40,3 +40,21 @@
 .read-the-docs {
   color: #888;
 }
+
+.multi-select {
+  width: 25em;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.multi-select option {
+  padding: 10px;
+}
+
+.input-container {
+  min-height: 90px;
+}
+
+.error {
+  text-align: left;
+}

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import createTeamBtn from "../../assets/createTeam.png";
 import joinTeamBtn from "../../assets/joinTeam.png";
 import pikachu from "../../assets/running.gif";
@@ -8,7 +8,6 @@ import Popup from "../../components/Popup";
 import "./TeamSelection.css";
 import { AuthContext } from "../../context/authContext";
 import Loading from "../../components/Loading";
-import { useNavigate } from "react-router";
 
 function TeamSelection() {
   

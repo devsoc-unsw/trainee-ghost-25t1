@@ -3,21 +3,20 @@
  * @returns response parsed as JSON object
  */
 const createTeam = async (name, classCode, assignment, pokemonName) => {
-    try {
-        const response = await fetch('http://localhost:5000/api/teams/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({name, classCode, assignment, pokemonName})
-        });
-        console.log(response);
-        return await response.json();
-
-    } catch (error) {
-        console.error(`Create Team error: ${error}`);
-    }
+  try {
+    const response = await fetch("http://localhost:5000/api/teams/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ name, classCode, assignment, pokemonName }),
+    });
+    console.log(response);
+    return await response.json();
+  } catch (error) {
+    console.error(`Create Team error: ${error}`);
+  }
 };
 
 /**
@@ -25,21 +24,23 @@ const createTeam = async (name, classCode, assignment, pokemonName) => {
  * @returns response parsed as JSON object
  */
 const joinTeam = async (randomCode) => {
-    try {
-        const response = await fetch(`http://localhost:5000/api/teams/join/:${randomCode}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({randomCode})
-        });
-        console.log(response);
-        return await response.json();
-
-    } catch (error) {
-        console.error(`Join Team error: ${error}`);
-    }
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/teams/join/:${randomCode}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ randomCode }),
+      }
+    );
+    console.log(response);
+    return await response.json();
+  } catch (error) {
+    console.error(`Join Team error: ${error}`);
+  }
 };
 
 /**
@@ -47,20 +48,19 @@ const joinTeam = async (randomCode) => {
  * @returns response parsed as JSON object
  */
 const getTeamSettings = async () => {
-    try {
-        const response = await fetch(`http://localhost:5000/api/teams/settings`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({randomCode})
-        });
-        return await response.json();
-
-    } catch (error) {
-        console.error(`Get team info error: ${error}`);
-    }
+  try {
+    const response = await fetch(`http://localhost:5000/api/teams/settings`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ randomCode }),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(`Get team info error: ${error}`);
+  }
 };
 
 /**
@@ -68,20 +68,19 @@ const getTeamSettings = async () => {
  * @returns response parsed as JSON object
  */
 const leaveTeam = async () => {
-    try {
-        const response = await fetch(`http://localhost:5000/api/teams/leave`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({randomCode})
-        });
-        return await response.json();
-
-    } catch (error) {
-        console.error(`Leave team route error: ${error}`);
-    }
+  try {
+    const response = await fetch(`http://localhost:5000/api/teams/leave`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ randomCode }),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(`Leave team route error: ${error}`);
+  }
 };
 
 /**
@@ -90,20 +89,21 @@ const leaveTeam = async () => {
  * @returns response parsed as JSON object
  */
 const kickPlayerFromTeam = async (kickedUserId) => {
-    try {
-        const response = await fetch(`http://localhost:5000/api/teams/kick/:${kickedUserId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({randomCode})
-        });
-        return await response.json();
-
-    } catch (error) {
-        console.error(`Kick player route error: ${error}`);
-    }
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/teams/kick/:${kickedUserId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    console.error(`Kick player route error: ${error}`);
+  }
 };
 
 /**
@@ -111,20 +111,25 @@ const kickPlayerFromTeam = async (kickedUserId) => {
  * @returns response parsed as JSON object
  */
 const generateNewRandomCode = async () => {
-    try {
-        const response = await fetch(`http://localhost:5000/api/teams/randomCode`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({randomCode})
-        });
-        return await response.json();
-
-    } catch (error) {
-        console.error(`Kick player route error: ${error}`);
-    }
+  try {
+    const response = await fetch(`http://localhost:5000/api/teams/randomCode`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(`Kick player route error: ${error}`);
+  }
 };
 
-export { createTeam, joinTeam, getTeamSettings, leaveTeam, kickPlayerFromTeam, generateNewRandomCode };
+export {
+  createTeam,
+  joinTeam,
+  getTeamSettings,
+  leaveTeam,
+  kickPlayerFromTeam,
+  generateNewRandomCode,
+};

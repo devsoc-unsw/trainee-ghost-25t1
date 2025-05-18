@@ -1,12 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import NavBar from "../../components/NavBar";
 import "./Home.css";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
+import Popup from "../../components/Popup";
+import CreateTask from "../CreateTask/CreateTask";
+
 
 function Home() {
   const navigate = useNavigate();
   const { user, userLoading } = useContext(AuthContext);
+
+  const [clicked, setClicked] = useState(null);
 
   if (userLoading) {
     return <Loading />;
@@ -14,13 +19,22 @@ function Home() {
 
   // if the user dosent exist or they dont have a team, redirect them to signup
   if (user?.team_id) {
-    navigate('/signup');
+    navigate("/signup");
   }
 
   return (
-    <>
-      <NavBar/>
-    </>
+    <main className="home-page">
+      <div className="col1">
+        <NavBar clicked={clicked} setClicked={setClicked} />
+      </div>
+      <div className="col2"></div>
+      <div className="col3"></div>
+      {clicked !== "home" && (
+        <Popup active={true}>
+            {clicked === 'newTask' && <CreateTask/>}
+        </Popup>
+      )}
+    </main>
   );
 }
 

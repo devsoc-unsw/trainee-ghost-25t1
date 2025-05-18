@@ -191,12 +191,12 @@ const viewTeamData = async (userId) => {
 // currently is unimported since it's a helper function for viewTeamData
 const getTeamMembers = async (teamId) => {
   const query = `
-  SELECT name
-  FROM Users
+  SELECT name, id
+  FROM users
   WHERE team_id = ?`;
 
   const [rows] = await db.query(query, [teamId]);
-  return rows.map(user => user.name);
+  return rows;
 }
 
 module.exports = {

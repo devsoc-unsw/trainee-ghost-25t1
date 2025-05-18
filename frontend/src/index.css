@@ -30,6 +30,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+select {
+    font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

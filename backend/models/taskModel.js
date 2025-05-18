@@ -108,18 +108,20 @@ const getTaskDoers = async (taskIds) => {
  */
 
 const postTask = async (data) => {
+  
   const query = `
       INSERT INTO tasks (title, description, due_date, difficulty, team_id)
       VALUES (?, ?, ?, ?, ?)`;
 
   const params = [
     data.title,
-    data.title,
+    data.description,
     data.dueDate,
     data.difficulty,
     data.teamId,
   ];
 
+  console.log(data)
   const [result] = await db.query(query, params);
   return result.insertId;
 };

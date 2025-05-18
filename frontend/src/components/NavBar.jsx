@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import homeBtn from '../assets/home.png';
 import newTaskBtn from '../assets/new_task.png';
 import viewTaskBtn from '../assets/view_task.png';
@@ -6,8 +5,8 @@ import profileBtn from '../assets/profile2.png';
 import arrow from '../assets/arrow.png';
 import '../pages/home/Home.css';
 
-function NavBar() {
-    const [ clicked, setClicked ] = useState('');
+function NavBar({clicked, setClicked}) {
+    
     return (
         <>
             <ul>

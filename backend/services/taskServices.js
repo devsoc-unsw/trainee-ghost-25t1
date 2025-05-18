@@ -153,16 +153,16 @@ const postTask = async (userId, taskData) => {
   // Make sure all the users actually exist
   for (id in cleanedTaskData.assignedTo) {
     const name = userModel.getData(id, ["name"]);
-    if (!name.length == 0) {
+    if (!name.length === 0) {
       const err = new Error(`Cannot assign to ${id} as they do not exist`);
       err.code = "USER_NOT_FOUND";
       throw err;
     }
   }
-
+  
   // Split data that will go in different tables
   const { assignedTo, ...coreTaskData } = cleanedTaskData;
-
+  
   // Insert the task and get the ID of that new task
   const taskId = await taskModel.postTask(coreTaskData);
 
