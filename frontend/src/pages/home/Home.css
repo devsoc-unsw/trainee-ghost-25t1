@@ -27,7 +27,3 @@ li img:active {
 .clicked:active {
     filter: sepia(8%) saturate(1779%) hue-rotate(60deg) brightness(60%) contrast(80%);
 }
-
-.down-arrow {
-    transform: rotateX(180deg);
-}
