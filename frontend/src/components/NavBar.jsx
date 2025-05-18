@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import homeBtn from '../../assets/home.png';
-import newTaskBtn from '../../assets/new_task.png';
-import viewTaskBtn from '../../assets/view_task.png';
-import profileBtn from '../../assets/profile2.png';
-import arrow from '../../assets/arrow.png';
-import './Home.css';
+import homeBtn from '../assets/home.png';
+import newTaskBtn from '../assets/new_task.png';
+import viewTaskBtn from '../assets/view_task.png';
+import profileBtn from '../assets/profile2.png';
+import arrow from '../assets/arrow.png';
+import '../pages/home/Home.css';
 
 function NavBar() {
     const [ clicked, setClicked ] = useState('');
@@ -14,25 +14,25 @@ function NavBar() {
             <ul>
                 <li className="up-arrow"><img src={arrow}/></li>
                 <li>
-                    <img className={clicked == 'home' ? 'clicked' : ''}
+                    <img className={clicked === 'home' ? 'clicked' : ''}
                         src={homeBtn}
                         onClick={() => setClicked('home')}/>
                 </li>
                 <li>
                     <img
-                        className={clicked == 'newTask' ? 'clicked' : ''}
+                        className={clicked === 'newTask' ? 'clicked' : ''}
                         src={newTaskBtn}
                         onClick={() => setClicked('newTask')}/>
                 </li>
                 <li>
                     <img
-                        className={clicked == 'viewTask' ? 'clicked' : ''}
+                        className={clicked === 'viewTask' ? 'clicked' : ''}
                         src={viewTaskBtn}
                         onClick={() => setClicked('viewTask')}/>
                 </li>
                 <li>
                     <img
-                        className={clicked == 'profile' ? 'clicked' : ''}
+                        className={clicked === 'profile' ? 'clicked' : ''}
                         src={profileBtn}
                         onClick={() => setClicked('profile')}/>
                 </li>

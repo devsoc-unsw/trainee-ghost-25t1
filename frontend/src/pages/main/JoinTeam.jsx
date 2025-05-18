@@ -3,7 +3,7 @@ import InputBox from '../../components/InputBox';
 import { joinTeam } from '../../api/teams';
 import '../../components/InputBox.css';
 import './Team.css';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 function JoinTeam({setActive}) {
     const [ errorMsg, setErrorMsg ] = useState('');
