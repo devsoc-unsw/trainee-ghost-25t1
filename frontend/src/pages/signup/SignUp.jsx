@@ -17,7 +17,7 @@ function SignUp() {
 
         const resData = await registerUser(data.username, data.email, data.password);
 
-        // Route to main on success
+        // Route to team selection on success
         if (resData.success) {
             navigate('/team-selection');
         } else {

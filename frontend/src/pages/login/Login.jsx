@@ -12,12 +12,12 @@ function Login() {
     const onSubmit = async (data) => {
         const resData = await loginUser(data.email, data.password);
 
-        // Route to main on success
         if (resData.success) {
+            // Route to home page if a team is joined. Otherwise, go to team selection
             if (resData.user.team_id) {
-                navigate('/team-selection');
+                navigate('/');
             } else {
-                navigate('/home');
+                navigate('/team-selection');
             }
         } else {
             console.error(`Login error: ${resData.error}`);
