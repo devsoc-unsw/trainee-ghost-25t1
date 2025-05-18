@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import createTeamBtn from "../../assets/createTeam.png";
 import joinTeamBtn from "../../assets/joinTeam.png";
 import pikachu from "../../assets/running.gif";
@@ -8,11 +8,15 @@ import Popup from "../../components/Popup";
 import "./TeamSelection.css";
 import { AuthContext } from "../../context/authContext";
 import Loading from "../../components/Loading";
+import { useNavigate } from "react-router";
 
 function TeamSelection() {
   const navigate = useNavigate();
   const { user, userLoading } = useContext(AuthContext);
 
+  const [createActive, setCreateActive] = useState(false);
+  const [joinActive, setJoinActive] = useState(false);
+  
   if (userLoading) {
     return <Loading />;
   }
@@ -22,8 +26,6 @@ function TeamSelection() {
     navigate('/signup');
   }
 
-  const [createActive, setCreateActive] = useState(false);
-  const [joinActive, setJoinActive] = useState(false);
 
   return (
     <>
