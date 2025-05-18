@@ -19,8 +19,7 @@ function SignUp() {
 
         // Route to main on success
         if (resData.success) {
-            navigate('/');
-            setTokenCookie(resData.token);
+            navigate('/team-selection');
         } else {
             console.error(`Signup error: ${resData.error}`);
             setErrorMsg(resData.error || 'Something went wrong, please try again');

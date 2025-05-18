@@ -14,7 +14,11 @@ function Login() {
 
         // Route to main on success
         if (resData.success) {
-            navigate('/main');
+            if (resData.user.team_id) {
+                navigate('/team-selection');
+            } else {
+                navigate('/home');
+            }
         } else {
             console.error(`Login error: ${resData.error}`);
             setErrorMsg(resData.error || 'Something went wrong, please try again');

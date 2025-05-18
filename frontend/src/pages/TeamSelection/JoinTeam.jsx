@@ -15,7 +15,7 @@ function JoinTeam({setActive}) {
         if (resData.success) {
             console.log('yay it worked!')
             // Navigate to the main team dashboard or something
-            navigate("/home");
+            navigate("/");
         } else {
             setErrorMsg(resData.error || 'Something went wrong, please try again');
         }

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
-import { SignUp, Login, Main, Home } from './pages'
+import { SignUp, Login, TeamSelection, Home } from './pages'
 
 function App() {
 
@@ -11,8 +11,8 @@ function App() {
           <Routes>
             <Route path="/signup" element = {<SignUp />}/>
             <Route path="/login" element = {<Login />}/>
-            <Route path="/main" element = {<Main />}/> {/* Add conditions later on */}
-            <Route path="/home" element={<Home/>}/>
+            <Route path="/team-selection" element = {<TeamSelection />}/>
+            <Route path="/" element={<Home/>}/>
           </Routes>
         </BrowserRouter>
       </main>
