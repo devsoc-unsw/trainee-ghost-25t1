@@ -1,8 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
-import { SignUp, Login, Main } from './pages'
-import AuthProvider from './context/authProvider';
-
+import { SignUp, Login, Main, Home } from './pages'
 
 function App() {
 
@@ -10,13 +8,12 @@ function App() {
     <>
       <main>
         <BrowserRouter>
-          <AuthProvider>
-            <Routes>
-              <Route path="/signup" element = {<SignUp />}/>
-              <Route path="/login" element = {<Login />}/>
-              <Route path="/" element = {<Main />}/> {/* Add conditions later on */}
-            </Routes>
-          </AuthProvider>
+          <Routes>
+            <Route path="/signup" element = {<SignUp />}/>
+            <Route path="/login" element = {<Login />}/>
+            <Route path="/main" element = {<Main />}/> {/* Add conditions later on */}
+            <Route path="/home" element={<Home/>}/>
+          </Routes>
         </BrowserRouter>
       </main>
     </>

@@ -1,0 +1,33 @@
+ul {
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    list-style-type: none;
+}
+
+li img:hover {
+    filter: brightness(75%);
+    cursor: pointer;
+}
+
+li img:active {
+    filter: brightness(60%);
+}
+
+.clicked {
+    filter: sepia(8%) saturate(1779%) hue-rotate(60deg) brightness(97%) contrast(80%);
+}
+
+.clicked:hover {
+    filter: sepia(8%) saturate(1779%) hue-rotate(60deg) brightness(75%) contrast(80%);
+    cursor: pointer;
+}
+
+.clicked:active {
+    filter: sepia(8%) saturate(1779%) hue-rotate(60deg) brightness(60%) contrast(80%);
+}
+
+.down-arrow {
+    transform: rotateX(180deg);
+}

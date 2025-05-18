@@ -10,15 +10,15 @@ function Login() {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-           const resData = await loginUser(data.email, data.password);
+        const resData = await loginUser(data.email, data.password);
 
-            // Route to main on success
-            if (resData.success) {
-                navigate('/');
-            } else {
-                console.error(`Login error: ${resData.error}`);
-                setErrorMsg(resData.error || 'Something went wrong, please try again');
-            }
+        // Route to main on success
+        if (resData.success) {
+            navigate('/main');
+        } else {
+            console.error(`Login error: ${resData.error}`);
+            setErrorMsg(resData.error || 'Something went wrong, please try again');
+        }
     }
 
     return (
