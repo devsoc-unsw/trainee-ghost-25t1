@@ -5,30 +5,15 @@ import pikachu from "../../assets/running.gif";
 import CreateTeam from "./CreateTeam";
 import JoinTeam from "./JoinTeam";
 import Popup from "../../components/Popup";
-import "./Main.css";
+import "./TeamSelection.css";
 import { AuthContext } from "../../context/authContext";
 import Loading from "../../components/Loading";
 import { useNavigate } from "react-router";
 
-function Main() {
-  const navigate = useNavigate();
-  const { user, userLoading } = useContext(AuthContext);
-
+function TeamSelection() {
+  
   const [createActive, setCreateActive] = useState(false);
   const [joinActive, setJoinActive] = useState(false);
-
-    useEffect(() => {
-        if (!userLoading && !user) {
-            navigate("/signup")
-        }
-    })
-
-  if (userLoading) {
-    return <Loading />;
-  }
-  
-
-
 
   return (
     <>
@@ -57,4 +42,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default TeamSelection;

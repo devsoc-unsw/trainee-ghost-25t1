@@ -24,7 +24,7 @@ function CreateTeam({setActive}) {
             const e = d.json();
             console.log(e)
             // Navigate to the main dashboard or something
-            navigate("/home");
+            navigate("/");
         } else {
             setErrorMsg(resData.error || 'Something went wrong, please try again');
         }
