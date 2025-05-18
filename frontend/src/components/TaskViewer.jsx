@@ -7,7 +7,80 @@ function TaskViewer({title}) {
         <>
         {/* Remove ALL this later, this is just here to test the styling */}
             <div className="task-viewer">
-                <h1>{title}</h1>
+                <div className="task-viewer-title">{title}</div>
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+                <Task
+                    title="Complete adminAuthUserFunction"
+                    dueDate="Tomorrow"
+                    assignedPeople={["Kevin", "Alex"]}
+                    rewards={["apples", "berries"]}
+                />
+
                 <Task
                     title="Complete adminAuthUserFunction"
                     dueDate="Tomorrow"
