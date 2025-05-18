@@ -7,13 +7,10 @@ img {
   -ms-user-select: none;
 }
 
-img:hover {
+.create-team-button:hover,
+.join-team-button:hover {
   filter:brightness(75%);
   cursor: pointer;
-}
-
-img:active{
-  filter:brightness(60%);
 }
 
 .pikachu {

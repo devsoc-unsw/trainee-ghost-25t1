@@ -1,0 +1,24 @@
+ul {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    list-style-type: none;
+}
+
+li img:hover {
+  filter:brightness(75%);
+  cursor: pointer;
+}
+
+li img:active {
+  filter:brightness(60%);
+}
+
+.up-arrow {
+
+}
+
+.down-arrow {
+    transform: rotateX(180deg);
+}
