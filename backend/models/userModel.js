@@ -125,13 +125,24 @@ exports.removeUserFromTeam = async (userId) => {
     UPDATE TABLE users
     SET team_id = NULL
     WHERE id = ?
-    `
-    const params = userId
+    `;
+  const params = userId;
 
-    const [result] = await db.query(query, params)
-    if (result.affectedRows === 0) {
-      const err = new Error('Cannot remove user from team that is not in a team')
-      err.code = 'NO_TEAM_TO_REMOVE_FROM'
-    }
-    return result
-}
+  const [result] = await db.query(query, params);
+  if (result.affectedRows === 0) {
+    const err = new Error("Cannot remove user from team that is not in a team");
+    err.code = "NO_TEAM_TO_REMOVE_FROM";
+  }
+  return result;
+};
+
+// Gets all user data apart from password
+exports.getUserData = async (userId) => {
+  const query = `
+    SELECT id, name, email, created_at, team_id
+    FROM users
+    WHERE id = ?
+  `;
+  const [result] = await db.query(query, [userId]);
+  return result[0];
+};

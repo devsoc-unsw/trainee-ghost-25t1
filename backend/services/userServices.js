@@ -127,3 +127,8 @@ exports.login = async ({ email, password }) => {
 
   return { user, token };
 };
+
+exports.getUser = async (userId) => {
+  const user = await userModel.getUserData(userId);
+  return user;
+}

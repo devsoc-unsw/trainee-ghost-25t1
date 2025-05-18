@@ -30,14 +30,10 @@ In theory, this should be all of the routes we need. Tbh though we will probably
 
  # Other information about working with routes #
 
-Priority of routes
-- Team voting stuff
-- Fetching team data
-- Level up stuff
-
 
 - A function that triggers if we find the task has been completed, which provides
 the rewards for that task 
+- Change it so you dont need to pass pokemon stats, it just defaults to what is correct 
 
 Frontend stuff to do
 - To get tasks to vote on, just request all 'pending' tasks along with how many
