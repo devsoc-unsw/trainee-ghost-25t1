@@ -13,11 +13,10 @@ function JoinTeam({setActive}) {
         const resData = await joinTeam(data.randomCode);
         console.log(resData);
         if (resData.success) {
-            console.log('yay it worked!')
             // Navigate to the main team dashboard or something
             navigate("/");
         } else {
-            setErrorMsg(resData.error || 'Something went wrong, please try again');
+            setErrorMsg(resData.message || 'Something went wrong, please try again');
         }
     }
 

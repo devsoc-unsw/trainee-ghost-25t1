@@ -3,6 +3,7 @@ import NavBar from "../../components/NavBar";
 import "./Home.css";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
+import TaskViewer from "../../components/TaskViewer";
 import Popup from "../../components/Popup";
 import CreateTask from "../CreateTask/CreateTask";
 

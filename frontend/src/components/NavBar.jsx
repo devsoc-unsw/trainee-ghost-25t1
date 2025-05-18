@@ -2,7 +2,6 @@ import homeBtn from '../assets/home.png';
 import newTaskBtn from '../assets/new_task.png';
 import viewTaskBtn from '../assets/view_task.png';
 import profileBtn from '../assets/profile2.png';
-import arrow from '../assets/arrow.png';
 import '../pages/home/Home.css';
 
 function NavBar({clicked, setClicked}) {
@@ -10,7 +9,6 @@ function NavBar({clicked, setClicked}) {
     return (
         <>
             <ul>
-                <li className="up-arrow"><img src={arrow}/></li>
                 <li>
                     <img className={clicked === 'home' ? 'clicked' : ''}
                         src={homeBtn}
@@ -34,7 +32,6 @@ function NavBar({clicked, setClicked}) {
                         src={profileBtn}
                         onClick={() => setClicked('profile')}/>
                 </li>
-                <li className="down-arrow"><img src={arrow}/></li>
             </ul>
         </>
     );
