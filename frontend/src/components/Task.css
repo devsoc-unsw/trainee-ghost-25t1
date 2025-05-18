@@ -1,0 +1,66 @@
+h1 {
+    color: white;
+    font-size: 40px;
+}
+
+.task-viewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+
+    min-height: fit-content;
+    min-width: fit-content;
+
+    height: 80vh;
+    width: 30vw;
+    padding: 50px 0px;
+    border: 5px black solid;
+    border-radius: 10px;
+
+    background-color: rgb(123, 123, 123);
+
+    overflow-y: auto;
+}
+
+.task {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-family: "Asap", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+    width: 80%;
+    border: 5px black solid;
+    border-radius: 10px;
+    padding: 10px;
+
+    background-color: rgb(217, 217, 217);
+
+    text-align: left;
+    font-size: 10px;
+}
+
+.warning {
+    height: 91px;
+    width: 91px;
+}
+
+.task-title, .task-assigned, .task-rewards {
+    color: black;
+}
+
+.task-date, .task-assigned, .task-rewards {
+    font-size: 16px;
+}
+
+.task-title {
+    font-size: 18px;
+}
+
+.task-date {
+    color: red;
+}
