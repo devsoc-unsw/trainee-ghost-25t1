@@ -1,10 +1,12 @@
 import {useState} from 'react';
 import InputBox from '../../components/InputBox';
+import { useNavigate } from 'react-router-dom';
 import { createTeam } from '../../api/teams';
 import '../../components/InputBox.css';
 import './Team.css';
 
 function CreateTeam({setActive}) {
+    const navigate = useNavigate();
     const [ errorMsg, setErrorMsg ] = useState('');
 
     const onSubmit = async (data) => {
@@ -22,6 +24,7 @@ function CreateTeam({setActive}) {
             const e = d.json();
             console.log(e)
             // Navigate to the main dashboard or something
+            navigate("/home");
         } else {
             setErrorMsg(resData.error || 'Something went wrong, please try again');
         }

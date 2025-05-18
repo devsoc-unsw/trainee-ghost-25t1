@@ -9,6 +9,7 @@ const loginUser = async (email, password) => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({ email, password })
         });
 
@@ -29,6 +30,7 @@ const registerUser = async (name, email, password) => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({name, email, password})
         });
         return await response.json();

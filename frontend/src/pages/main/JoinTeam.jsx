@@ -3,9 +3,11 @@ import InputBox from '../../components/InputBox';
 import { joinTeam } from '../../api/teams';
 import '../../components/InputBox.css';
 import './Team.css';
+import { Navigate } from 'react-router';
 
 function JoinTeam({setActive}) {
     const [ errorMsg, setErrorMsg ] = useState('');
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         const resData = await joinTeam(data.randomCode);
@@ -13,6 +15,7 @@ function JoinTeam({setActive}) {
         if (resData.success) {
             console.log('yay it worked!')
             // Navigate to the main team dashboard or something
+            navigate("/home");
         } else {
             setErrorMsg(resData.error || 'Something went wrong, please try again');
         }
