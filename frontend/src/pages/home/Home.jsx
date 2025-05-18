@@ -5,7 +5,7 @@ function Home() {
 
     return (
         <>
-            <NavBar></NavBar>
+            <NavBar/>
         </>
     );
 }

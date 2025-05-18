@@ -8,7 +8,6 @@ import '../pages/home/Home.css';
 
 function NavBar() {
     const [ clicked, setClicked ] = useState('');
-
     return (
         <>
             <ul>
