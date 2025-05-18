@@ -20,7 +20,7 @@ function SignUp() {
 
         // Route to main on success and store token in cookies
         if (resData.success) {
-            navigate('/main');
+            navigate('/');
             setTokenCookie(resData.token);
         } else {
             console.error(`Signup error: ${resData.error}`);

@@ -9,15 +9,15 @@ function App() {
   return (
     <>
       <main>
-        <AuthProvider>
-          <BrowserRouter>
+        <BrowserRouter>
+          <AuthProvider>
             <Routes>
               <Route path="/signup" element = {<SignUp />}/>
               <Route path="/login" element = {<Login />}/>
               <Route path="/" element = {<Main />}/> {/* Add conditions later on */}
             </Routes>
-          </BrowserRouter>
-        </AuthProvider>
+          </AuthProvider>
+        </BrowserRouter>
       </main>
     </>
   )

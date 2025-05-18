@@ -14,7 +14,7 @@ function Login() {
 
             // Route to main on success
             if (resData.success) {
-                navigate('/main');
+                navigate('/');
             } else {
                 console.error(`Login error: ${resData.error}`);
                 setErrorMsg(resData.error || 'Something went wrong, please try again');
