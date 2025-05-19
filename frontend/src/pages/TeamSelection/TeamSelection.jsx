@@ -22,7 +22,7 @@ function TeamSelection() {
   }
 
   // if the user dosent exist or they dont have a team, redirect them to signup
-  if (user?.team_id) {
+  if (!userLoading && !user?.team_id) {
     navigate('/signup');
   }
 
