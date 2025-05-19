@@ -13,7 +13,7 @@ function Home() {
   const navigate = useNavigate();
   const { user, userLoading } = useContext(AuthContext);
 
-  console.log(userLoading)
+  console.log(user)
 
   const [clicked, setClicked] = useState(null);
 
@@ -22,8 +22,9 @@ function Home() {
   }
 
   // if the user dosent exist or they dont have a team, redirect them to signup
-  if (user?.team_id) {
-    navigate("/signup");
+  if (!userLoading && !user?.team_id) {
+    console.log("Ok")
+    navigate("/team-selection");
   }
 
   return (
