@@ -57,3 +57,12 @@
     max-height: 100%;
 }
 
+
+
+.save-changes {
+    background-color: rgb(175, 229, 110);
+}
+
+.save-changes:hover {
+    background-color: rgb(145, 190, 90);
+}

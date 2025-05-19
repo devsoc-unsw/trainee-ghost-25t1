@@ -12,6 +12,7 @@ router.post('/join/:randomCode', verifyToken, teamController.joinTeam);
 router.delete('/leave', verifyToken, teamController.leaveTeam);
 router.delete('/kick/:kickedId', verifyToken, teamController.kickFromTeam);
 router.patch('/randomCode', verifyToken, isAdmin, teamController.changeTeamCode);
+router.patch('/', verifyToken, isAdmin, teamController.alterCoreTeamData);
 router.get('/randomCode', verifyToken, isAdmin, teamController.getJoinCode);
 // Route stuff
 

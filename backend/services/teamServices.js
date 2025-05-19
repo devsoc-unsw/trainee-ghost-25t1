@@ -104,6 +104,12 @@ const getJoinCode = async (userId) => {
   return code;
 }
 
+const alterCoreTeamData = async (userId, newData) => {
+  const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
+  await teamModel.changeTeamData(newData, teamId)
+  return;
+}
+
 
 module.exports = {
   createTeam,
@@ -113,5 +119,6 @@ module.exports = {
   kickFromTeam,
   changeTeamCode,
   getTeamSettings,
-  getJoinCode
+  getJoinCode,
+  alterCoreTeamData
 };

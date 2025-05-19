@@ -113,6 +113,19 @@ const getJoinCode = async (req, res) => {
   }
 };
 
+// Alter the core parts of team datas
+const alterCoreTeamData = async (req, res) => {
+  try {
+    await teamServices.alterCoreTeamData(req.user.id, req.body);
+    return res.status(200).json({ success: true, message: "Team changed" });
+  } catch (err) {
+    const status = errorMap[err.code]?.httpStats || 500;
+    let message = err.message || "Internal server error";
+
+    return res.status(status).json({ success: false, message: message });
+  }
+}
+
 
 module.exports = {
   createTeam,
@@ -121,5 +134,6 @@ module.exports = {
   kickFromTeam,
   changeTeamCode,
   viewTeamSettings,
-  getJoinCode
+  getJoinCode,
+  alterCoreTeamData
 };

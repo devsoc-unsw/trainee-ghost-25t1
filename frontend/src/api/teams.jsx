@@ -136,6 +136,23 @@ const getRandomCode = async () => {
   }
 }
 
+const editTeamData = async (newTeamData) => {
+  try {
+    const res = await fetch(`${apiUrl}/teams/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newTeamData),
+      credentials: "include"
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error editing team data", error)
+  }
+}
+
 export {
   createTeam,
   joinTeam,
@@ -143,5 +160,6 @@ export {
   leaveTeam,
   kickPlayerFromTeam,
   generateNewRandomCode,
-  getRandomCode
+  getRandomCode,
+  editTeamData
 };
