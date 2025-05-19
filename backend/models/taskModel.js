@@ -13,7 +13,6 @@ const validationUtils = require("../utils/validationUtils");
  */
 
 const getData = async (teamId, cols, params) => {
-  const snakeParams = camelToSnakeCaseObjKeys(params);
   // Allow wildcard '*' or no columns param to select all allowed columns
   let selectedCols =
     !cols.length || cols.includes("*")

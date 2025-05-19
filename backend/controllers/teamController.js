@@ -13,8 +13,8 @@ const teamServices = require("../services/teamServices");
  * @param {number} [req.body.hp]
  * @param {number} [req.body.attack]
  * @param {number} [req.body.defence]
- * @param {number} [req.body.spAttack]
- * @param {number} [req.body.spDefense]
+ * @param {number} [req.body.specialAttack]
+ * @param {number} [req.body.specialDefense]
  * @param {number} [req.body.speed]
  */
 

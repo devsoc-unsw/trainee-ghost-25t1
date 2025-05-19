@@ -26,7 +26,7 @@ const createTeam = async (userId, teamData) => {
 const validateTeamData = (data) => {
   const errors = [];
 
-  const stats = ["hp", "attack", "defence", "spAttack", "spDefense", "speed"];
+  const stats = ["hp", "attack", "defence", "specialAttack", "specialDefense", "speed"];
 
   stats.forEach((stat) => {
     if (data[stat] !== undefined) {

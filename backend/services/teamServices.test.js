@@ -10,8 +10,8 @@ describe("validateTeamData", () => {
     hp: 100,
     attack: 50,
     defence: 40,
-    spAttack: 60,
-    spDefense: 55,
+    specialAttack: 60,
+    specialDefense: 55,
     speed: 80,
   };
 
@@ -26,8 +26,8 @@ describe("validateTeamData", () => {
     "hp",
     "attack",
     "defence",
-    "spAttack",
-    "spDefense",
+    "specialAttack",
+    "specialDefense",
     "speed",
   ];
 

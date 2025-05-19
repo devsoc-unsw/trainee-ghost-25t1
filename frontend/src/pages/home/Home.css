@@ -70,3 +70,17 @@ li img:active {
     display: flex;
     gap: 10vw;
 }
+
+.pokemon-image {
+    height: 500px;
+    position: fixed;
+    bottom: 5%;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges; 
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.4));
+}

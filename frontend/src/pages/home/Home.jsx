@@ -12,7 +12,7 @@ import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";
 import { getHomePageData } from "../../api/teams";
-
+import { getPokemon } from "../../api/poke";
 
 function Home() {
   const navigate = useNavigate();
@@ -20,59 +20,74 @@ function Home() {
 
   const [clicked, setClicked] = useState("home");
   const [homeData, setHomeData] = useState(null);
+  const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
     // if the user doesn't exist or they dont have a team, redirect them to signup
     if (!loading && !user?.team_id) {
       navigate("/team-selection");
     }
-    
+
     (async () => {
-       const data = await getHomePageData();
-       setHomeData(data);
-    })()
+      const data = await getHomePageData();
+      setHomeData(data.data);
+    })();
   }, [user, loading, navigate]);
+
+  useEffect(() => {
+    (async () => {
+      const name = homeData?.team?.team?.pokemon_name
+      if (homeData) {
+        const pokeData = await getPokemon(name);
+        setPokemon(pokeData);
+      }
+    })();
+  }, [homeData]);
+
+  console.log(pokemon);
 
   if (loading) {
     return <Loading />;
   }
 
-
-  var temporary_completed_tasks = {key: "Will and Kevin just completed a difficult task!"}
-  var temporary_stats = [{key: "HP", value: "120"},
-    {key: "Attack", value: "120"},
-    {key: "Defence", value: "120"},
-    {key: "Special Attack", value: "120"},
-    {key: "Special Defence", value: "120"},
-    {key: "Speed", value: "120"}
-  ]
+  var temporary_completed_tasks = {
+    key: "Will and Kevin just completed a difficult task!",
+  };
+  var stats = [
+    { key: "HP", value: "120" },
+    { key: "Attack", value: "120" },
+    { key: "Defence", value: "120" },
+    { key: "Special Attack", value: "120" },
+    { key: "Special Defence", value: "120" },
+    { key: "Speed", value: "120" },
+  ];
 
   return (
     <>
       <NavBar clicked={clicked} setClicked={setClicked} />
 
       <main className="home-page">
-      {clicked === "home" ? (
-        <>
-          <div className="column-1">
-            {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
-            <CompletedTaskSummary fields={temporary_completed_tasks} />
-            <StatsTextBox fields={temporary_stats} />
-            {/* Add task todo */}
+        {clicked === "home" ? (
+          <>
+            <div className="column-1">
+              {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
+              <CompletedTaskSummary fields={temporary_completed_tasks} />
+              <StatsTextBox fields={stats} />
+              {/* Add task todo */}
+            </div>
+            <div className="column-2">
+              {pokemon && <img src={pokemon.sprites.front_default} alt="Eevee" className="pokemon-image" />}
+            </div>
+          </>
+        ) : (
+          <div className="pop-up">
+            <Popup active={true}>
+              {clicked === "newTask" && <CreateTask />}
+              {clicked === "profile" && <Settings />}
+              {clicked === "viewTask" && <ViewTask title="My Tasks" />}
+            </Popup>
           </div>
-          <div className="column-2">
-            <img src={Eevee} alt="Eevee" className="pokemon-image" />
-          </div>
-        </>
-      ) : (
-        <div className="pop-up">
-          <Popup active={true}>
-            {clicked === 'newTask' && <CreateTask/>}
-            {clicked === 'profile' && <Settings/>}
-            {clicked === 'viewTask' && <ViewTask title="My Tasks"/>}
-          </Popup>
-        </div>
-      )}
+        )}
       </main>
     </>
   );

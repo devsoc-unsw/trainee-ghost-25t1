@@ -33,8 +33,8 @@ const sqlColumns = {
         "hp",
         "attack",
         "defence",
-        "sp_attack",
-        "sp_defense",
+        "special_attack",
+        "special_defense",
         "speed",
         "pokemon_name"
     ],
