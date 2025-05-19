@@ -3,9 +3,12 @@ import Task from '../../components/Task';
 import { getTaskData } from '../../api/tasks';
 import { AuthContext } from "../../context/authContext";
 import './ViewTask.css';
+import Popup from '../../components/Popup';
+import ExpandedTask from './ExpandedTask';
 
 function ViewTask({title}) {
     const [taskData, setTaskData] = useState([]);
+    const [taskActive, setTaskActive] = useState(false);
     const { user, loading } = useContext(AuthContext);
 
     // Fetch the task information
@@ -20,6 +23,10 @@ function ViewTask({title}) {
         })();
     }, []);
 
+    const onClick = () => {
+        setTaskActive(true);
+    }
+
     // Go through all the fetched tasks and format them as task components
     const displayTask = () => {
         return taskData.map((task, index) => {
@@ -33,6 +40,7 @@ function ViewTask({title}) {
                 // Change this once we have a reward system implemented
                 rewards={["apples", "berries"]}
                 difficulty={task.difficulty}
+                onClick={onClick}
             />
         });
     }
@@ -43,6 +51,11 @@ function ViewTask({title}) {
                 <div className="task-viewer-title">{title}</div>
                 {taskData.length === 0 ? <span className="done-text">All done!</span> : displayTask()}
             </div>
+
+            <Popup active={taskActive}>
+                <ExpandedTask setTaskActive={setTaskActive}/>
+
+            </Popup>
         </>
     );
 }

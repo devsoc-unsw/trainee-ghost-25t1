@@ -7,7 +7,6 @@
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    flex-wrap: wrap;
 
     width: 80%;
     border: 5px black solid;
@@ -20,6 +19,10 @@
     font-size: 10px;
 }
 
+.task:hover {
+    filter: brightness(80%);
+}
+
 .warning {
     height: 91px;
     width: 91px;
@@ -28,7 +31,6 @@
 .task-text {
     flex: 1;
     min-width: 0;
-    word-break: break-word;
     color: black;
     font-size: 16px;
 }
@@ -36,6 +38,14 @@
 .task-title {
     font-size: 20px;
     text-decoration-line: underline;
+}
+
+/*Make these two text fields stay on one line*/
+.truncate {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .task-date {
