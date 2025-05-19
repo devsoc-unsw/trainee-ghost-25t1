@@ -12,19 +12,19 @@ import { useNavigate } from "react-router";
 
 function TeamSelection() {
   const navigate = useNavigate();
-  const { user, userLoading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
   const [createActive, setCreateActive] = useState(false);
   const [joinActive, setJoinActive] = useState(false);
 
   useEffect(() => {
     // if the user doesn't exist, redirect them to signup
-    if (!userLoading && !user) {
+    if (!loading && !user) {
       navigate("/signup");
     }
-  }, [user, userLoading, navigate]);
+  }, [user, loading, navigate]);
 
-  if (userLoading) {
+  if (loading) {
     return <Loading />;
   }
 

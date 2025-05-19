@@ -10,24 +10,26 @@ import Eevee from "../../assets/eevee-sample.png";
 import ViewTask from "../ViewTask/ViewTask";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
+import Loading from "../../components/Loading";
 
 
 function Home() {
   const navigate = useNavigate();
-  const { user, userLoading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
   const [clicked, setClicked] = useState("home");
 
-  if (userLoading) {
+  useEffect(() => {
+    // if the user doesn't exist or they dont have a team, redirect them to signup
+    if (!loading && !user?.team_id) {
+      navigate("/team-selection");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
     return <Loading />;
   }
 
-  useEffect(() => {
-    // if the user doesn't exist or they dont have a team, redirect them to signup
-    if (!userLoading && !user?.team_id) {
-      navigate("/team-selection");
-    }
-  }, [user, userLoading, navigate]);
 
   var temporary_completed_tasks = {key: "Will and Kevin just completed a difficult task!"}
   var temporary_stats = [{key: "HP", value: "120"},
