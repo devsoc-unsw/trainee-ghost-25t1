@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import createTeamBtn from "../../assets/createTeam.png";
 import joinTeamBtn from "../../assets/joinTeam.png";
 import pikachu from "../../assets/running.gif";
@@ -21,11 +21,12 @@ function TeamSelection() {
     return <Loading />;
   }
 
-  // if the user dosent exist or they dont have a team, redirect them to signup
-  if (!userLoading && !user?.team_id) {
-    navigate('/signup');
-  }
-
+  useEffect(() => {
+    // if the user doesn't exist, redirect them to signup
+    if (!userLoading && !user) {
+      navigate('/signup');
+    }
+  }, [user, userLoading, navigate]);
 
   return (
     <>

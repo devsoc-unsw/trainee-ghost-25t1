@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 import "./Home.css";
 import { AuthContext } from "../../context/authContext";
@@ -13,19 +13,18 @@ function Home() {
   const navigate = useNavigate();
   const { user, userLoading } = useContext(AuthContext);
 
-  console.log(user)
-
   const [clicked, setClicked] = useState(null);
 
   if (userLoading) {
     return <Loading />;
   }
 
-  // if the user dosent exist or they dont have a team, redirect them to signup
-  if (!userLoading && !user?.team_id) {
-    console.log("Ok")
-    navigate("/team-selection");
-  }
+  useEffect(() => {
+    // if the user doesn't exist or they dont have a team, redirect them to signup
+    if (!userLoading && !user?.team_id) {
+      navigate("/team-selection");
+    }
+  }, [user, userLoading, navigate]);
 
   return (
     <main className="home-page">

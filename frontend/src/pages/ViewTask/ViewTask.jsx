@@ -8,12 +8,11 @@ import './ViewTask.css';
 function ViewTask({title}) {
     const [taskData, setTaskData] = useState([]);
     const { user, loading } = useContext(AuthContext);
-    console.log(user);
 
     // Fetch the task information
     useEffect(() => {
         (async () => {
-            const resData = await getTaskData({assignedTo: 1});
+            const resData = await getTaskData({assignedTo: user.id});
             // If an error happens, resData.data is null so make it an empty array and print error
             setTaskData(resData.data || []);
             if (!resData.data) {
