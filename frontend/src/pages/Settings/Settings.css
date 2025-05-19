@@ -5,20 +5,48 @@
     
 }
 
+.input-and-label-container > label,
+.input-and-label-container > h3
+{
+    text-align: left;
+    font-size: 20px;
+}
+
+.input-and-label-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.input-like-div {
+    color: black;
+    height: 65px;
+    display: flex;
+    background-color: rgba(217, 217, 217, 70%);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+
 .access-code-container {
     width: 500px;
-    color: white;
-    background-color: rgba(217, 217, 217, 70%);
     font-size: 20px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 5px 0 0 5px;
+    height: 65px;
+    justify-content: center;
 }
 
 .reset-access-code {
     margin-left: auto;
     min-width: 50px;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    min-height: 65px;
+    height: 65px;
+    border-radius: 0 5px 5px 0;
+    border-left: 2px solid black;
 }
 
 .reset-access-code img {
