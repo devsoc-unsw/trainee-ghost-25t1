@@ -40,7 +40,11 @@
     text-decoration-line: underline;
 }
 
-/*Make these two text fields stay on one line*/
+.task-date {
+    color: red;
+}
+
+/*Make the text stay on one line and overflow into ellipsis*/
 .truncate {
     display: block;
     overflow: hidden;
@@ -48,6 +52,18 @@
     text-overflow: ellipsis;
 }
 
-.task-date {
-    color: red;
+.expanded-task {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    height: 50%;
+    width: 50%;
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 20px;
+
+    text-align: left;
+    background-color: white;
 }
+

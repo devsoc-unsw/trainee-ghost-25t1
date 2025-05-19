@@ -9,7 +9,7 @@
 
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1;
 
     color: white;
     font-size: 40px;
@@ -34,11 +34,4 @@
     background-color: rgb(94, 93, 93);
 
     overflow-y: auto;
-}
-
-.expanded-task {
-    height: 40vh;
-    width: 40vw;
-
-    background-color: white;
 }

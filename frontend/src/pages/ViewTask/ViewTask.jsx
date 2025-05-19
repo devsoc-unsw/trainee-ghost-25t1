@@ -1,15 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
-import Task from '../../components/Task';
+import Task from '../../components/Task/Task';
 import { getTaskData } from '../../api/tasks';
 import { AuthContext } from "../../context/authContext";
 import './ViewTask.css';
 import Popup from '../../components/Popup';
-import ExpandedTask from './ExpandedTask';
+import ExpandedTask from '../../components/Task/ExpandedTask';
 
 function ViewTask({title}) {
     const [taskData, setTaskData] = useState([]);
     const [taskActive, setTaskActive] = useState(false);
     const { user, loading } = useContext(AuthContext);
+    const [expandedTask, setExpandedTask] = useState(null);
 
     // Fetch the task information
     useEffect(() => {
@@ -23,25 +24,15 @@ function ViewTask({title}) {
         })();
     }, []);
 
-    const onClick = () => {
+    const handleTaskClick = (task) => {
         setTaskActive(true);
+        setExpandedTask(task);
     }
 
     // Go through all the fetched tasks and format them as task components
     const displayTask = () => {
         return taskData.map((task, index) => {
-            const d = new Date(task.due_date).toLocaleDateString('en-AU');
-            return <Task
-                key={index}
-                title={task.title}
-                description={task.description}
-                dueDate={d}
-                taskDoers={task.taskDoers}
-                // Change this once we have a reward system implemented
-                rewards={["apples", "berries"]}
-                difficulty={task.difficulty}
-                onClick={onClick}
-            />
+            return <Task key={index} task={task} onClick={() => handleTaskClick(task)}/>
         });
     }
 
@@ -53,8 +44,7 @@ function ViewTask({title}) {
             </div>
 
             <Popup active={taskActive}>
-                <ExpandedTask setTaskActive={setTaskActive}/>
-
+                <ExpandedTask task={expandedTask} setTaskActive={setTaskActive}/>
             </Popup>
         </>
     );
