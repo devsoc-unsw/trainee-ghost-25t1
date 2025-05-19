@@ -18,7 +18,7 @@ const signup = async (req, res) => {
     
     try {
         const { user, token } = await userServices.signup({email, name, password})
-        
+
         res.cookie('token', token, {
             httpOnly: true,
             sameSite: 'lax',
@@ -72,6 +72,7 @@ const login = async (req, res) => {
 const getSelf = async (req, res) => {
     try {
         const user = await userServices.getUser(req.user.id)
+        console.log(user);
         return res.status(200).json({ success: true, user: user})
     } catch (err) {
         console.error("Error logging in: ", err)

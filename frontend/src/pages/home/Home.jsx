@@ -1,13 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 import "./Home.css";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
 import Popup from "../../components/Popup";
-import CreateTask from "../CreateTask/CreateTask";
 import StatsTextBox from "../../components/StatsTextBox/StatsTextBox";
 import CompletedTaskSummary from "../../components/CompletedTaskSummary/CompletedTaskSummary";
 import Eevee from "../../assets/eevee-sample.png";
+import ViewTask from "../ViewTask/ViewTask";
+import CreateTask from "../CreateTask/CreateTask";
+import Settings from "../Settings/Settings";
 
 
 function Home() {
@@ -20,10 +22,12 @@ function Home() {
     return <Loading />;
   }
 
-  // if the user dosent exist or they dont have a team, redirect them to signup
-  if (user?.team_id) {
-    navigate("/signup");
-  }
+  useEffect(() => {
+    // if the user doesn't exist or they dont have a team, redirect them to signup
+    if (!userLoading && !user?.team_id) {
+      navigate("/team-selection");
+    }
+  }, [user, userLoading, navigate]);
 
   var temporary_completed_tasks = {key: "Will and Kevin just completed a difficult task!"}
   var temporary_stats = [{key: "HP", value: "120"},
@@ -54,7 +58,9 @@ function Home() {
       ) : (
         <div className="pop-up">
           <Popup active={true}>
-              {clicked === 'newTask' && <CreateTask/>}
+            {clicked === 'newTask' && <CreateTask/>}
+            {clicked === 'profile' && <Settings/>}
+            {clicked === 'viewTask' && <ViewTask title="My Tasks"/>}
           </Popup>
         </div>
       )}
