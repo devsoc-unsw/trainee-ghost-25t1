@@ -42,6 +42,12 @@
     text-align: center;
 }
 
+.progress-bar {
+    height: 24px;
+    background-color: white;
+    color: burlywood;
+}
+
 .poke-image {
     min-width: 64px;
     height: auto;

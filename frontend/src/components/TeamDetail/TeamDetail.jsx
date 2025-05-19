@@ -17,6 +17,7 @@ function TeamDetail({fields}) {
             <div className="detail-progress-row">
                 <img className="poke-image" src={pokeball} />
                 {/* progress bar for xp */}
+                <div className="progress-bar" style={{width:"50%"}} ></div>
             </div>
         </section>
     )
