@@ -1,30 +1,39 @@
 import './Task.css'
 
-function TaskText({title, description, dueDate, taskDoers, difficulty, rewards}) {
+function TaskText({task, shouldTruncate}) {
+    const dueDate = new Date(task.due_date).toLocaleDateString('en-AU');
+    const taskDoers = task.taskDoers.map((doer) => doer.name);
+    const rewards = ["apples", "berries"];
+
+    // Adds truncate class to text if option selected in props
+    const conditionalTruncate = (className) => {
+        return className.concat(shouldTruncate ? " truncate" : " expanded-text");
+    }
+
     return (
         <>
             <div className="task-text">
-                <span className="truncate task-title"><b>{title}</b></span>
-                <span className="truncate task-description">
+                <div className={conditionalTruncate("task-title")}><b>{task.title}</b></div>
+                <div className={conditionalTruncate("task-description")}>
                     <b>Description: </b>
-                    <i>{description}</i>
-                </span>
-                <span className="truncate task-date">
+                    <i>{task.description}</i>
+                </div>
+                <div className={conditionalTruncate("task-date")}>
                     <b>Due: </b>
                     <i>{dueDate}</i>
-                </span>
-                <span className="truncate task-assigned">
+                </div>
+                <div className={conditionalTruncate("task-assigned")}>
                     <b>Assigned To: </b>
                     <i>{taskDoers.join(', ')}</i>
-                </span>
-                <span className="truncate task-difficulty">
+                </div>
+                <div className={conditionalTruncate("task-difficulty")}>
                     <b>Difficulty: </b>
-                    <i>{difficulty}/10</i>
-                </span>
-                <span className="truncate task-rewards">
+                    <i>{task.difficulty}/10</i>
+                </div>
+                <div className={conditionalTruncate("task-rewards")}>
                     <b>Rewards: </b>
                     <i>{rewards.join(', ')}</i>
-                </span>
+                </div>
             </div>
         </>
     );
