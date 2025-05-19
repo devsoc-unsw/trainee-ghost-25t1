@@ -65,7 +65,7 @@
     border: 5px solid black;
     border-radius: 10px;
     padding: 20px;
-    background-color: white;
+    background-color: rgb(217, 217, 217);
 
     text-align: left;
     overflow: auto;
