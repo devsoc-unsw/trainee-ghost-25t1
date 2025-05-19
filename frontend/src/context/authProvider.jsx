@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
+    console.log("Test")
     const fetchUser = async () => {
       try {
         const res = await fetch(`${apiUrl}/users/self`, {

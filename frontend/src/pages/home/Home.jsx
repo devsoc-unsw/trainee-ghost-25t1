@@ -6,11 +6,14 @@ import { useNavigate } from "react-router";
 import ViewTask from "../ViewTask/ViewTask";
 import Popup from "../../components/Popup";
 import CreateTask from "../CreateTask/CreateTask";
+import Settings from "../Settings/Settings";
 
 
 function Home() {
   const navigate = useNavigate();
   const { user, userLoading } = useContext(AuthContext);
+
+  console.log(userLoading)
 
   const [clicked, setClicked] = useState(null);
 
@@ -33,6 +36,7 @@ function Home() {
       {clicked !== "home" && (
         <Popup active={true}>
             {clicked === 'newTask' && <CreateTask/>}
+            {clicked === 'profile' && <Settings/>}
         </Popup>
       )}
 

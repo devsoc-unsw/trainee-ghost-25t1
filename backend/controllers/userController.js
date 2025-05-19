@@ -18,7 +18,7 @@ const signup = async (req, res) => {
     
     try {
         const { user, token } = await userServices.signup({email, name, password})
-        
+
         res.cookie('token', token, {
             httpOnly: true,
             sameSite: 'lax',
