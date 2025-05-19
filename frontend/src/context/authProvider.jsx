@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "./authContext";
 import { useLocation } from "react-router";
 const apiUrl = import.meta.env.VITE_API_URL;
-
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -11,25 +10,27 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch(`${apiUrl}/users/self`, {
-          credentials: "include",
-        });
-        const data = await res.json();
-        setUser(data.user);
-      } catch {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUser();
-  }, [location]);
+  const refetchUser = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${apiUrl}/users/self`, {
+        credentials: "include",
+      });
+      const data = await res.json();
+      setUser(data.user);
+    } catch {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
+    refetchUser();
+  }, [location, refetchUser]);
+  
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, refetchUser }}>
       {children}
     </AuthContext.Provider>
   );

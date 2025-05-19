@@ -1,19 +1,22 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import InputBox from '../../components/InputBox';
 import { useNavigate } from 'react-router-dom';
 import { createTeam } from '../../api/teams';
 import '../../components/InputBox.css';
 import './Team.css';
+import { AuthContext } from '../../context/authContext';
 
 function CreateTeam({setActive}) {
     const navigate = useNavigate();
     const [ errorMsg, setErrorMsg ] = useState('');
+    const { refetchUser } = useContext(AuthContext);
 
     const onSubmit = async (data) => {
         const resData = await createTeam(data.teamName, data.classCode, data.assignment, data.pokemonName);
         console.log(resData);
         if (resData.success) {
             // Navigate to the main dashboard or something
+            refetchUser();
             navigate("/");
         } else {
             setErrorMsg(resData.message || 'Something went wrong, please try again');
