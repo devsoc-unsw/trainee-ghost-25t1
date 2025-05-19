@@ -1,0 +1,29 @@
+.access-code-and-button {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.access-code-container {
+    width: 500px;
+    color: white;
+    background-color: rgba(217, 217, 217, 70%);
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.reset-access-code {
+    margin-left: auto;
+    min-width: 50px;
+    width: 60px;
+    height: 60px;
+}
+
+.reset-access-code img {
+    padding: 0;
+    margin: 0;
+    max-height: 100%;
+}
+
