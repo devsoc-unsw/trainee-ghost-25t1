@@ -2,7 +2,6 @@
     height: 50px;
     display: flex;
     align-items: center;
-    
 }
 
 .input-and-label-container > label,
@@ -18,7 +17,6 @@
     gap: 5px;
     margin-bottom: 10px;
 }
-
 
 .input-like-div {
     color: black;
@@ -56,8 +54,6 @@
     margin: 0;
     max-height: 100%;
 }
-
-
 
 .save-changes {
     background-color: rgb(175, 229, 110);
