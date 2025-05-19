@@ -1,0 +1,44 @@
+
+.completed-box {
+  background-color: hsla(45, 100%, 50%, 0.952);
+  padding: 20px; 
+  border-radius: 15px;
+  color: white;
+  box-sizing: border-box;
+  gap: 1vh;
+  width: 24vw;
+  align-self: flex-start;
+  margin: 0;
+  }
+
+.completion-image {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  }
+  
+.text-div {
+  float: left;
+  width: 80%;
+  padding: 10px;
+
+  font-weight: 600;
+  font-size: 26px;
+  color: #000000;
+  float: left;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  color: #000000;
+  float: left;
+  text-align: left;
+}
+
+.details {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000000;
+  float: left;
+}
