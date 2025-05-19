@@ -1,6 +1,7 @@
 const db = require("../config/db.js");
 const { sqlColumns } = require("../constants/sqlColumns");
-const validationUtils = require("../utils/validationUtils");
+const { filterValidKeys } = require("../utils/validationUtils.js");
+const caseUtils = require("../utils/caseUtils.js");
 
 /**
  * Retrieves task data from the database for a given task ID with optional
@@ -145,7 +146,7 @@ const addAssignedUsersToTask = async (taskId, userIds) => {
 
 const editTaskOnTeam = async (data, taskId, teamId) => {
   const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
-  const secureData = validationUtils(snakeCaseData, sqlColumns.tasks);
+  const secureData = filterValidKeys(snakeCaseData, sqlColumns.tasks);
 
   if (Object.keys(secureData).length === 0) {
     const err = new Error("No valid fields provided to update");

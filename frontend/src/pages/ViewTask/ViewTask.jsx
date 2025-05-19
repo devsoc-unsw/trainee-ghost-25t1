@@ -24,6 +24,7 @@ function ViewTask({title}) {
         })();
     }, []);
 
+    // When a task is clicked, expand it
     const handleTaskClick = (task) => {
         setTaskActive(true);
         setExpandedTask(task);
