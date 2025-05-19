@@ -37,11 +37,6 @@ function Home() {
         <Popup active={true}>
             {clicked === 'newTask' && <CreateTask/>}
             {clicked === 'profile' && <Settings/>}
-        </Popup>
-      )}
-
-      {clicked !== "home" && (
-        <Popup active={true}>
             {clicked === 'viewTask' && <ViewTask title="My Tasks"/>}
         </Popup>
       )}
