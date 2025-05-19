@@ -231,15 +231,14 @@ const sanitisePostTaskData = (taskData = {}) => {
 };
 
 // Allow someone a task is assigned to to claim a task is complete
-const claimTaskCompletion = async (taskId) => {
+const claimTaskCompletion = async (userId, taskId) => {
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
   if (!teamId) {
     const err = new Error("User is not on a team so they cant edit any tasks");
     err.code = "TEAM_NOT_FOUND";
     throw err;
   }
-
-  await taskModel.editTaskOnTeam({ status: pending }, taskId, teamId);
+  await taskModel.editTaskOnTeam({ status: "pending" }, taskId, teamId);
 };
 
 // Try and vote for a task, then return that vote along with the total vote

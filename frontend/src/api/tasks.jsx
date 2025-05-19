@@ -54,13 +54,27 @@ const getTaskData = async (queryParams) => {
         },
         credentials: "include"
       });
-      console.log(response);
       return await response.json();
   } catch (error) {
     console.error(error);
   }
 }
 
+const claimTaskCompleted = async (taskId) => {
+  try {
+    const response = await fetch(`${apiUrl}/tasks/${taskId}/claimCompleted`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include"
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-export { createTaskApiCall, getTeamData, getTaskData };
+
+export { createTaskApiCall, getTeamData, getTaskData, claimTaskCompleted};
 
