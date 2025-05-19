@@ -1,5 +1,7 @@
 const teamModel = require("../models/teamModel");
+const taskModel = require("../models/taskModel");
 const userModel = require("../models/userModel");
+const taskServices = require("../services/taskServices");
 const strUtils = require("../utils/strUtils");
 
 // Validates data, gets a random join code, creates the team then adds a user to
@@ -96,20 +98,32 @@ const changeTeamCode = async (adminId) => {
 const getTeamSettings = async (userId) => {
   const data = await teamModel.viewTeamData(userId);
   return data;
-}
+};
 
 const getJoinCode = async (userId) => {
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
   const code = await teamModel.getTeamCode(teamId);
   return code;
-}
+};
 
 const alterCoreTeamData = async (userId, newData) => {
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
-  await teamModel.changeTeamData(newData, teamId)
+  await teamModel.changeTeamData(newData, teamId);
   return;
-}
+};
 
+const getHomePage = async (userId) => {
+  const team = await teamModel.viewTeamData(userId);
+  const taskParams = {
+    assignedTo: [userId],
+    orderBy: "due_date",
+    sortDirection: "DESC",
+    limit: "3",
+  };
+  const tasks = await taskServices.getTaskData(userId, taskParams);
+  // Maybe add notifcations here
+  return { team, tasks };
+};
 
 module.exports = {
   createTeam,
@@ -120,5 +134,6 @@ module.exports = {
   changeTeamCode,
   getTeamSettings,
   getJoinCode,
-  alterCoreTeamData
+  alterCoreTeamData,
+  getHomePage
 };
