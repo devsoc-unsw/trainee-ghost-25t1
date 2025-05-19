@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "./authContext";
-import { useLocation } from "react-router";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const AuthProvider = ({ children }) => {
@@ -8,7 +7,6 @@ const AuthProvider = ({ children }) => {
   // Store loading so we dont immediately delcare that user dosent exist
   // before we know
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
 
   const refetchUser = useCallback(async () => {
     setLoading(true);
@@ -27,7 +25,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     refetchUser();
-  }, [location, refetchUser]);
+  }, [refetchUser]);
   
   return (
     <AuthContext.Provider value={{ user, loading, refetchUser }}>

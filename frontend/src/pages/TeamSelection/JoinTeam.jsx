@@ -17,7 +17,7 @@ function JoinTeam({setActive}) {
         console.log(resData);
         if (resData.success) {
             // Navigate to the main team dashboard or something
-            refetchUser();
+            await refetchUser();
             navigate("/");
         } else {
             setErrorMsg(resData.message || 'Something went wrong, please try again');

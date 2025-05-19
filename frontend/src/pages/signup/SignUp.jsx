@@ -1,13 +1,15 @@
 import InputBox from '../../components/InputBox';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { registerUser } from '../../api/users';
 import '../../components/InputBox.css';
+import { AuthContext } from '../../context/authContext';
 
 function SignUp() {
     const navigate = useNavigate();
     const [ errorMsg, setErrorMsg ] = useState('');
+    const { refetchUser } = useContext(AuthContext);
 
     const onSubmit = async (data) => {
         if (data.password !== data.confirmPassword) {
@@ -19,6 +21,7 @@ function SignUp() {
 
         // Route to team selection on success
         if (resData.success) {
+            await refetchUser();
             navigate('/team-selection');
         } else {
             console.error(`Signup error: ${resData.error}`);
