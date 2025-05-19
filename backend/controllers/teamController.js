@@ -12,9 +12,9 @@ const teamServices = require("../services/teamServices");
  * @param {number} [req.body.xp]
  * @param {number} [req.body.hp]
  * @param {number} [req.body.attack]
- * @param {number} [req.body.defence]
- * @param {number} [req.body.spAttack]
- * @param {number} [req.body.spDefense]
+ * @param {number} [req.body.defense]
+ * @param {number} [req.body.specialAttack]
+ * @param {number} [req.body.specialDefense]
  * @param {number} [req.body.speed]
  */
 
@@ -80,7 +80,7 @@ const kickFromTeam = async (req, res) => {
 const changeTeamCode = async (req, res) => {
   try {
     const newCode = await teamServices.changeTeamCode(req.user.id);
-    return res.status(200).json({ success: true, joinCode: newCode});
+    return res.status(200).json({ success: true, joinCode: newCode });
   } catch (err) {
     const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
@@ -124,8 +124,19 @@ const alterCoreTeamData = async (req, res) => {
 
     return res.status(status).json({ success: false, message: message });
   }
-}
+};
 
+const getHomePage = async (req, res) => {
+  try {
+    const data = await teamServices.getHomePage(req.user.id);
+    return res.status(200).json({ success: true, data });
+  } catch (err) {
+    const status = errorMap[err.code]?.httpStats || 500;
+    let message = err.message || "Internal server error";
+
+    return res.status(status).json({ success: false, message: message });
+  }
+};
 
 module.exports = {
   createTeam,
@@ -135,5 +146,6 @@ module.exports = {
   changeTeamCode,
   viewTeamSettings,
   getJoinCode,
-  alterCoreTeamData
+  alterCoreTeamData,
+  getHomePage
 };

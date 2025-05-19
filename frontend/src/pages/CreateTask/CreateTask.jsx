@@ -3,7 +3,7 @@ import "./CreateTask.css";
 import taskCreationOptions from "./taskCreationOptions";
 import { createTaskApiCall, getTeamData } from "../../api/tasks";
 import { useEffect, useState } from "react";
-import oak from '../../assets/professoroak.png'
+import oak from '../../assets/professoroak_2x.png'
 
 const CreateTask = () => {
     const {

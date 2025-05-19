@@ -31,7 +31,7 @@ exports.postTask = async (req, res) => {
 // actually done
 exports.claimTaskCompletion = async (req, res) => {
   try {
-    await taskServices.claimTaskCompletion(req.params.taskId);
+    await taskServices.claimTaskCompletion(req.user.id, req.params.taskId);
     return res
       .status(200)
       .json({ success: true, message: "Claimed task was completed" });

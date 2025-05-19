@@ -14,9 +14,9 @@ const validationUtils = require("../utils/validationUtils.js");
  * @param {number} [data.xp]
  * @param {number} [data.hp]
  * @param {number} [data.attack]
- * @param {number} [data.defence]
- * @param {number} [data.spAttack]
- * @param {number} [data.spDefense]
+ * @param {number} [data.defense]
+ * @param {number} [data.specialAttack]
+ * @param {number} [data.specialDefense]
  * @param {number} [data.speed]
  *
  * @returns {number} - The id of the new team
@@ -172,9 +172,9 @@ const viewTeamData = async (userId) => {
       t.xp,
       t.hp,
       t.attack,
-      t.defence,
-      t.sp_attack,
-      t.sp_defense,
+      t.defense,
+      t.special_attack,
+      t.special_defense,
       t.speed,
       t.pokemon_name
     FROM

@@ -1,0 +1,99 @@
+.task, .expanded-task {
+    font-family: "Asap", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.task {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 80%;
+    border: 5px black solid;
+    border-radius: 10px;
+    padding: 10px;
+
+    background-color: rgb(217, 217, 217);
+
+    text-align: left;
+    font-size: 10px;
+}
+
+.task:hover {
+    filter: brightness(80%);
+}
+
+.warning {
+    height: 91px;
+    width: 91px;
+}
+
+.task-text {
+    flex: 1;
+    min-width: 0;
+    color: black;
+    font-size: 16px;
+}
+
+.task-title {
+    font-size: 20px;
+    text-decoration-line: underline;
+}
+
+.task-date {
+    color: red;
+}
+
+/*Make the text stay on one line and overflow into ellipsis*/
+.truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.expanded-task {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1vh;
+
+    min-height: 30vh;
+    min-width: 30vw;
+
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgb(217, 217, 217);
+
+    text-align: left;
+    overflow: auto;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.expanded-text {
+    font-size: 24px;
+}
+
+.task-title.expanded-text {
+    font-size: 30px;
+}
+
+.mark-done-btn {
+    margin: 0 auto;
+    width: 100%;
+    background-color: rgb(247, 207, 42);
+}
+
+.mark-done-btn:hover {
+    background-color: rgb(214, 179, 40);
+}
+
+.mark-done-btn:active {
+    background-color: rgb(189, 158, 36);
+}
+
+.button-toptext {
+    margin: 0 auto;
+}

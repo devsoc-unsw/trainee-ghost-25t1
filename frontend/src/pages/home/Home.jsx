@@ -6,45 +6,57 @@ import { useNavigate } from "react-router";
 import Popup from "../../components/Popup";
 import StatsTextBox from "../../components/StatsTextBox/StatsTextBox";
 import CompletedTaskSummary from "../../components/CompletedTaskSummary/CompletedTaskSummary";
-import Eevee from "../../assets/eevee-sample.png";
 import ViewTask from "../ViewTask/ViewTask";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";
 import ToDoNotification from "../../components/ToDoNotification/ToDoNotification";
 import TeamDetail from "../../components/TeamDetail/TeamDetail";
-
+import { getHomePageData } from "../../api/teams";
+import { getPokemon } from "../../api/poke";
+import extractStatsFromHomeData from "./extractStatsFromHomeData";
+import HomeTasks from "./HomeTasks";
 
 function Home() {
   const navigate = useNavigate();
   const { user, loading } = useContext(AuthContext);
 
   const [clicked, setClicked] = useState("home");
+  const [homeData, setHomeData] = useState(null);
+  const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
     // if the user doesn't exist or they dont have a team, redirect them to signup
     if (!loading && !user?.team_id) {
       navigate("/team-selection");
     }
+
+    (async () => {
+      const data = await getHomePageData();
+      setHomeData(data.data);
+    })();
   }, [user, loading, navigate]);
+
+  useEffect(() => {
+    (async () => {
+      const name = homeData?.team?.team?.pokemon_name;
+      if (homeData) {
+        const pokeData = await getPokemon(name);
+        setPokemon(pokeData);
+      }
+    })();
+  }, [homeData]);
 
   if (loading) {
     return <Loading />;
   }
 
   // "Stubs for now"
-  let temp_completed_tasks = {key: "Will and Kevin just completed a difficult task!"}
-  let temp_stats = [{key: "HP", value: "120"},
-    {key: "Attack", value: "120"},
-    {key: "Defence", value: "120"},
-    {key: "Special Attack", value: "120"},
-    {key: "Special Defence", value: "120"},
-    {key: "Speed", value: "120"}
-  ]
-  let temp_task = {title: "Complete adminAuthUserFunction",
-    dueDate: "2025-10-31",
-    assignedTo: ["Kevin", "Alex"],
-    reward: ["EXP", "Gold"]};
+  var temporary_completed_tasks = {
+    key: "Will and Kevin just completed a difficult task!",
+  };
+
+  const statObj = extractStatsFromHomeData(homeData);
 
   return (
     <>
@@ -54,15 +66,23 @@ function Home() {
       <main className="home-page">
         {clicked === "home" ? (
           <>
-            <div className="column-1">
+            <div className="row-1">
               {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
-              <CompletedTaskSummary fields={temp_completed_tasks} />
-              <StatsTextBox fields={temp_stats} />
-              <ToDoNotification fields={temp_task} />
-              {/* Add task todo */}
+              <CompletedTaskSummary fields={temporary_completed_tasks} />
+              {statObj && <StatsTextBox stats={statObj} />}
+              {homeData?.tasks?.length > 0 && (
+                <HomeTasks tasks={homeData.tasks} />
+              )}
             </div>
-            <div className="column-2">
-              <img src={Eevee} alt="Eevee" className="pokemon-image" />
+            <div className="row-2">
+              
+              {pokemon && (
+                <img
+                  src={pokemon.sprites.front_default}
+                  alt="Eevee"
+                  className="pokemon-image"
+                />
+              )}
             </div>
           </>
         ) : (
