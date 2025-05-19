@@ -15,6 +15,44 @@ li img:active {
     filter: brightness(60%);
 }
 
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.column-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 50px;
+    min-height: 100px;
+    width: 100vw;
+}
+
+.column-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    min-height: 100px;
+    width: 100vw;
+    margin-bottom: 8vh;
+}
+
+.pop-up {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 5vh;
+}
+
 .clicked {
     filter: sepia(8%) saturate(1779%) hue-rotate(60deg) brightness(97%) contrast(80%);
 }

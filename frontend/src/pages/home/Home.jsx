@@ -3,8 +3,11 @@ import NavBar from "../../components/NavBar";
 import "./Home.css";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
-import ViewTask from "../ViewTask/ViewTask";
 import Popup from "../../components/Popup";
+import StatsTextBox from "../../components/StatsTextBox/StatsTextBox";
+import CompletedTaskSummary from "../../components/CompletedTaskSummary/CompletedTaskSummary";
+import Eevee from "../../assets/eevee-sample.png";
+import ViewTask from "../ViewTask/ViewTask";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 
@@ -26,21 +29,43 @@ function Home() {
     }
   }, [user, userLoading, navigate]);
 
+  var temporary_completed_tasks = {key: "Will and Kevin just completed a difficult task!"}
+  var temporary_stats = [{key: "HP", value: "120"},
+    {key: "Attack", value: "120"},
+    {key: "Defence", value: "120"},
+    {key: "Special Attack", value: "120"},
+    {key: "Special Defence", value: "120"},
+    {key: "Speed", value: "120"}
+  ]
+
   return (
-    <main className="home-page">
-      <div className="col1">
-        <NavBar clicked={clicked} setClicked={setClicked} />
-      </div>
-      <div className="col2"></div>
-      <div className="col3"></div>
-      {clicked !== "home" && (
-        <Popup active={true}>
+    <>
+      <NavBar clicked={clicked} setClicked={setClicked} />
+    
+      <main className="home-page"> 
+      {clicked === "home" ? (
+        <>
+          <div className="column-1">
+            {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
+            <CompletedTaskSummary fields={temporary_completed_tasks} />
+            <StatsTextBox fields={temporary_stats} />
+            {/* Add task todo */}
+          </div>
+          <div className="column-2">
+            <img src={Eevee} alt="Eevee" className="pokemon-image" />
+          </div>
+        </>
+      ) : (
+        <div className="pop-up">
+          <Popup active={true}>
             {clicked === 'newTask' && <CreateTask/>}
             {clicked === 'profile' && <Settings/>}
             {clicked === 'viewTask' && <ViewTask title="My Tasks"/>}
-        </Popup>
+          </Popup>
+        </div>
       )}
-    </main>
+      </main>
+    </>
   );
 }
 
