@@ -34,5 +34,33 @@ const getTeamData = async () => {
 }
 
 
-export { createTaskApiCall, getTeamData };
+/**
+ *
+ * @param {Object} queryParams - The query parameters to filter and format task data.
+ * @param {string} [queryParams.limit] - Max number of tasks to return (1-100).
+ * @param {string} [queryParams.offset] - Number of tasks to skip (1-100).
+ * @param {string} [queryParams.orderBy] - Column to order by ('due_date', etc.).
+ * @param {string} [queryParams.sortDirection] - Sorting direction ('asc' or 'desc').
+ * @param {string} [queryParams.taskStatus] - Task status filter.
+ * @param {string|string[]} [queryParams.assignedTo] - User IDs.
+ * @param {string|string[]} [queryParams.cols] - Columns to select.
+ */
+const getTaskData = async (queryParams) => {
+  try {
+      const response = await fetch(`${apiUrl}/tasks?${new URLSearchParams(queryParams).toString()}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include"
+      });
+      console.log(response);
+      return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+export { createTaskApiCall, getTeamData, getTaskData };
 

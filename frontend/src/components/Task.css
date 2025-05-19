@@ -1,35 +1,3 @@
-.task-viewer-title {
-    width: 100%;
-    border-bottom: 5px solid black;
-
-    position: sticky;
-    top: 0;
-
-    color: white;
-    font-size: 40px;
-
-    background-color: rgb(123, 123, 123);
-}
-
-.task-viewer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2vh;
-
-    min-width: fit-content;
-
-    height: 80vh;
-    width: 30vw;
-    padding-bottom: 20px;
-    border: 5px black solid;
-    border-radius: 10px;
-
-    background-color: rgb(94, 93, 93);
-
-    overflow-y: auto;
-}
-
 .task {
     display: flex;
     justify-content: flex-start;
@@ -56,11 +24,11 @@
     width: 91px;
 }
 
-.task-title, .task-assigned, .task-rewards {
+.task-text {
     color: black;
 }
 
-.task-date, .task-assigned, .task-rewards {
+.task-text {
     font-size: 16px;
 }
 

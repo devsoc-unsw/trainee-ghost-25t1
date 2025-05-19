@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS task_completion_votes (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, task_id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS task_doers (
     task_id INT NOT NULL,
