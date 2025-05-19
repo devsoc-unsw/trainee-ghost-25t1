@@ -3,22 +3,12 @@ import TaskText from './TaskText';
 
 // Component representing a Task when it is clicked on and expanded
 function ExpandedTask({task, setTaskActive}) {
-    const dueDate = new Date(task.due_date).toLocaleDateString('en-AU');
-    const taskDoers = task.taskDoers.map((doer) => doer.name);
-    const rewards = ["apples", "berries"];
-
     return (
         <>
             <div className="background-mask" onClick={() => setTaskActive(false)}>
                 <div className="expanded-task" onClick={(e) => e.stopPropagation()}>
-                    <TaskText
-                        title={task.title}
-                        description={task.description}
-                        dueDate={dueDate}
-                        taskDoers={taskDoers}
-                        difficulty={task.difficulty}
-                        rewards={rewards}
-                    />
+                    <TaskText task={task} shouldTruncate={false}/>
+                    <button className="mark-done-btn">Mark Done</button>
                 </div>
             </div>
         </>
