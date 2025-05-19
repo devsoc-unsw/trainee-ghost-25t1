@@ -14,6 +14,7 @@ router.delete('/kick/:kickedId', verifyToken, teamController.kickFromTeam);
 router.patch('/randomCode', verifyToken, isAdmin, teamController.changeTeamCode);
 router.patch('/', verifyToken, isAdmin, teamController.alterCoreTeamData);
 router.get('/randomCode', verifyToken, isAdmin, teamController.getJoinCode);
+router.get('/home', verifyToken, teamController.getHomePage);
 // Route stuff
 
 module.exports = router;

@@ -153,6 +153,19 @@ const editTeamData = async (newTeamData) => {
   }
 }
 
+const getHomePageData = async () => {
+  try {
+    const res = await fetch (`${apiUrl}/teams/home`, {
+      method: 'GET',
+      credentials: "include"
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching home page date: ", error);
+  } 
+}
+
 export {
   createTeam,
   joinTeam,
@@ -161,5 +174,6 @@ export {
   kickPlayerFromTeam,
   generateNewRandomCode,
   getRandomCode,
-  editTeamData
+  editTeamData,
+  getHomePageData
 };

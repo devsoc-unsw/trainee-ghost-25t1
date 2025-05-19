@@ -11,6 +11,7 @@ import ViewTask from "../ViewTask/ViewTask";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";
+import { getHomePageData } from "../../api/teams";
 
 
 function Home() {
@@ -18,12 +19,18 @@ function Home() {
   const { user, loading } = useContext(AuthContext);
 
   const [clicked, setClicked] = useState("home");
+  const [homeData, setHomeData] = useState(null);
 
   useEffect(() => {
     // if the user doesn't exist or they dont have a team, redirect them to signup
     if (!loading && !user?.team_id) {
       navigate("/team-selection");
     }
+    
+    (async () => {
+       const data = await getHomePageData();
+       setHomeData(data);
+    })()
   }, [user, loading, navigate]);
 
   if (loading) {
