@@ -3,7 +3,7 @@ import NavBar from "../../components/NavBar";
 import "./Home.css";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
-import TaskViewer from "../../components/TaskViewer";
+import ViewTask from "../ViewTask/ViewTask";
 import Popup from "../../components/Popup";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
@@ -38,6 +38,12 @@ function Home() {
         <Popup active={true}>
             {clicked === 'newTask' && <CreateTask/>}
             {clicked === 'profile' && <Settings/>}
+        </Popup>
+      )}
+
+      {clicked !== "home" && (
+        <Popup active={true}>
+            {clicked === 'viewTask' && <ViewTask title="My Tasks"/>}
         </Popup>
       )}
     </main>

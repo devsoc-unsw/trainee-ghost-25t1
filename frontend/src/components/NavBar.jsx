@@ -5,7 +5,7 @@ import profileBtn from '../assets/profile2.png';
 import '../pages/home/Home.css';
 
 function NavBar({clicked, setClicked}) {
-    
+
     return (
         <>
             <ul>
