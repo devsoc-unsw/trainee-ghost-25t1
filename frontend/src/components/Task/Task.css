@@ -84,3 +84,15 @@
     width: 100%;
     background-color: rgb(247, 207, 42);
 }
+
+.mark-done-btn:hover {
+    background-color: rgb(214, 179, 40);
+}
+
+.mark-done-btn:active {
+    background-color: rgb(189, 158, 36);
+}
+
+.button-toptext {
+    margin: 0 auto;
+}
