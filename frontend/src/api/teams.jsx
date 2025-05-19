@@ -53,7 +53,6 @@ const getTeamSettings = async () => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ randomCode }),
     });
     return await response.json();
   } catch (error) {
@@ -73,7 +72,6 @@ const leaveTeam = async () => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ randomCode }),
     });
     return await response.json();
   } catch (error) {

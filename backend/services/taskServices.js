@@ -29,7 +29,7 @@ const getTaskData = async (userId, queryParams) => {
   const { cols, ...otherParams } = params;
 
   const mainTaskData = await taskModel.getData(teamId, cols, otherParams);
-  if (cols === "*") {
+  if (cols[0] === "*") {
     const taskIds = mainTaskData.map((task) => task.id);
     const taskDoers = await taskModel.getTaskDoers(taskIds);
     // Add task doers to main task data

@@ -28,7 +28,7 @@ const CreateTask = () => {
     };
 
     return (
-        <section className="make-new-task">
+        <section className="make-new-task will-popup-menu-style">
             <h1>Make new task</h1>
             <div className="form-and-img">
                 <form onSubmit={handleSubmit(onSubmit)}>

@@ -46,7 +46,6 @@ const sqlColumns = {
         "due_date",
         "task_status",
         "created_at",
-        "aproval_votes",
         "completed_at",
     ]
 };

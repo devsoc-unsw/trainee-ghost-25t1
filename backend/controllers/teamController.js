@@ -68,7 +68,7 @@ const kickFromTeam = async (req, res) => {
     await teamServices.kickFromTeam(adminId, kickedId);
     return res
       .status(200)
-      .json({ sucecss: true, message: `User ${kickedId} removed from team` });
+      .json({ success: true, message: `User ${kickedId} removed from team` });
   } catch (err) {
     const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
