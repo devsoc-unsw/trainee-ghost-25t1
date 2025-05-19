@@ -16,7 +16,7 @@ function Home() {
   const navigate = useNavigate();
   const { user, userLoading } = useContext(AuthContext);
 
-  const [clicked, setClicked] = useState(null);
+  const [clicked, setClicked] = useState("home");
 
   if (userLoading) {
     return <Loading />;
@@ -41,8 +41,8 @@ function Home() {
   return (
     <>
       <NavBar clicked={clicked} setClicked={setClicked} />
-    
-      <main className="home-page"> 
+
+      <main className="home-page">
       {clicked === "home" ? (
         <>
           <div className="column-1">
