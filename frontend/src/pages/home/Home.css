@@ -1,3 +1,50 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50vh;
+    width: 100vw;
+    height: 90vh;
+    position: relative;
+}
+
+.column-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6vw;
+    min-height: 20%;
+    width: 100vw;
+}
+
+.column-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    min-height: 100px;
+    width: 100vw;
+    margin-bottom: 8vh;
+}
+
+.team-detail {
+    position: absolute;
+    right: 100;
+    top: 50vh; 
+    z-index: 10; 
+}
+
+.pop-up {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 5vh;
+}
+
 ul {
     position: absolute;
     left: -10px;
@@ -13,44 +60,6 @@ li img:hover {
 
 li img:active {
     filter: brightness(60%);
-}
-
-.home-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100vw;
-    height: 90vh;
-}
-
-.column-1 {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 50px;
-    min-height: 100px;
-    width: 100vw;
-}
-
-.column-2 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    min-height: 100px;
-    width: 100vw;
-    margin-bottom: 8vh;
-}
-
-.pop-up {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-top: 5vh;
 }
 
 .clicked {
