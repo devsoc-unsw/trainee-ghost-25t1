@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import Task from '../../components/Task';
 import { getTaskData } from '../../api/tasks';
-import Loading from '../../components/Loading';
 import { AuthContext } from "../../context/authContext";
 import './ViewTask.css';
 
@@ -42,7 +41,7 @@ function ViewTask({title}) {
         <>
             <div className="task-viewer">
                 <div className="task-viewer-title">{title}</div>
-                {displayTask()}
+                {taskData.length === 0 ? <span className="done-text">All done!</span> : displayTask()}
             </div>
         </>
     );
