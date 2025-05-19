@@ -80,7 +80,7 @@ const kickFromTeam = async (req, res) => {
 const changeTeamCode = async (req, res) => {
   try {
     const newCode = await teamServices.changeTeamCode(req.user.id);
-    return newCode;
+    return res.status(200).json({ success: true, joinCode: newCode});
   } catch (err) {
     const status = errorMap[err.code]?.httpStats || 500;
     let message = err.message || "Internal server error";
@@ -101,6 +101,19 @@ const viewTeamSettings = async (req, res) => {
   }
 };
 
+const getJoinCode = async (req, res) => {
+  try {
+    const code = await teamServices.getJoinCode(req.user.id);
+    return res.status(200).json({ success: true, joinCode: code });
+  } catch (err) {
+    const status = errorMap[err.code]?.httpStats || 500;
+    let message = err.message || "Internal server error";
+
+    return res.status(status).json({ success: false, message: message });
+  }
+};
+
+
 module.exports = {
   createTeam,
   joinTeam,
@@ -108,4 +121,5 @@ module.exports = {
   kickFromTeam,
   changeTeamCode,
   viewTeamSettings,
+  getJoinCode
 };

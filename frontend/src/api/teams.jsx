@@ -110,7 +110,7 @@ const kickPlayerFromTeam = async (kickedUserId) => {
  */
 const generateNewRandomCode = async () => {
   try {
-    const response = await fetch(`${apiUrl}/api/teams/randomCode`, {
+    const response = await fetch(`${apiUrl}/teams/randomCode`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -119,9 +119,22 @@ const generateNewRandomCode = async () => {
     });
     return await response.json();
   } catch (error) {
-    console.error(`Kick player route error: ${error}`);
+    console.error(`Generate new random code error: ${error}`);
   }
 };
+
+const getRandomCode = async () => {
+  try {
+    const res = await fetch(`${apiUrl}/teams/randomCode`, {
+      method: "GET",
+      credentials: "include"
+    });
+    const data = await res.json();
+    return data
+  } catch (error) {
+    console.error('Error generating random code', error)
+  }
+}
 
 export {
   createTeam,
@@ -130,4 +143,5 @@ export {
   leaveTeam,
   kickPlayerFromTeam,
   generateNewRandomCode,
+  getRandomCode
 };

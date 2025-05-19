@@ -1,6 +1,7 @@
 const db = require("../config/db.js");
 const { sqlColumns } = require("../constants/sqlColumns.js");
 const caseUtils = require("../utils/caseUtils.js");
+const validationUtils = require("../utils/validationUtils.js");
 
 /**
  * Create a team pokemon
@@ -85,7 +86,7 @@ const userIsAdminForAnother = async (adminId, otherId) => {
 // Change the data of a team. Accepts a camelcase object of team data
 const changeTeamData = async (data, teamId) => {
   const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
-  const secureData = validationUtils(snakeCaseData, sqlColumns.teams);
+  const secureData = validationUtils.filterValidKeys(snakeCaseData, sqlColumns.teams);
 
   if (Object.keys(secureData).length === 0) {
     const err = new Error("No valid fields provided to update");
@@ -93,7 +94,14 @@ const changeTeamData = async (data, teamId) => {
     throw err;
   }
 
-  const placeholders = Object.keys(secureData).map((_) => "?? = ?");
+  const placeholders = [];
+  const params = [];
+
+  for (const [col, val] of Object.entries(secureData)) {
+    placeholders.push("?? = ?");
+    params.push(col, val);
+  }
+  
 
   let query = `
   UPDATE teams
@@ -101,16 +109,17 @@ const changeTeamData = async (data, teamId) => {
   WHERE id = ?
   `;
 
-  const params = [...Object.entries(secureData).flat(), teamId];
+  params.push(teamId);
 
   const [result] = await db.query(query, params);
 
+  
   if (result.affectedRows === 0) {
     const err = new Error("Team does not exist or data was the same or prior");
     err.code = "NO_UPDATE_OCCURRED";
     throw err;
   }
-
+  
   return result;
 };
 
@@ -148,7 +157,7 @@ const getTeamSize = async (teamId) => {
 
   const params = [teamId];
   const [rows] = await db.query(query, params);
-  return teamSize
+  return teamSize;
 };
 
 //  Obtains all data required for settings in an object form
@@ -177,7 +186,7 @@ const viewTeamData = async (userId) => {
 
   if (rows.length === 0) {
     const err = new Error("Team does not exist");
-    err.code = 'TEAM_NOT_FOUND';
+    err.code = "TEAM_NOT_FOUND";
     throw err;
   }
 
@@ -197,7 +206,20 @@ const getTeamMembers = async (teamId) => {
 
   const [rows] = await db.query(query, [teamId]);
   return rows;
-}
+};
+
+const getTeamCode = async (teamId) => {
+  const [rows] = await db.query(`SELECT random_code FROM teams WHERE id = ?`, [
+    teamId,
+  ]);
+
+  if (rows.length === 0) {
+    const err = new Error("Team not found or they do not have a random code");
+    err.code = "TEAM_NOT_FOUND";
+    throw err;
+  }
+  return rows[0].random_code;
+};
 
 module.exports = {
   createTeam,
@@ -207,4 +229,5 @@ module.exports = {
   getTeamOfAdmin,
   getTeamSize,
   viewTeamData,
+  getTeamCode,
 };

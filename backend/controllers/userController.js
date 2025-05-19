@@ -72,7 +72,6 @@ const login = async (req, res) => {
 const getSelf = async (req, res) => {
     try {
         const user = await userServices.getUser(req.user.id)
-        console.log(user);
         return res.status(200).json({ success: true, user: user})
     } catch (err) {
         console.error("Error logging in: ", err)

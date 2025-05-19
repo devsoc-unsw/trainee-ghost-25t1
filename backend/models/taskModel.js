@@ -121,7 +121,6 @@ const postTask = async (data) => {
     data.teamId,
   ];
 
-  console.log(data)
   const [result] = await db.query(query, params);
   return result.insertId;
 };
