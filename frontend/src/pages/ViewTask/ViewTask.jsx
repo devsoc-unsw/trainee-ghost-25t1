@@ -42,7 +42,7 @@ function ViewTask({title}) {
         <>
             <div className="task-viewer">
                 <div className="task-viewer-title">{title}</div>
-                {taskData.length === 0 ? <Loading/> : displayTask()}
+                {displayTask()}
             </div>
         </>
     );
