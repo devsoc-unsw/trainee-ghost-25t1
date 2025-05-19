@@ -103,6 +103,7 @@ li img:active {
 
 .home-tasks-section {
     /* width: 100%; */
+    transform: translateY(23%);
     width: 30vw;
     display: flex;
     flex-direction: column;
