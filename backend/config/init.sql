@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS teams (
     xp INT NOT NULL DEFAULT 0,
     hp INT NOT NULL DEFAULT 0,
     attack INT NOT NULL DEFAULT 0,
-    defence INT NOT NULL DEFAULT 0,
+    defense INT NOT NULL DEFAULT 0,
     special_attack INT NOT NULL DEFAULT 0,
     special_defense INT NOT NULL DEFAULT 0,
     speed INT NOT NULL DEFAULT 0,

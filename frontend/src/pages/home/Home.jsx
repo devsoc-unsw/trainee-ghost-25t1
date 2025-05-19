@@ -6,13 +6,13 @@ import { useNavigate } from "react-router";
 import Popup from "../../components/Popup";
 import StatsTextBox from "../../components/StatsTextBox/StatsTextBox";
 import CompletedTaskSummary from "../../components/CompletedTaskSummary/CompletedTaskSummary";
-import Eevee from "../../assets/eevee-sample.png";
 import ViewTask from "../ViewTask/ViewTask";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";
 import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
+import extractStatsFromHomeData from "./extractStatsFromHomeData";
 
 function Home() {
   const navigate = useNavigate();
@@ -36,15 +36,13 @@ function Home() {
 
   useEffect(() => {
     (async () => {
-      const name = homeData?.team?.team?.pokemon_name
+      const name = homeData?.team?.team?.pokemon_name;
       if (homeData) {
         const pokeData = await getPokemon(name);
         setPokemon(pokeData);
       }
     })();
   }, [homeData]);
-
-  console.log(pokemon);
 
   if (loading) {
     return <Loading />;
@@ -53,14 +51,8 @@ function Home() {
   var temporary_completed_tasks = {
     key: "Will and Kevin just completed a difficult task!",
   };
-  var stats = [
-    { key: "HP", value: "120" },
-    { key: "Attack", value: "120" },
-    { key: "Defence", value: "120" },
-    { key: "Special Attack", value: "120" },
-    { key: "Special Defence", value: "120" },
-    { key: "Speed", value: "120" },
-  ];
+
+  const statObj = extractStatsFromHomeData(homeData);
 
   return (
     <>
@@ -72,11 +64,17 @@ function Home() {
             <div className="column-1">
               {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
               <CompletedTaskSummary fields={temporary_completed_tasks} />
-              <StatsTextBox fields={stats} />
+              {statObj && <StatsTextBox stats={statObj} />}
               {/* Add task todo */}
             </div>
             <div className="column-2">
-              {pokemon && <img src={pokemon.sprites.front_default} alt="Eevee" className="pokemon-image" />}
+              {pokemon && (
+                <img
+                  src={pokemon.sprites.front_default}
+                  alt="Eevee"
+                  className="pokemon-image"
+                />
+              )}
             </div>
           </>
         ) : (

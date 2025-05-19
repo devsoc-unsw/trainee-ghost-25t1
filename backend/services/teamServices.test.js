@@ -9,7 +9,7 @@ describe("validateTeamData", () => {
     pokemonName: "Pikachu",
     hp: 100,
     attack: 50,
-    defence: 40,
+    defense: 40,
     specialAttack: 60,
     specialDefense: 55,
     speed: 80,
@@ -25,7 +25,7 @@ describe("validateTeamData", () => {
   const numericFields = [
     "hp",
     "attack",
-    "defence",
+    "defense",
     "specialAttack",
     "specialDefense",
     "speed",

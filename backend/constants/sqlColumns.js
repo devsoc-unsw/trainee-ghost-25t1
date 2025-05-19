@@ -32,7 +32,7 @@ const sqlColumns = {
         "xp",
         "hp",
         "attack",
-        "defence",
+        "defense",
         "special_attack",
         "special_defense",
         "speed",
