@@ -1,10 +1,12 @@
+const apiUrl = import.meta.env.VITE_API_URL;
+
 /**
  * Makes a create team request to backend
  * @returns response parsed as JSON object
  */
 const createTeam = async (name, classCode, assignment, pokemonName) => {
   try {
-    const response = await fetch("http://localhost:5000/api/teams/", {
+    const response = await fetch(`${apiUrl}/teams`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +27,7 @@ const createTeam = async (name, classCode, assignment, pokemonName) => {
  */
 const joinTeam = async (randomCode) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/teams/join/${randomCode}`, {
+        const response = await fetch(`${apiUrl}/teams/join/${randomCode}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,7 +49,7 @@ const joinTeam = async (randomCode) => {
  */
 const getTeamSettings = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/api/teams/settings`, {
+    const response = await fetch(`${apiUrl}/teams/settings`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +68,7 @@ const getTeamSettings = async () => {
  */
 const leaveTeam = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/api/teams/leave`, {
+    const response = await fetch(`${apiUrl}/teams/leave`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +89,7 @@ const leaveTeam = async () => {
 const kickPlayerFromTeam = async (kickedUserId) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/teams/kick/:${kickedUserId}`,
+      `${apiUrl}/teams/kick/:${kickedUserId}`,
       {
         method: "DELETE",
         headers: {
@@ -108,7 +110,7 @@ const kickPlayerFromTeam = async (kickedUserId) => {
  */
 const generateNewRandomCode = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/api/teams/randomCode`, {
+    const response = await fetch(`${apiUrl}/api/teams/randomCode`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
