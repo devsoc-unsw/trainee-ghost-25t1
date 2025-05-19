@@ -13,6 +13,7 @@ import Loading from "../../components/Loading";
 import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
 import extractStatsFromHomeData from "./extractStatsFromHomeData";
+import HomeTasks from "./HomeTasks";
 
 function Home() {
   const navigate = useNavigate();
@@ -64,16 +65,20 @@ function Home() {
             <div className="column-1">
               {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
               <CompletedTaskSummary fields={temporary_completed_tasks} />
-              {statObj && <StatsTextBox stats={statObj} />}
-              {/* Add task todo */}
             </div>
             <div className="column-2">
+              {statObj && <StatsTextBox stats={statObj} />}
               {pokemon && (
                 <img
                   src={pokemon.sprites.front_default}
                   alt="Eevee"
                   className="pokemon-image"
                 />
+              )}
+            </div>
+            <div className="column-3">
+              {homeData?.tasks?.length > 0 && (
+                <HomeTasks tasks={homeData.tasks} />
               )}
             </div>
           </>

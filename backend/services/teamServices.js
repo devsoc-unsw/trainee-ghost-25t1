@@ -118,7 +118,7 @@ const getHomePage = async (userId) => {
     assignedTo: [userId],
     orderBy: "due_date",
     sortDirection: "DESC",
-    limit: "3",
+    limit: "2",
   };
   const tasks = await taskServices.getTaskData(userId, taskParams);
   // Maybe add notifcations here
