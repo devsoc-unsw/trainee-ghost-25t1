@@ -8,17 +8,32 @@ function Task({title, description, dueDate, taskDoers, difficulty, rewards}) {
             <div className="task">
                 <img className ="warning" src={warning}/>
                 <div className="task-text">
-                    <span className="task-title">{title}</span>
+                    <span className="task-title"><b>{title}</b></span>
                     <br/>
-                    <span className="task-description">Description: {description}</span>
+                    <span className="task-description">
+                        <b>Description: </b>
+                        <i>{description}</i>
+                    </span>
                     <br/>
-                    <span className="task-date">Due: {dueDate}</span>
+                    <span className="task-date">
+                        <b>Due: </b>
+                        <i>{dueDate}</i>
+                    </span>
                     <br/>
-                    <span className="task-assigned">Assigned To: {taskDoers.join(', ')}</span>
+                    <span className="task-assigned">
+                        <b>Assigned To: </b>
+                        <i>{taskDoers.join(', ')}</i>
+                    </span>
                     <br/>
-                    <span className="task-difficulty">Difficulty: {difficulty}/10</span>
+                    <span className="task-difficulty">
+                        <b>Difficulty: </b>
+                        <i>{difficulty}/10</i>
+                    </span>
                     <br/>
-                    <span className="task-rewards">Rewards: {rewards.join(', ')}</span>
+                    <span className="task-rewards">
+                        <b>Rewards: </b>
+                        <i>{rewards.join(', ')}</i>
+                    </span>
                 </div>
             </div>
         </>
