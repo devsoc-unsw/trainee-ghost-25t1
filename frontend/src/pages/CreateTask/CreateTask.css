@@ -1,6 +1,6 @@
 .will-popup-menu-style {
     background-color: rgba(0, 0, 0, 50%);
-    padding: 50px; 
+    padding: 50px;
     border-radius: 15px;
     color: white;
     display: flex;
@@ -10,7 +10,7 @@
 
 .make-new-task h1 {
     text-align: left;
-    margin-left: 40px;
+    margin-left: 35px;
 }
 
 .form-and-img {
@@ -19,7 +19,6 @@
     gap: 20px;
 }
 
-
 .professor-oak-img {
-    height: 700px;
+    height: 600px;
 }

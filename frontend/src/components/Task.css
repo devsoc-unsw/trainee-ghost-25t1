@@ -7,6 +7,8 @@
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    flex-wrap: wrap;
+    word-break: break-all;
 
     width: 80%;
     border: 5px black solid;
