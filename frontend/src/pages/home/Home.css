@@ -158,6 +158,10 @@ li img:active {
     75% { transform: scale(120%) translate(3px, 2px) rotate(-10deg); }
 }
 
+.navigation-bar {
+    position: fixed;
+    z-index: 500;
+}
 
 .navigation-bar li {
     padding: 5px 0;

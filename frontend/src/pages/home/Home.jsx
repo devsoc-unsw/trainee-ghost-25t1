@@ -6,18 +6,17 @@ import { useNavigate } from "react-router";
 import Popup from "../../components/Popup";
 import StatsTextBox from "../../components/StatsTextBox/StatsTextBox";
 import CompletedTaskSummary from "../../components/CompletedTaskSummary/CompletedTaskSummary";
-import ViewTask from "../ViewTask/ViewTask";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";
-import ToDoNotification from "../../components/ToDoNotification/ToDoNotification";
 import TeamDetail from "../../components/TeamDetail/TeamDetail";
 import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
 import extractStatsFromHomeData from "./extractStatsFromHomeData";
 import follow from '../../assets/follow.gif';
-import { easeOut, motion } from "motion/react";
+import { motion } from "motion/react";
 import HomeTasks from "./HomeTasks";
+import ViewTask from "../ViewTask/ViewTask";
 
 function Home() {
   const navigate = useNavigate();

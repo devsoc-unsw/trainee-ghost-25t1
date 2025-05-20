@@ -9,6 +9,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1vw;
 
     width: 80%;
     border: 5px black solid;
@@ -26,8 +28,10 @@
 }
 
 .warning {
-    height: 91px;
+    max-width: 100%;
     width: 91px;
+    height: 91px;
+    object-fit: contain;
 }
 
 .task-text {

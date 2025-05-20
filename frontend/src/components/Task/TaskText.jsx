@@ -1,6 +1,7 @@
 import './Task.css'
 
 function TaskText({task, shouldTruncate}) {
+    console.log(task);
     const dueDate = new Date(task.due_date).toLocaleDateString('en-AU');
     const taskDoers = task.taskDoers.map((doer) => doer.name);
     const rewards = ["apples", "berries"];
@@ -33,6 +34,10 @@ function TaskText({task, shouldTruncate}) {
                 <div className={conditionalTruncate("task-rewards")}>
                     <b>Rewards: </b>
                     <i>{rewards.join(', ')}</i>
+                </div>
+                <div className={conditionalTruncate("task-status")}>
+                    <b>Status: </b>
+                    <i>{task.task_status}</i>
                 </div>
             </div>
         </>

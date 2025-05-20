@@ -1,9 +1,16 @@
+.task-viewer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3vw;
+}
+
 .done-text {
     font-size: 30px;
     color: rgb(255, 255, 255);
 }
 
-.task-viewer-title {
+.task-container-title {
     width: 100%;
     border-bottom: 5px solid black;
 
@@ -12,21 +19,20 @@
     z-index: 1;
 
     color: white;
-    font-size: 40px;
+    font-size: calc(max(2.5vh, 2.5vw));
+    font-weight: 500;
 
     background-color: rgb(123, 123, 123);
 }
 
-.task-viewer {
+.task-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2vh;
 
-    min-width: fit-content;
-
     height: 80vh;
-    width: 30vw;
+    width: 25vw;
     padding-bottom: 20px;
     border: 5px black solid;
     border-radius: 10px;
