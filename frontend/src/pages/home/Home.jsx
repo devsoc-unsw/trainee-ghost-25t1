@@ -16,6 +16,7 @@ import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
 import extractStatsFromHomeData from "./extractStatsFromHomeData";
 import follow from '../../assets/follow.gif';
+import { easeOut, motion } from "motion/react";
 import HomeTasks from "./HomeTasks";
 
 function Home() {
@@ -29,6 +30,9 @@ function Home() {
 
   // useRef to avoid reinstantiating pokemon audio every rerender
   const soundRef = useRef(null);
+
+  // bounds the draggable area of the pokemon to this ref
+  const constraintsRef = useRef(null);
 
   const handlePokemonClick = () => {
     if (isShaking) {
@@ -97,13 +101,21 @@ function Home() {
             <div className="row-2">
               {clicked === "home" && <TeamDetail />}
               {pokemon && (
-                <img
-                  src={pokemon.sprites.front_default}
-                  alt="pokemon"
-                  className={`pokemon-image ${isShaking ? "pokemon-shake" : ""}`}
-                  onClick={handlePokemonClick}
-                />
+                <div className="pokemon-container" ref={constraintsRef}>
+                  <motion.img
+                    src={pokemon.sprites.front_default}
+                    alt="pokemon"
+                    className={`pokemon-image ${isShaking ? "pokemon-shake" : ""}`}
+                    onClick={handlePokemonClick}
+                    drag
+                    dragConstraints={constraintsRef}
+                    dragElastics={0}
+                    dragSnapToOrigin={true}
+                    transition={{ type: 'spring', bounce: 0, mass: 500, stiffness: 20, damping: 20, velocity: 0.25}}
+                  />
+                </div>
               )}
+
             </div>
           </>
         ) : (

@@ -84,6 +84,15 @@ li img:active {
     gap: 10vw;
 }
 
+.pokemon-container {
+    display: flex;
+    justify-content: center;
+    height: 500px;
+    width: 500px;
+    /* For debugging purposes */
+    /* background-color: blue; */
+}
+
 .pokemon-image {
     height: 500px;
     position: fixed;
