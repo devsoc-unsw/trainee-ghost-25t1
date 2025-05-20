@@ -27,10 +27,8 @@ function Home() {
   const [pokemon, setPokemon] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
 
-  // Random sound for now but later, get this from pokemon API
-  // useRef to avoid reinstantiating Audio every rerender
-  const pokemonSound = new Audio("https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/35.ogg");
-  const soundRef = useRef(pokemonSound);
+  // useRef to avoid reinstantiating pokemon audio every rerender
+  const soundRef = useRef(null);
 
   const handlePokemonClick = () => {
     if (isShaking) {
@@ -42,7 +40,6 @@ function Home() {
     // Stop shaking after animation is done and 600msecs have elapsed (prevent spam)
     setTimeout(() => setIsShaking(false), 1200);
   }
-
 
   useEffect(() => {
     // if the user doesn't exist or they dont have a team, redirect them to signup
@@ -62,6 +59,7 @@ function Home() {
       if (homeData) {
         const pokeData = await getPokemon(name);
         setPokemon(pokeData);
+        soundRef.current = new Audio(`https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokeData.id}.ogg`);
       }
     })();
   }, [homeData]);
