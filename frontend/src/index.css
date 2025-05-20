@@ -7,6 +7,7 @@
 body {
   /*We don't need the horizontal scrollbar, trust me this makes the pikachu animation MUCH better*/
   overflow-x: hidden;
+  background-color: rgba(107, 104, 104, 0.0) !important;
 }
 
 :root {

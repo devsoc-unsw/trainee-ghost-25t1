@@ -12,7 +12,7 @@
     border-radius: 10vw;
     position: absolute;
     top: 60%;
-    left: 70%;
+    left: 60%;
 }
 .detail-text-row {
     display: flex;
@@ -40,6 +40,11 @@
     font-size: 26px;
     color: #000000;
     text-align: center;
+}
+
+.progress-bar {
+    width: 80%;
+    height: 40px;
 }
 
 .poke-image {
