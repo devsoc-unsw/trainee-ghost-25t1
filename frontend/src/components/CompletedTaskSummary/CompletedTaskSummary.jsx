@@ -6,8 +6,8 @@ import badge from '../../assets/badge.png';
 function CompletedTaskSummary({fields}) {
 
     return (
-        <section className="completed-box">
-            <div className="completion-image">
+        <section className="summary-box">
+            <div className="summary-image">
                 <img src={badge} />
             </div>
             <div className="text-div">

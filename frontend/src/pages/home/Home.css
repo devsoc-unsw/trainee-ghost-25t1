@@ -1,3 +1,49 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50vh;
+    width: 100vw;
+    height: 90vh;
+}
+
+.row-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6vw;
+    width: 100vw;
+    margin-left: 1vw;
+}
+
+.row-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    min-height: 100px;
+    width: 100vw;
+    margin-bottom: 8vh;
+}
+
+.team-detail {
+    position: absolute;
+    right: 100;
+    top: 50vh; 
+    z-index: 10; 
+}
+
+.pop-up {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 5vh;
+}
+
 ul {
     position: absolute;
     left: -10px;
@@ -20,43 +66,6 @@ li img:active {
     justify-content: space-between;
     width: 100vw;
     height: 90vh;
-}
-
-.column-1 {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 50px;
-    min-height: 100px;
-    width: 100vw;
-}
-
-.column-2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 50px;
-    min-height: 100px;
-    width: 100vw;
-    margin-bottom: 8vh;
-}
-
-.column-3 {
-    display: flex;
-    gap: 50px;
-    min-height: 100px;
-    width: 100vw;
-    margin-bottom: 8vh;
-    flex-direction: column;
-}
-
-.pop-up {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-top: 5vh;
 }
 
 .clicked {
@@ -82,7 +91,7 @@ li img:active {
     position: fixed;
     bottom: 5%;
     image-rendering: optimizeSpeed;
-    image-rendering: -moz-crisp-edges; 
+    image-rendering: -moz-crisp-edges;
     image-rendering: -o-crisp-edges;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: pixelated;
@@ -91,16 +100,52 @@ li img:active {
     filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.4));
 }
 
+.pokemon-image:hover {
+    transform: scale(120%);
+}
+
+.pokemon-image:active {
+    animation: pokemon-shake 0.6s 1 linear;
+}
+
 .home-tasks-section {
-    width: 100%;
+    /* width: 100%; */
+    width: 30vw;
     display: flex;
     flex-direction: column;
     gap: 20px;
     justify-content: center;
 }
 
+.placeholder-task{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: calc(max(2.5vh, 2vw));
+    color: white;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 50%);
+
+    min-height: 30vh;
+    padding: 20px;
+}
+
+.placeholder-task-image {
+    height: 80%;
+    width: 80%;
+}
+
 .view-all-tasks-btn {
     width: 80%;
-        background-color: rgba(0, 0, 0, 50%);
-        color: white;
+    background-color: rgba(0, 0, 0, 50%);
+    color: white;
+}
+
+@keyframes pokemon-shake {
+    0%, 100% { transform: scale(120%) translate(1px, 1px) rotate(0deg); }
+    25% { transform: scale(120%) translate(-1px, -2px) rotate(-10deg); }
+    50% { transform: scale(120%) translate(-3px, 0px) rotate(10deg); }
+    75% { transform: scale(120%) translate(3px, 2px) rotate(-10deg); }
 }

@@ -5,10 +5,20 @@
 }
 
 .input-and-label-container > label,
-.input-and-label-container > h3
+.input-and-label-container > h3,
+.input-and-label-container > .team-name,
+.input-like-div
 {
     text-align: left;
     font-size: 20px;
+}
+
+.access-code-container,
+.input-like-div {
+    font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .input-and-label-container {
@@ -30,7 +40,7 @@
 }
 
 .access-code-container {
-    width: 500px;
+    width: 80%;
     font-size: 20px;
     padding: 10px;
     border-radius: 5px 0 0 5px;
@@ -42,7 +52,7 @@
 .reset-access-code {
     margin-left: auto;
     min-width: 50px;
-    width: 65px;
+    width: 20%;
     min-height: 65px;
     height: 65px;
     border-radius: 0 5px 5px 0;

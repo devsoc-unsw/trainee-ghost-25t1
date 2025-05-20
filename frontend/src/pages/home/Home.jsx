@@ -10,9 +10,12 @@ import ViewTask from "../ViewTask/ViewTask";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";
+import ToDoNotification from "../../components/ToDoNotification/ToDoNotification";
+import TeamDetail from "../../components/TeamDetail/TeamDetail";
 import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
 import extractStatsFromHomeData from "./extractStatsFromHomeData";
+import follow from '../../assets/follow.gif';
 import HomeTasks from "./HomeTasks";
 
 function Home() {
@@ -49,45 +52,49 @@ function Home() {
     return <Loading />;
   }
 
+  // "Stubs for now"
   var temporary_completed_tasks = {
     key: "Will and Kevin just completed a difficult task!",
   };
 
+  console.log(homeData);
   const statObj = extractStatsFromHomeData(homeData);
 
   return (
     <>
       <NavBar clicked={clicked} setClicked={setClicked} />
 
+      {clicked === "home" && <TeamDetail />}
       <main className="home-page">
         {clicked === "home" ? (
           <>
-            <div className="column-1">
+            <div className="row-1">
               {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
               <CompletedTaskSummary fields={temporary_completed_tasks} />
-            </div>
-            <div className="column-2">
               {statObj && <StatsTextBox stats={statObj} />}
+              {homeData?.tasks?.length > 0 ? (
+                <HomeTasks tasks={homeData.tasks} />
+              ) : <div className="placeholder-task">
+                    No tasks to do...
+                    <img className="placeholder-task-image" src={follow}/>
+                  </div>}
+            </div>
+            <div className="row-2">
               {pokemon && (
                 <img
                   src={pokemon.sprites.front_default}
-                  alt="Eevee"
+                  alt="pokemon"
                   className="pokemon-image"
                 />
-              )}
-            </div>
-            <div className="column-3">
-              {homeData?.tasks?.length > 0 && (
-                <HomeTasks tasks={homeData.tasks} />
               )}
             </div>
           </>
         ) : (
           <div className="pop-up">
             <Popup active={true}>
-              {clicked === "newTask" && <CreateTask />}
-              {clicked === "profile" && <Settings />}
-              {clicked === "viewTask" && <ViewTask title="My Tasks" />}
+              {clicked === 'newTask' && <CreateTask/>}
+              {clicked === 'profile' && <Settings/>}
+              {clicked === 'viewTask' && <ViewTask title="My Tasks"/>}
             </Popup>
           </div>
         )}
