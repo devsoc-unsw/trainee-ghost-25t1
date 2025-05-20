@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import playBtn from '../assets/play.png';
-import skipBtn from '../assets/skip.png';
-import bgMusic from '../assets/littleroot_town.ogg'
+import plusBtn from '../assets/plus.png';
+import minusBtn from '../assets/minus.png';
+import bgMusic from '../assets/littleroot_town.ogg';
 import './MusicPlayer.css';
 
 function MusicPlayer() {
@@ -18,14 +19,22 @@ function MusicPlayer() {
         }
     };
 
+    const increaseVolume = () => {
+        bgMusicRef.current.volume += 0.1;
+    }
+
+    const decreaseVolume = () => {
+        bgMusicRef.current.volume -= 0.1;
+    }
+
     return (
         <>
             <div className="music-container">
                 <div className="music-text">Now Playing: Littleroot Town</div>
                 <div className="music-controls">
-                    <img className="unskip music-btn" src={skipBtn}/>
+                    <img className="unskip music-btn" src={minusBtn} onClick={decreaseVolume}/>
                     <img className="play music-btn" src={playBtn} onClick={playMusic}/>
-                    <img className="skip music-btn" src={skipBtn}/>
+                    <img className="skip music-btn" src={plusBtn} onClick={increaseVolume}/>
                 </div>
             </div>
         </>
