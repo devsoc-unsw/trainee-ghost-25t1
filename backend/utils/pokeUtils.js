@@ -61,6 +61,5 @@ module.exports = {
   levelToStatObj,
   getBaseStats,
   fetchPokemon,
-  getStartingLevel,
   getStartingXp
 };
