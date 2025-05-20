@@ -60,6 +60,7 @@ function Home() {
         const pokeData = await getPokemon(name);
         setPokemon(pokeData);
         soundRef.current = new Audio(`https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokeData.id}.ogg`);
+        soundRef.current.volume = 0.3;
       }
     })();
   }, [homeData]);
