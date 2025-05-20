@@ -1,5 +1,5 @@
 import './TeamDetail.css';
-import pokeball from '../../assets/pokeball3D.png';
+import pokeball from '../../assets/pokeball3d.png';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 // Component that displays a completed task summary
@@ -16,8 +16,8 @@ function TeamDetail({teamData}) {
             <div className="detail-text-row">
                 <p className='team-name'>{teamData.name}</p>
                 <div className='vert-text'>
-                    <p className='level'>{teamData.class_code}</p>
-                    <p className='level'>Level {level}</p>
+                    <p className='class-code'>{teamData.class_code}</p>
+                    <p className='level'>Lv.{level}</p>
                 </div>
             </div>
             <div className="detail-progress-row">
