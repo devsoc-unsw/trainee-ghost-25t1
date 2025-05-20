@@ -109,10 +109,6 @@ li img:active {
     transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.pokemon-image:hover {
-    transform: scale(110%);
-}
-
 .pokemon-shake {
     animation: pokemon-shake 0.6s 1 linear;
 }
