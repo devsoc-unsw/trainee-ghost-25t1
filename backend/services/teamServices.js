@@ -3,6 +3,7 @@ const taskModel = require("../models/taskModel");
 const userModel = require("../models/userModel");
 const taskServices = require("../services/taskServices");
 const strUtils = require("../utils/strUtils");
+const pokeUtils = require("../utils/pokeUtils");
 
 // Validates data, gets a random join code, creates the team then adds a user to
 // the team
@@ -10,16 +11,19 @@ const createTeam = async (userId, teamData) => {
   validateTeamData(teamData);
 
   teamData.randomCode = strUtils.getRandomStr(8);
+  const baseStats = await pokeUtils.getBaseStats(teamData.pokemonName);
+  
+  const fullTeamData = {...baseStats, ...teamData};
 
   const teamId = await teamModel.createTeam({
-    ...teamData,
+    ...fullTeamData,
     adminUserId: userId,
   });
   // The user is the admin of the team on the team table, but their user table
   // does not store that they are a member of the team. We must change that
   await userModel.addUserToTeam(userId, teamId);
 
-  return { ...teamData, teamId };
+  return { ...fullTeamData, teamId };
 };
 
 // Go through team data and throw an error if there is an issue (No return)

@@ -5,6 +5,7 @@ const errorMap = {
     // therefore it is a bad request
     NO_UPDATE_OCCURRED: { httpStatus: 400 },
     NO_UPDATE_DATA: { httpStatus: 400 },
+    INVALID_POKEMON: { httpStatus: 400 },
     USER_EXISTS: { httpStatus: 409 },
     USER_IN_TEAM: { httpStatus: 409 },
     REPEAT_VOTE: { httpStatus: 409 },

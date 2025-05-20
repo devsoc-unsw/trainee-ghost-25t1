@@ -22,6 +22,7 @@ const validationUtils = require("../utils/validationUtils.js");
  * @returns {number} - The id of the new team
  */
 const createTeam = async (data) => {
+  console.log(data)
   const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
 
   // Validate sql data once again against allowed data to be EXTRA safe

@@ -2,7 +2,7 @@ const pokeConstants = require("../constants/pokeConstants.js");
 
 // Determines the level of a pokemon based on how much xp they have
 const levelFromXp = (xp) => {
-  return Math.floor(Math.cbrt(xp));
+  return Math.floor(xp / 100);
 };
 
 // Determines how many XP points a given task should provide
@@ -10,28 +10,38 @@ const taskDifficultyToXp = (difficulty) => {
   return difficulty * pokeConstants.difficultyToXpMultiple;
 };
 
-// Calculates the stats of a pokemon based on XP
-//
-const levelToStatObj = async (pokemonName, level) => {
-  const response = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-  );
-  if (!response.ok) {
-    throw new Error(
-      `Request failed: ${response.status} ${response.statusText}`
-    );
+const fetchPokemon = async (pokeName) => {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
+  if (!res.ok) {
+    const err = new Error(`Request failed: ${res.status} ${res.statusText}`);
+    err.code = "INVALID_POKEMON";
+    throw err;
   }
-  const data = await response.json();
-  const baseStatsArr = data.stats.map((obj) => [
+  const data = await res.json();
+  return data;
+};
+
+const getBaseStats = async (pokeName) => {
+  const pokemon = await fetchPokemon(pokeName);
+  const baseStatsArr = pokemon.stats.map((obj) => [
     obj.stat.name,
-    obj.stat.base_stat,
+    obj.base_stat,
   ]);
+  return Object.fromEntries(baseStatsArr);
+};
+
+// Calculates the stats of a pokemon based on XP
+const levelToStatObj = async (pokeName, level) => {
+  statObj = getBaseStats(pokeName);
 
   const newStats = {};
   const { maxLevel, flatHealthBonus, flatNonHealthBonus } = pokeConstants;
-  for (const [statName, base] of baseStatsArr) {
+
+  // Calculate the appropriate stats
+  for (const [statName, base] of Object.entries(statObj)) {
     const bonus = statName === "hp" ? flatHealthBonus : flatNonHealthBonus;
-    newStats[statName] = Math.floor((base * level) / maxLevel + bonus);
+    const numerator = (2 * base + 39) * level;
+    newStats[statName] = Math.floor(numerator / maxLevel + bonus);
   }
 
   return newStats;
@@ -41,4 +51,6 @@ module.exports = {
   levelFromXp,
   taskDifficultyToXp,
   levelToStatObj,
+  getBaseStats,
+  fetchPokemon,
 };
