@@ -12,7 +12,7 @@ router.put(
   taskController.claimTaskCompletion
 );
 router.post(
-  "/:id/voteOnCompletion",
+  "/:taskId/voteOnCompletion",
   verifyToken,
   taskController.voteOnCompletion
 );

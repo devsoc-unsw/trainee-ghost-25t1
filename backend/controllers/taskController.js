@@ -44,13 +44,16 @@ exports.claimTaskCompletion = async (req, res) => {
 };
 
 exports.voteOnCompletion = async (req, res) => {
+  console.log("a")
   try {
     const voteData = await taskServices.voteOnCompletion(
       req.user.id,
       req.params.taskId
     );
+    console.log("b")
     return res.status(200).json({ success: true, data: voteData});
   } catch (err) {
+    console.log("c")
     const status = errorMap[err.code]?.httpStatus || 500;
     let message = err.message || "Internal server error";
 

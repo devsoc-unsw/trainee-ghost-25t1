@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     description TEXT NOT NULL,
     due_date TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    aproval_votes INT DEFAULT 0,
+    approval_votes INT DEFAULT 0,
     task_status ENUM('complete', 'incomplete', 'pending') DEFAULT 'incomplete',
     completed_at TIMESTAMP,
     team_id INT,

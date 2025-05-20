@@ -246,6 +246,8 @@ const claimTaskCompletion = async (userId, taskId) => {
 const voteOnCompletion = async (userId, taskId) => {
   // Object that will contain the new vote, total votes and whether the task is
   // now complete or not
+  console.log("userId: ", userId);
+  console.log("taskId: ", taskId);
 
   const vote = await taskModel.voteOnCompletion(userId, taskId);
   const totalVotes = await taskModel.getTaskVoteCount(taskId);
