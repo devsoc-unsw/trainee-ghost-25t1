@@ -107,6 +107,7 @@ li img:active {
     -ms-interpolation-mode: nearest-neighbor;
     filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.4));
     transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    cursor:grab
 }
 
 .pokemon-image:hover {
