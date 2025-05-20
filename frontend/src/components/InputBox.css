@@ -33,6 +33,7 @@ button {
 
     background-color: rgba(0, 0, 0, 50%);
     border-radius: 15px;
+    font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 60px;
     color: white;
 
