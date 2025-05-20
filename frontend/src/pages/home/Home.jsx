@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import NavBar from "../../components/NavBar";
 import "./Home.css";
 import { AuthContext } from "../../context/authContext";
@@ -25,6 +25,21 @@ function Home() {
   const [clicked, setClicked] = useState("home");
   const [homeData, setHomeData] = useState(null);
   const [pokemon, setPokemon] = useState(null);
+  const [isShaking, setIsShaking] = useState(false);
+
+  // Random sound for now but later, get this from pokemon API
+  // useRef to avoid reinstantiating Audio every rerender
+  const pokemonSound = new Audio("https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/35.ogg");
+  const soundRef = useRef(pokemonSound);
+
+  const handlePokemonClick = () => {
+    soundRef.current.play()
+    setIsShaking(true);
+
+    // Set to not shaking after animation is done (0.6 seconds)
+    setTimeout(() => setIsShaking(false), 600);
+  }
+
 
   useEffect(() => {
     // if the user doesn't exist or they dont have a team, redirect them to signup
@@ -84,7 +99,8 @@ function Home() {
                 <img
                   src={pokemon.sprites.front_default}
                   alt="pokemon"
-                  className="pokemon-image"
+                  className={`pokemon-image ${isShaking ? "pokemon-shake" : ""}`}
+                  onClick={handlePokemonClick}
                 />
               )}
             </div>
