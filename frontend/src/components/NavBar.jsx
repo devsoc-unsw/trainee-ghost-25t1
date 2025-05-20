@@ -8,7 +8,7 @@ function NavBar({clicked, setClicked}) {
 
     return (
         <>
-            <ul>
+            <ul className='navigation-bar'>
                 <li>
                     <img className={clicked === 'home' ? 'clicked' : ''}
                         src={homeBtn}
