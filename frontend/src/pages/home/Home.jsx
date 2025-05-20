@@ -33,11 +33,14 @@ function Home() {
   const soundRef = useRef(pokemonSound);
 
   const handlePokemonClick = () => {
+    if (isShaking) {
+      return;
+    }
     soundRef.current.play()
     setIsShaking(true);
 
-    // Set to not shaking after animation is done (0.6 seconds)
-    setTimeout(() => setIsShaking(false), 600);
+    // Stop shaking after animation is done and 600msecs have elapsed (prevent spam)
+    setTimeout(() => setIsShaking(false), 1200);
   }
 
 
