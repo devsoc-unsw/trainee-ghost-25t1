@@ -10,7 +10,7 @@
     position: absolute;
     bottom: 10%;
     right: 8%;
-    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(var(--dark-shadow));
     width: fit-content
 }
 .detail-text-row {
@@ -72,5 +72,5 @@
     margin-bottom: 8px;
     display: flex;
     align-items: center;
-    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(var(--dark-shadow));
 }
