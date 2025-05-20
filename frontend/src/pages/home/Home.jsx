@@ -15,6 +15,7 @@ import TeamDetail from "../../components/TeamDetail/TeamDetail";
 import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
 import extractStatsFromHomeData from "./extractStatsFromHomeData";
+import follow from '../../assets/follow.gif';
 import HomeTasks from "./HomeTasks";
 
 function Home() {
@@ -56,6 +57,7 @@ function Home() {
     key: "Will and Kevin just completed a difficult task!",
   };
 
+  console.log(homeData);
   const statObj = extractStatsFromHomeData(homeData);
 
   return (
@@ -70,12 +72,14 @@ function Home() {
               {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
               <CompletedTaskSummary fields={temporary_completed_tasks} />
               {statObj && <StatsTextBox stats={statObj} />}
-              {homeData?.tasks?.length > 0 && (
+              {homeData?.tasks?.length > 0 ? (
                 <HomeTasks tasks={homeData.tasks} />
-              )}
+              ) : <div className="placeholder-task">
+                    No tasks to do...
+                    <img className="placeholder-task-image" src={follow}/>
+                  </div>}
             </div>
             <div className="row-2">
-              
               {pokemon && (
                 <img
                   src={pokemon.sprites.front_default}

@@ -109,6 +109,26 @@ li img:active {
     justify-content: center;
 }
 
+.placeholder-task{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: calc(max(2.5vh, 2vw));
+    color: white;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 50%);
+
+    min-height: 30vh;
+    padding: 20px;
+}
+
+.placeholder-task-image {
+    height: 80%;
+    width: 80%;
+}
+
 .view-all-tasks-btn {
     width: 80%;
     background-color: rgba(0, 0, 0, 50%);
