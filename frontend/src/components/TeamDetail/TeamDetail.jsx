@@ -1,5 +1,5 @@
 import './TeamDetail.css';
-import pokeball from '../../assets/pokeball3d.png';
+import pokeball from '../../assets/pokeball3D.png';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 // Component that displays a completed task summary
