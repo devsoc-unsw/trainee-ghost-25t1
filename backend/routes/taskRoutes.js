@@ -7,7 +7,7 @@ const { verifyToken } = require("../middleware/verifyToken");
 router.get("/", verifyToken, taskController.getTaskData);
 router.post("/", verifyToken, taskController.postTask);
 router.put(
-  "/:id/claimCompleted",
+  "/:taskId/claimCompleted",
   verifyToken,
   taskController.claimTaskCompletion
 );

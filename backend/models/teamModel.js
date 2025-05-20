@@ -88,6 +88,8 @@ const changeTeamData = async (data, teamId) => {
   const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
   const secureData = validationUtils.filterValidKeys(snakeCaseData, sqlColumns.teams);
 
+
+  
   if (Object.keys(secureData).length === 0) {
     const err = new Error("No valid fields provided to update");
     err.code = "NO_UPDATE_DATA";

@@ -238,7 +238,7 @@ const claimTaskCompletion = async (userId, taskId) => {
     err.code = "TEAM_NOT_FOUND";
     throw err;
   }
-  await taskModel.editTaskOnTeam({ status: "pending" }, taskId, teamId);
+  await taskModel.editTaskOnTeam({ task_status: "pending" }, taskId, teamId);
 };
 
 // Try and vote for a task, then return that vote along with the total vote

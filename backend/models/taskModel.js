@@ -160,7 +160,7 @@ const editTaskOnTeam = async (data, taskId, teamId) => {
   UPDATE tasks
   SET ${placeholders.join(", ")}
   WHERE team_id = ?
-  AND task_id = ?
+  AND id = ?
   `;
 
   const params = [...Object.entries(secureData).flat(), teamId, taskId];
