@@ -257,9 +257,12 @@ const voteOnCompletion = async (userId, taskId) => {
 
   let completed = false;
   const percentApproved = totalVotes / teamSize;
+  console.log("Total votes: ", totalVotes);
+  console.log("teamSize: ", teamSize);
+  console.log("percentApproved: ", percentApproved);
   // We may have a possible floating point error here?
   if (percentApproved >= voting.teamPercentNeededToApprove) {
-    await taskModel.handleTaskCompletion(taskId);
+    await taskModel.handleTaskCompletion(taskId, teamId, userId);
     completed = true;
   }
 

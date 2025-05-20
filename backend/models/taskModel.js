@@ -109,7 +109,6 @@ const getTaskDoers = async (taskIds) => {
  */
 
 const postTask = async (data) => {
-  
   const query = `
       INSERT INTO tasks (title, description, due_date, difficulty, team_id)
       VALUES (?, ?, ?, ?, ?)`;
@@ -224,13 +223,31 @@ const handleTaskCompletion = async (taskId) => {
     SET task_status = 'complete'
     WHERE task_id = ?
   `;
-  const [completingResults] = await db.query(completingQuery, [taskId])
+  const [completingResults] = await db.query(completingQuery, [taskId]);
   if (completingResults.affectedRows === 0) {
-    const err = new Error('Task already complete or task not found');
-    err.code = 'NO_UPDATE_OCCURRED';
+    const err = new Error("Task already complete or task not found");
+    err.code = "NO_UPDATE_OCCURRED";
     throw err;
   }
-}
+
+  return difficulty;
+};
+
+const getTaskView = async (taskId, teamId) => {
+  const query = `
+  SELECT *
+  FROM tasks
+  WHERE id = ?
+  AND team_id = ?
+  `;
+  const [rows] = await db.query(query, [taskId, teamId]);
+  if (rows.length !== 1) {
+    const err = new Error("Task does not exist or forbidden access");
+    err.code = "RESOURCE_NOT_FOUND";
+    throw err;
+  }
+  return rows[0];
+};
 
 module.exports = {
   getData,
@@ -240,5 +257,6 @@ module.exports = {
   getTaskDoers,
   voteOnCompletion,
   getTaskVoteCount,
-  handleTaskCompletion
+  handleTaskCompletion,
+  getTaskView
 };

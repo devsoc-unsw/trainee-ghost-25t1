@@ -22,7 +22,6 @@ const validationUtils = require("../utils/validationUtils.js");
  * @returns {number} - The id of the new team
  */
 const createTeam = async (data) => {
-  console.log(data)
   const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
 
   // Validate sql data once again against allowed data to be EXTRA safe
@@ -87,10 +86,11 @@ const userIsAdminForAnother = async (adminId, otherId) => {
 // Change the data of a team. Accepts a camelcase object of team data
 const changeTeamData = async (data, teamId) => {
   const snakeCaseData = caseUtils.camelToSnakeCaseObjKeys(data);
-  const secureData = validationUtils.filterValidKeys(snakeCaseData, sqlColumns.teams);
+  const secureData = validationUtils.filterValidKeys(
+    snakeCaseData,
+    sqlColumns.teams
+  );
 
-
-  
   if (Object.keys(secureData).length === 0) {
     const err = new Error("No valid fields provided to update");
     err.code = "NO_UPDATE_DATA";
@@ -104,7 +104,6 @@ const changeTeamData = async (data, teamId) => {
     placeholders.push("?? = ?");
     params.push(col, val);
   }
-  
 
   let query = `
   UPDATE teams
@@ -116,14 +115,38 @@ const changeTeamData = async (data, teamId) => {
 
   const [result] = await db.query(query, params);
 
-  
   if (result.affectedRows === 0) {
     const err = new Error("Team does not exist or data was the same or prior");
     err.code = "NO_UPDATE_OCCURRED";
     throw err;
   }
-  
+
   return result;
+};
+
+// Add a given amount of xp to a teams total xp and return that
+const updateAndGetXp = async (teamId, addedVal) => {
+  // Update the table
+  const updateQuery = `
+    UPDATE teams
+    SET xp = xp + ?
+    WHERE id = ?
+  `;
+  const [updateResult] = await db.query(updateQuery, [addedVal, teamId]);
+  if (updateResult.affectedRows === 0) {
+    const err = new Error("Team does not exist");
+    err.code = "TEAM_NOT_FOUND";
+    throw err;
+  }
+
+  // Get the new val
+  const selectQuery = `
+    SELECT xp
+    FROM teams
+    WHERE id = ?
+  `
+  const [selectResult] = await db.query(selectQuery, [teamId])
+  return rows[0].xp;
 };
 
 // Specifically get the team of an admin. Technically we could replace this with
@@ -233,4 +256,5 @@ module.exports = {
   getTeamSize,
   viewTeamData,
   getTeamCode,
+  updateAndGetXp
 };
