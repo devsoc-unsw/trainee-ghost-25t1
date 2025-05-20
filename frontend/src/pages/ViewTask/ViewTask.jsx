@@ -15,6 +15,7 @@ function ViewTask({title}) {
     // Fetch the task information
     useEffect(() => {
         (async () => {
+            // set taskStatus: "pending", incomplete" or "complete" depending on type of viewTask LATER
             const resData = await getTaskData({assignedTo: user.id});
             // If an error happens, resData.data is null so make it an empty array and print error
             setTaskData(resData.data || []);
