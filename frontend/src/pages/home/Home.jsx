@@ -83,7 +83,7 @@ function Home() {
               {pokemon && (
                 <img
                   src={pokemon.sprites.front_default}
-                  alt="Eevee"
+                  alt="pokemon"
                   className="pokemon-image"
                 />
               )}
