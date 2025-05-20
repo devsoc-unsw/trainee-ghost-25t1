@@ -10,6 +10,19 @@ const taskDifficultyToXp = (difficulty) => {
   return difficulty * pokeConstants.difficultyToXpMultiple;
 };
 
+// Get a random level for a pokemon to start at
+const getStartingLevel = () => {
+  const { minStartLevel, maxStartLevel } = pokeConstants;
+  const range = maxStartLevel - minStartLevel;
+  const level = Math.floor(Math.random() * range + 1) + minStartLevel;
+  return level;
+}
+
+// Get the amount of xp a pokemon should have based on the level they start at
+const getStartingXp = () => {
+  return getStartingLevel() * 100;
+}
+
 const fetchPokemon = async (pokeName) => {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
   if (!res.ok) {
@@ -53,4 +66,6 @@ module.exports = {
   levelToStatObj,
   getBaseStats,
   fetchPokemon,
+  getStartingLevel,
+  getStartingXp
 };
