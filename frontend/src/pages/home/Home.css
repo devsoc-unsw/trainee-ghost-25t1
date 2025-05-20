@@ -1,9 +1,7 @@
 .home-page {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    gap: 50vh;
     width: 100vw;
     height: 90vh;
 }
@@ -11,7 +9,7 @@
 .row-1 {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     gap: 6vw;
     width: 100vw;
@@ -20,7 +18,7 @@
 
 .row-2 {
     display: flex;
-    flex-direction: row;
+    flex-direction: start;
     align-items: center;
     justify-content: center;
     gap: 50px;

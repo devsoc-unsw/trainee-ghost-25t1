@@ -81,7 +81,6 @@ function Home() {
     <>
       <NavBar clicked={clicked} setClicked={setClicked} />
 
-      {clicked === "home" && <TeamDetail />}
       <main className="home-page">
         {clicked === "home" ? (
           <>
@@ -97,6 +96,7 @@ function Home() {
                   </div>}
             </div>
             <div className="row-2">
+              {clicked === "home" && <TeamDetail />}
               {pokemon && (
                 <img
                   src={pokemon.sprites.front_default}
