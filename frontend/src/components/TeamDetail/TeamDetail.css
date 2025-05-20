@@ -1,20 +1,23 @@
 .team-detail-box {
-    background-color: hsla(0, 0%, 63%, 0.50);
-    padding: 40px; 
+    background: linear-gradient(180deg,rgba(42, 123, 155, 1) 0%, rgba(255, 255, 255, 1) 0%, rgba(166, 166, 166, 1) 100%);
+    padding: 40px;
     border-radius: 100px;
     color: white;
     outline: 2px solid rgb(0, 0, 0);
     box-sizing: border-box;
-    width: 25vw;
     align-self: flex-start;
     margin: 0;
     position: absolute;
     bottom: 10%;
     right: 8%;
+    filter: drop-shadow(var(--dark-shadow));
+    width: fit-content
 }
 .detail-text-row {
     display: flex;
     justify-content: space-between;
+    gap: 5vw;
+    border-bottom: 2px solid rgb(105, 104, 104);
     margin-bottom: 8px;
     padding: 4px 0;
     text-align: center;
@@ -41,12 +44,15 @@
     margin: 0;
 }
 
-.level {
-    font-weight: 600;
-    font-size: 26px;
-    color: #000000;
-    text-align: center;
+.class-code {
+    color: #267aaa;
+}
 
+.level {
+    font-weight: 700;
+    font-size: 26px;
+    color: #f84c35;
+    text-align: center;
 }
 
 .progress-bar {
@@ -55,8 +61,9 @@
 }
 
 .poke-image {
-    min-width: 64px;
+    max-width: 64px;
     height: auto;
+    object-fit: contain;
 }
 
 .detail-progress-row {
@@ -65,4 +72,5 @@
     margin-bottom: 8px;
     display: flex;
     align-items: center;
+    filter: drop-shadow(var(--dark-shadow));
 }

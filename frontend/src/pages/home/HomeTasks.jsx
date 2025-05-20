@@ -19,7 +19,7 @@ const HomeTasks = ({ tasks }) => {
       {/* WE have this button but i dont like it, and it dosent work */}
         {/* <button className="view-all-tasks-btn">View all</button> */}
       <Popup active={taskActive}>
-        <ExpandedTask task={expandedTask} setTaskActive={setTaskActive} />
+        <ExpandedTask task={expandedTask} setTaskActive={setTaskActive} filter = {{taskStatus: 'complete'}}/>
       </Popup>
     </section>
   );

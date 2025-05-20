@@ -183,7 +183,7 @@ const getTeamSize = async (teamId) => {
 
   const params = [teamId];
   const [rows] = await db.query(query, params);
-  return teamSize;
+  return rows[0].team_size;
 };
 
 //  Obtains all data required for settings in an object form

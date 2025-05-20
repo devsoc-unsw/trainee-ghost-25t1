@@ -200,20 +200,25 @@ const voteOnCompletion = async (userId, taskId) => {
     const err = new Error("User is attempting to vote twice");
     err.code = "REPEAT_VOTE";
     throw err;
+  } else {
+    const approvateIncrementQuery =`UPDATE tasks SET approval_votes = approval_votes + 1 WHERE id = ?`;
+    await db.query(approvateIncrementQuery, [taskId]);
   }
   return { userId, taskId };
 };
 
 // Determine how many people have voted for a task as being completed
 const getTaskVoteCount = async (taskId) => {
-  const query = `
-    SELECT COUNT(*) AS vote_count
-    FROM task_votes
-    WHERE task_id = ?
-    `;
+  const query = `SELECT approval_votes FROM tasks WHERE id = ?`;
+  // const query = `
+  //   SELECT COUNT(*) AS vote_count
+  //   FROM task_votes
+  //   WHERE task_id = ?
+  //   `;
 
   const [rows] = await db.query(query, [taskId]);
-  return rows[0].vote_count;
+  // return rows[0].vote_count;
+  return rows[0].approval_votes;
 };
 
 // Mark a task as completed
@@ -221,7 +226,7 @@ const handleTaskCompletion = async (taskId) => {
   const completingQuery = `
     UPDATE tasks
     SET task_status = 'complete'
-    WHERE task_id = ?
+    WHERE id = ?
   `;
   const [completingResults] = await db.query(completingQuery, [taskId]);
   if (completingResults.affectedRows === 0) {
@@ -230,7 +235,7 @@ const handleTaskCompletion = async (taskId) => {
     throw err;
   }
 
-  return difficulty;
+  // return difficulty; WTF IS THIS FOR
 };
 
 const getTaskView = async (taskId, teamId) => {

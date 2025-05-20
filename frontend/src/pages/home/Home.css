@@ -105,13 +105,9 @@ li img:active {
     image-rendering: pixelated;
     image-rendering: optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
-    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(var(--dark-shadow));
     transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
     cursor:grab
-}
-
-.pokemon-image:hover {
-    transform: scale(110%);
 }
 
 .pokemon-shake {

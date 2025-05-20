@@ -1,0 +1,50 @@
+.music-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    position: absolute;
+    left: 8%;
+    bottom: 10%;
+
+    height: fit-content;
+    width: fit-content;
+    padding: 30px;
+
+    color: white;
+    font-size: calc(max(2.5vh, 1.3vw));
+    text-align: center;
+
+    background: linear-gradient(180deg,rgba(42, 123, 155, 1) 0%, rgba(128, 126, 126, 1) 0%, rgba(61, 60, 60, 1) 100%);
+    border-radius: 100px;
+    border: 2px solid black;
+}
+
+.music-controls {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.music-text, .music-container {
+    filter: drop-shadow(var(--dark-shadow));
+}
+
+.music-btn {
+    width: 3vw;
+    object-fit: contain;
+}
+
+.music-btn:hover {
+    filter: opacity(80%);
+}
+
+.music-btn:active {
+    filter: opacity(60%);
+}
+
+.unskip {
+    transform: rotate(180deg);
+}

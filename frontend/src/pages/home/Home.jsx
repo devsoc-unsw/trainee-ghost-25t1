@@ -17,6 +17,7 @@ import follow from "../../assets/follow.gif";
 import { motion } from "motion/react";
 import HomeTasks from "./HomeTasks";
 import ViewTask from "../ViewTask/ViewTask";
+import MusicPlayer from "../../components/MusicPlayer";
 
 function Home() {
   const navigate = useNavigate();
@@ -103,6 +104,9 @@ function Home() {
               )}
             </div>
             <div className="row-2">
+              {clicked === "home" && (
+                <MusicPlayer/>
+              )}
               {clicked === "home" && teamData && (
                 <TeamDetail teamData={teamData} />
               )}

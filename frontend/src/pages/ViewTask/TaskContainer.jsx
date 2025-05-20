@@ -43,7 +43,7 @@ function TaskContainer({title, filter}) {
             </div>
 
             <Popup active={taskActive}>
-                <ExpandedTask task={expandedTask} setTaskActive={setTaskActive}/>
+                <ExpandedTask task={expandedTask} setTaskActive={setTaskActive} filter={filter}/>
             </Popup>
         </>
     );

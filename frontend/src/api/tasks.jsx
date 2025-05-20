@@ -75,6 +75,21 @@ const claimTaskCompleted = async (taskId) => {
   }
 }
 
+const voteOnCompletion = async (taskId, userId) => {
+  try {
+    const response = await fetch(`${apiUrl}/tasks/${taskId}/voteOnCompletion`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-export { createTaskApiCall, getTeamData, getTaskData, claimTaskCompleted};
+
+export { createTaskApiCall, getTeamData, getTaskData, claimTaskCompleted, voteOnCompletion};
 
