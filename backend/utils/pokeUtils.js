@@ -10,17 +10,12 @@ const taskDifficultyToXp = (difficulty) => {
   return difficulty * pokeConstants.difficultyToXpMultiple;
 };
 
-// Get a random level for a pokemon to start at
-const getStartingLevel = () => {
+// Get a random xp for a pokemon to start at
+const getStartingXp = () => {
   const { minStartLevel, maxStartLevel } = pokeConstants;
   const range = maxStartLevel - minStartLevel;
-  const level = Math.floor(Math.random() * range + 1) + minStartLevel;
-  return level;
-}
-
-// Get the amount of xp a pokemon should have based on the level they start at
-const getStartingXp = () => {
-  return getStartingLevel() * 100;
+  const xp = Math.floor(Math.random() * range * 100 + 1) + minStartLevel;
+  return xp;
 }
 
 const fetchPokemon = async (pokeName) => {

@@ -8,7 +8,7 @@ const extractStatsFromHomeData = (homeData) => {
             "Special Attack": team?.special_attack,
             "Special Defense": team?.special_defense,
             "Speed": team?.speed,
-            "Experience Points": team?.xp
+            "Experience Points": team?.xp % 100
         }
         return obj;
     }

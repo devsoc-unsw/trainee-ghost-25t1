@@ -82,6 +82,7 @@ li img:active {
 .task-container {
     display: flex;
     gap: 10vw;
+    box-shadow: var(--standard-shadow);
 }
 
 .pokemon-container {

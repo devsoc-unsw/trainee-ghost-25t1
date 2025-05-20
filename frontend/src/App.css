@@ -3,6 +3,8 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+  --standard-shadow: 10px 10px 15px rgba(0,0,0,0.2);
+  --light-shadow: 10px 10px 15px rgba(0,0,0,0.1);
 }
 
 main {
