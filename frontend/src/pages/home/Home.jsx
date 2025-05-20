@@ -15,8 +15,8 @@ import TeamDetail from "../../components/TeamDetail/TeamDetail";
 import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
 import extractStatsFromHomeData from "./extractStatsFromHomeData";
-import follow from '../../assets/follow.gif';
-import { easeOut, motion } from "motion/react";
+import follow from "../../assets/follow.gif";
+import { motion } from "motion/react";
 import HomeTasks from "./HomeTasks";
 
 function Home() {
@@ -38,12 +38,12 @@ function Home() {
     if (isShaking) {
       return;
     }
-    soundRef.current.play()
+    soundRef.current.play();
     setIsShaking(true);
 
     // Stop shaking after animation is done and 600msecs have elapsed (prevent spam)
     setTimeout(() => setIsShaking(false), 1200);
-  }
+  };
 
   useEffect(() => {
     // if the user doesn't exist or they dont have a team, redirect them to signup
@@ -63,7 +63,9 @@ function Home() {
       if (homeData) {
         const pokeData = await getPokemon(name);
         setPokemon(pokeData);
-        soundRef.current = new Audio(`https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokeData.id}.ogg`);
+        soundRef.current = new Audio(
+          `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokeData.id}.ogg`
+        );
         soundRef.current.volume = 0.3;
       }
     })();
@@ -78,8 +80,8 @@ function Home() {
     key: "Will and Kevin just completed a difficult task!",
   };
 
-
   const statObj = extractStatsFromHomeData(homeData);
+  const teamData = homeData?.team?.team;
 
   return (
     <>
@@ -94,37 +96,49 @@ function Home() {
               {statObj && <StatsTextBox stats={statObj} />}
               {homeData?.tasks?.length > 0 ? (
                 <HomeTasks tasks={homeData.tasks} />
-              ) : <div className="placeholder-task">
-                    No tasks to do...
-                    <img className="placeholder-task-image" src={follow}/>
-                  </div>}
+              ) : (
+                <div className="placeholder-task">
+                  No tasks to do...
+                  <img className="placeholder-task-image" src={follow} />
+                </div>
+              )}
             </div>
             <div className="row-2">
-              {clicked === "home" && <TeamDetail />}
+              {clicked === "home" && teamData && (
+                <TeamDetail teamData={teamData} />
+              )}
               {pokemon && (
                 <div className="pokemon-container" ref={constraintsRef}>
                   <motion.img
                     src={pokemon.sprites.front_default}
                     alt="pokemon"
-                    className={`pokemon-image ${isShaking ? "pokemon-shake" : ""}`}
+                    className={`pokemon-image ${
+                      isShaking ? "pokemon-shake" : ""
+                    }`}
                     onClick={handlePokemonClick}
                     drag
                     dragConstraints={constraintsRef}
                     dragElastics={0}
                     dragSnapToOrigin={true}
-                    transition={{ type: 'spring', bounce: 0, mass: 500, stiffness: 20, damping: 20, velocity: 0.25}}
+                    transition={{
+                      type: "spring",
+                      bounce: 0,
+                      mass: 500,
+                      stiffness: 20,
+                      damping: 20,
+                      velocity: 0.25,
+                    }}
                   />
                 </div>
               )}
-
             </div>
           </>
         ) : (
           <div className="pop-up">
             <Popup active={true}>
-              {clicked === 'newTask' && <CreateTask/>}
-              {clicked === 'profile' && <Settings/>}
-              {clicked === 'viewTask' && <ViewTask title="My Tasks"/>}
+              {clicked === "newTask" && <CreateTask />}
+              {clicked === "profile" && <Settings />}
+              {clicked === "viewTask" && <ViewTask title="My Tasks" />}
             </Popup>
           </div>
         )}

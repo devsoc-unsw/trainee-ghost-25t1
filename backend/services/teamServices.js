@@ -11,6 +11,7 @@ const createTeam = async (userId, teamData) => {
   validateTeamData(teamData);
 
   teamData.randomCode = strUtils.getRandomStr(8);
+  teamData.xp = pokeUtils.getStartingXp();
   const baseStats = await pokeUtils.getBaseStats(teamData.pokemonName);
   
   const fullTeamData = {...baseStats, ...teamData};
