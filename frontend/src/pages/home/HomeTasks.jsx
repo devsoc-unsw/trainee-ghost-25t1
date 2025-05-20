@@ -4,7 +4,6 @@ import ExpandedTask from "../../components/Task/ExpandedTask";
 import Popup from "../../components/Popup";
 
 const HomeTasks = ({ tasks }) => {
-  console.log(tasks);
   const [taskActive, setTaskActive] = useState(false);
 
   const [expandedTask, setExpandedTask] = useState(null);

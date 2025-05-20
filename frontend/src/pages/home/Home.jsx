@@ -73,7 +73,6 @@ function Home() {
     key: "Will and Kevin just completed a difficult task!",
   };
 
-  console.log(homeData);
   const statObj = extractStatsFromHomeData(homeData);
 
   return (
