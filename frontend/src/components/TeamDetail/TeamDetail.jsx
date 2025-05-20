@@ -1,5 +1,6 @@
 import './TeamDetail.css';
 import pokeball from '../../assets/pokeball3D.png';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 // Component that displays a completed task summary
 // Input struct of fields: {teamname: string, course: string, level: number, progress: number}
@@ -17,7 +18,7 @@ function TeamDetail({fields}) {
             <div className="detail-progress-row">
                 <img className="poke-image" src={pokeball} />
                 {/* progress bar for xp */}
-                <div className="progress-bar" style={{width:"50%"}} ></div>
+                <ProgressBar className="progress-bar" variant="success" now={60} label={`60%`} />
             </div>
         </section>
     )

@@ -12,7 +12,7 @@
     border-radius: 10vw;
     position: absolute;
     top: 60%;
-    left: 70%;
+    left: 60%;
 }
 .detail-text-row {
     display: flex;
@@ -43,9 +43,8 @@
 }
 
 .progress-bar {
-    height: 24px;
-    background-color: white;
-    color: burlywood;
+    width: 80%;
+    height: 40px;
 }
 
 .poke-image {
