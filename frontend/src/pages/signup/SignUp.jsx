@@ -45,9 +45,9 @@ function SignUp() {
                 onSubmit={onSubmit}
             />
             <Button
-                className="signin-button"
+                className="navigate-button"
                 topText="already have an account?"
-                innerText='Sign In'
+                innerText='Go to Sign In'
                 onClick={() => navigate('/login')}
             />
         </div>
