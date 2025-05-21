@@ -5,14 +5,14 @@ import minusBtn from '../assets/minus.png';
 import bgMusic from '../assets/bg.ogg';
 import './MusicPlayer.css';
 
+// Make this a global variable so it doesn't get recreated every rerender
+const audio = new Audio(bgMusic);
+audio.volume = 0.3;
+audio.loop = true;
+
 function MusicPlayer() {
     const bgMusicRef = useRef(null);
-
-    useEffect(() => {
-        bgMusicRef.current = new Audio(bgMusic);
-        bgMusicRef.current.volume = 0.3;
-        bgMusicRef.current.loop = true;
-    }, []);
+    bgMusicRef.current = audio;
 
     const playMusic = () => {
         if (bgMusicRef.current.paused) {
@@ -25,10 +25,12 @@ function MusicPlayer() {
 
     const increaseVolume = () => {
         bgMusicRef.current.volume = Math.min(bgMusicRef.current.volume + 0.1, 1);
+        console.log(bgMusicRef.current.volume)
     }
 
     const decreaseVolume = () => {
         bgMusicRef.current.volume = Math.max(bgMusicRef.current.volume - 0.1, 0);
+        console.log(bgMusicRef.current.volume)
     }
 
     return (
