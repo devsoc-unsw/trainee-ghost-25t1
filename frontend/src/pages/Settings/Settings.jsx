@@ -135,11 +135,11 @@ const Settings = () => {
 
           <div className="input-and-label-container">
             <h3>Group Members</h3>
-            {teamData?.members.map((member) =>
-              (<div className="group-members input-like-div">
+            {teamData?.members.map((member) => (member.name !== adminName.name ?
+              <div className="group-members input-like-div">
                 {member.name}
-              </div>)
-            )}
+              </div> : null
+            ))}
           </div>
         </div>
       )}
