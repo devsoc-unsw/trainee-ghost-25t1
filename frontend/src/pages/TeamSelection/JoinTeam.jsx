@@ -10,7 +10,7 @@ function JoinTeam({setActive}) {
     const [ errorMsg, setErrorMsg ] = useState('');
     const navigate = useNavigate();
     const { refetchUser } = useContext(AuthContext);
-    
+
 
     const onSubmit = async (data) => {
         const resData = await joinTeam(data.randomCode);

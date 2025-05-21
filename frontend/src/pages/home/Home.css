@@ -107,7 +107,15 @@ li img:active {
     -ms-interpolation-mode: nearest-neighbor;
     filter: drop-shadow(var(--dark-shadow));
     transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-    cursor:grab
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.pokemon-image:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }
 
 .pokemon-shake {

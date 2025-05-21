@@ -42,9 +42,9 @@ function Login() {
           onSubmit={onSubmit}
         />
         <Button
-          className="register-button"
+          className="navigate-button"
           topText="don't have an account?"
-          innerText="Register"
+          innerText="Go to Register"
           onClick={() => navigate("/signup")}
         />
       </div>

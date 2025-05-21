@@ -67,3 +67,11 @@ button {
 .createteam-button:hover, .jointeam-button:hover {
     background-color: rgb(194, 168, 2);
 }
+
+.navigate-button {
+    background-color: rgb(197, 197, 197);
+}
+
+.navigate-button:hover {
+    background-color: rgb(150, 149, 149);
+}
