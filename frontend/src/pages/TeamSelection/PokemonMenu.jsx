@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllPokemon } from "../../api/poke";
 import upperCase from "../../utils/upperCase";
 import useDebounce from "../../hooks/useDebounce";
-
+import missingno from "../../assets/missingno.png"
 const PokemonMenu = ({ setPokemon, setActive }) => {
   const [pokemonList, setPokemonList] = useState([]);
   const [search, setSearch] = useState("");
@@ -63,12 +63,17 @@ const PokemonMenu = ({ setPokemon, setActive }) => {
           placeholder="Search..."
         />
         <div className="poke-container">
-          {filtered?.map((p) => (
+          {filtered?.length > 0 ? filtered?.map((p) => (
             <div className="pokemon-tile" onClick={() => handleClick(p.name)}>
               <img src={getLink(extractId(p))} />
               <p>{upperCase(p.name)}</p>
             </div>
-          ))}
+          )) : (
+            <div className="missing-poke-div">
+              <p className="nothing-txt">No pokemon found!</p>
+              <img src={missingno} alt="" className="missing-no"/>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -69,3 +69,40 @@
 .pokemon-txt-display {
     text-align: center;
 }
+
+.nothing-txt {
+    font-size: 40px;
+    color: rgb(199, 199, 199);
+}
+
+.missing-no {
+    width: 200px;
+    animation: spin 1s linear infinite;
+}
+
+.missing-no {
+    width: 200px;
+    animation: back-and-forth 1s ease-in-out infinite;
+    filter: drop-shadow(10px 10px 10px rgba(50,50,50, 0.5));
+    
+}
+
+
+
+@keyframes back-and-forth {
+    0% {
+        transform: rotate(-20deg) translateX(-5px)
+    }
+    25% {
+        transform: rotate(0deg) translateX(10px);
+    }
+    50% {
+        transform: rotate(10deg) translateX(-5px);
+    }
+    75% {
+        transform: rotate(0deg) translateX(-10px);
+    }
+    100% {
+        transform: rotate(-20deg) translateX(-5px);
+    }
+}
