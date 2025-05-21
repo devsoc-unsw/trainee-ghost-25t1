@@ -35,6 +35,7 @@
 .music-btn {
     width: 60px;
     object-fit: contain;
+    cursor: pointer;
 }
 
 .music-btn:hover {
