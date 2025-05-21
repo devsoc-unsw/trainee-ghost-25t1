@@ -122,7 +122,7 @@ exports.addUserToTeam = async (userId, teamId) => {
 // be part of on team
 exports.removeUserFromTeam = async (userId) => {
   const query = `
-    UPDATE TABLE users
+    UPDATE users
     SET team_id = NULL
     WHERE id = ?
     `;

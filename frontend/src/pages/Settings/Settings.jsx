@@ -1,6 +1,7 @@
 import "./Settings.css";
 import resetImg from "../../assets/reset.png";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { getTeamData } from "../../api/tasks";
 import {
   editTeamData,
@@ -18,7 +19,8 @@ const Settings = () => {
   const [assignmentName, setAssignmentName] = useState("");
 
   const [error, setError] = useState(null);
-  const [msg, setMsg] = useState("");
+
+  const navigate = useNavigate();
 
   // We can determine if the current user is admin by checking if the join code fetch was successful
   const isAdmin = Boolean(joinCode);
@@ -56,10 +58,13 @@ const Settings = () => {
     }
   };
 
+  // Leave the team and navigate back to team-selection
+  // Currently only works after you refresh the page...
   const handleLeaveTeam = async () => {
     const resData = await leaveTeam();
     if (resData.sucess) {
-      setMsg(resData.message);
+      console.log(resData.message);
+      navigate("/team-selection");
     } else {
       setError(resData.message || "Something went wrong, please try again");
     }
@@ -158,7 +163,6 @@ const Settings = () => {
       <button className="save-changes" onClick={handleSaveChanges}>
         Save Changes
       </button>
-      {msg && <div className="error">{msg}</div>}
       <button className="leave-btn" onClick={handleLeaveTeam}>
         Leave Group
       </button>
