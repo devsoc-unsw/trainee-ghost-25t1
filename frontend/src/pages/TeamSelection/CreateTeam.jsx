@@ -5,7 +5,6 @@ import { createTeam } from "../../api/teams";
 import "../../components/InputBox.css";
 import "./Team.css";
 import { AuthContext } from "../../context/authContext";
-import Button from "../../components/Button";
 import Popup from "../../components/Popup";
 import PokemonMenu from "./PokemonMenu";
 import upperCase from "../../utils/upperCase";
@@ -17,7 +16,7 @@ function CreateTeam({ setActive }) {
   const [pokemon, setPokemon] = useState(null);
   const [pokeMenuOpen, setPokeMenuOpen] = useState(false)
   const { user, refetchUser } = useContext(AuthContext);
-  
+
 
   const onSubmit = async (data) => {
     const resData = await createTeam(
