@@ -28,7 +28,7 @@ In theory, this should be all of the routes we need. Tbh though we will probably
 ## /user ##
  - PUT /:userId/join/:teamId - Change the id of the team the player is in to a new team. You can pass -1 as the new team if you want to join a current team and not join a new team 
 
- # Other information about working with routes #
+# Other information about working with routes #
 
 
 - A function that triggers if we find the task has been completed, which provides

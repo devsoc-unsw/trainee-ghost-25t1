@@ -1,8 +1,10 @@
 import './Task.css'
 
 function TaskText({task, shouldTruncate}) {
+    console.log(task);
     const dueDate = new Date(task.due_date).toLocaleDateString('en-AU');
-    const taskDoers = task.taskDoers.map((doer) => doer.name);
+    // const taskDoers = task.taskDoers.map((doer) => doer.name);
+    const taskDoers = ["John", "Dave"]
     const rewards = ["apples", "berries"];
 
     // Adds truncate class to text if option selected in props

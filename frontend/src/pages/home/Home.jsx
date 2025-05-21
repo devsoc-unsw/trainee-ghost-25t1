@@ -10,7 +10,6 @@ import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";
 import TeamDetail from "../../components/TeamDetail/TeamDetail";
-import { getHomePageData } from "../../api/teams";
 import { getPokemon } from "../../api/poke";
 import extractStatsFromHomeData from "./extractStatsFromHomeData";
 import follow from "../../assets/follow.gif";
@@ -18,13 +17,14 @@ import { motion } from "motion/react";
 import HomeTasks from "./HomeTasks";
 import ViewTask from "../ViewTask/ViewTask";
 import MusicPlayer from "../../components/MusicPlayer";
+import { HomeContext } from "../../context/homeContext";
 
 function Home() {
   const navigate = useNavigate();
   const { user, loading } = useContext(AuthContext);
+  const { homeData } = useContext(HomeContext);
 
   const [clicked, setClicked] = useState("home");
-  const [homeData, setHomeData] = useState(null);
   const [pokemon, setPokemon] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
 
@@ -51,10 +51,6 @@ function Home() {
       navigate("/team-selection");
     }
 
-    (async () => {
-      const data = await getHomePageData();
-      setHomeData(data.data);
-    })();
   }, [user, loading, navigate]);
 
   useEffect(() => {
@@ -71,6 +67,8 @@ function Home() {
     })();
   }, [homeData]);
 
+  
+
   if (loading) {
     return <Loading />;
   }
@@ -82,6 +80,8 @@ function Home() {
 
   const statObj = extractStatsFromHomeData(homeData);
   const teamData = homeData?.team?.team;
+
+  console.log(homeData)
 
   return (
     <>
@@ -125,7 +125,7 @@ function Home() {
                     dragSnapToOrigin={true}
                     transition={{
                       type: "spring",
-                      bounce: 0,
+                      bounce: 100,
                       mass: 500,
                       stiffness: 20,
                       damping: 20,
