@@ -1,7 +1,7 @@
 import { useContext  } from "react";
 import TaskContainer from "./TaskContainer";
 import "./ViewTask.css";
-import { TaskContext } from "../../context/taskContext";
+import { TaskContext } from "../../context/TaskContext";
 import Loading from "../../components/Loading";
 
 function ViewTask() {

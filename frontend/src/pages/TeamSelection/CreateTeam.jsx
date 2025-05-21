@@ -5,6 +5,7 @@ import { createTeam } from '../../api/teams';
 import '../../components/InputBox.css';
 import './Team.css';
 import { AuthContext } from '../../context/authContext';
+import Button from '../../components/Button';
 
 function CreateTeam({setActive}) {
     const navigate = useNavigate();

@@ -3,7 +3,7 @@ import Button from '../Button';
 import TaskText from './TaskText';
 import { claimTaskCompleted, voteOnCompletion } from '../../api/tasks';
 import './Task.css';
-import { TaskContext } from '../../context/taskContext';
+import { TaskContext } from '../../context/TaskContext';
 
 // Component representing a Task when it is clicked on and expanded
 function ExpandedTask({task, setTaskActive, status}) {
