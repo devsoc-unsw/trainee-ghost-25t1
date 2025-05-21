@@ -50,7 +50,7 @@
 }
 
 .reset-access-code {
-    margin-left: auto;
+    margin-top: 0.1px;
     min-width: 50px;
     width: 20%;
     min-height: 65px;
@@ -66,9 +66,19 @@
 }
 
 .save-changes {
+    margin-top: 10px;
+    margin-bottom: 20px;
     background-color: rgb(175, 229, 110);
 }
 
 .save-changes:hover {
     background-color: rgb(145, 190, 90);
+}
+
+.leave-btn {
+    background-color: rgb(253, 116, 116);
+}
+
+.leave-btn:hover {
+    background-color: rgb(216, 97, 97);
 }

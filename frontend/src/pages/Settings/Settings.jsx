@@ -6,6 +6,7 @@ import {
   editTeamData,
   generateNewRandomCode,
   getRandomCode,
+  leaveTeam
 } from "../../api/teams";
 
 const Settings = () => {
@@ -17,6 +18,7 @@ const Settings = () => {
   const [assignmentName, setAssignmentName] = useState("");
 
   const [error, setError] = useState(null);
+  const [msg, setMsg] = useState("");
 
   // We can determine if the current user is admin by checking if the join code fetch was successful
   const isAdmin = Boolean(joinCode);
@@ -33,7 +35,7 @@ const Settings = () => {
 
       // Only admins will be able to access the access code
       const codeData = await getRandomCode();
-      setJoinCode(codeData.joinCode);
+      setJoinCode(codeData?.joinCode);
     })();
   }, []);
 
@@ -42,7 +44,7 @@ const Settings = () => {
     setJoinCode(codeData.joinCode);
   };
 
-  // Actually uplaod stuff to the db
+  // Actually upload stuff to the db
   const handleSaveChanges = () => {
     const res = editTeamData({
       name: teamName,
@@ -54,6 +56,15 @@ const Settings = () => {
     }
   };
 
+  const handleLeaveTeam = async () => {
+    const resData = await leaveTeam();
+    if (resData.sucess) {
+      setMsg(resData.message);
+    } else {
+      setError(resData.message || "Something went wrong, please try again");
+    }
+  }
+
   const adminName = teamData?.members?.find(
     (member) => member.id === teamData.team.admin_user_id
   );
@@ -61,7 +72,7 @@ const Settings = () => {
   return (
     <section className="will-popup-menu-style">
       <h1>Settings</h1>
-      {isAdmin && (
+      {teamData && (
         <div className="core-settings-data">
           {joinCode && (
             <div className="input-and-label-container">
@@ -136,7 +147,7 @@ const Settings = () => {
           <div className="input-and-label-container">
             <h3>Group Members</h3>
             {teamData?.members.map((member) => (member.name !== adminName.name ?
-              <div className="group-members input-like-div">
+              <div key={member.name} className="group-members input-like-div">
                 {member.name}
               </div> : null
             ))}
@@ -146,6 +157,10 @@ const Settings = () => {
       {error && <div className="error">{error}</div>}
       <button className="save-changes" onClick={handleSaveChanges}>
         Save Changes
+      </button>
+      {msg && <div className="error">{msg}</div>}
+      <button className="leave-btn" onClick={handleLeaveTeam}>
+        Leave Group
       </button>
     </section>
   );
