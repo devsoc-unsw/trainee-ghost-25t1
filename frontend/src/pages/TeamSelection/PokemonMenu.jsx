@@ -23,7 +23,7 @@ const PokemonMenu = ({ setPokemon, setActive }) => {
 
   const filterResults = () => {
   const data = pokemonList?.results
-    ?.filter((p) => p.name.includes(search))
+    ?.filter((p) => p.name.includes(search.toLowerCase()))
     .filter((_, idx) => idx < 15);
     setFiltered(data);
   }

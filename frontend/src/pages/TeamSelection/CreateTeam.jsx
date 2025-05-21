@@ -49,8 +49,8 @@ function CreateTeam({ setActive }) {
           {pokemon && <input type="text" value={upperCase(pokemon)} disabled placeholder="Select above" className="pokemon-txt-display"/>}
           <InputBox
             fields={[
-              { name: "New Team Name", value: "teamName" },
-              { name: "Class Code (e.g. COMP1511)", value: "classCode" },
+              { name: "New Team Name", value: "teamName"},
+              { name: "Class Code (e.g. COMP1511)", value: "classCode", max: 8},
               { name: "Assignment Name", value: "assignment" },
             ]}
             buttonText="Create Team"

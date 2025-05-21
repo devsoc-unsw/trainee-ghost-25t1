@@ -18,6 +18,7 @@ function InputBox({fields, buttonText, buttonTopText, onSubmit}) {
                     type={(field.value === 'password' || field.value === 'confirmPassword') ? 'password' : 'text'}
                     placeholder={field.name}
                     key={fields.indexOf(field)}
+                    maxLength={field.max || 800}
                 />
             ))}
 
