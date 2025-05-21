@@ -10,34 +10,35 @@
 }
 
 .choose-pokemon-menu-btn {
-    background-color: rgb(100, 222, 0);
+    background-color: rgb(175, 229, 110);
 }
 
 .pokemenu {
     width: 1000px;
-      display: flex;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
-
 
 .poke-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  width: 1000px;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 100%;
+    width: 1000px;
+    align-items: center;
+    justify-content: center;
 }
+
 .pokemon-tile {
     background-color: rgba(0, 0, 0, 0.4);
     box-shadow: var(--light-shadow);
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid white; 
-    border-radius: 8px; 
-    padding: 5px; 
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 5px;
     flex-direction: column;
 }
 
@@ -52,8 +53,8 @@
 }
 
 .pokemon-tile img {
-        height: 165px;
-        width: 165x;
+    height: 165px;
+    width: 165x;
     filter: drop-shadow(var(--dark-shadow));
     bottom: 5%;
     image-rendering: optimizeSpeed;
