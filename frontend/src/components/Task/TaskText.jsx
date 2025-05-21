@@ -1,42 +1,53 @@
 import './Task.css'
 
 function TaskText({task, shouldTruncate}) {
-    const dueDate = new Date(task.due_date).toLocaleDateString('en-AU');
+    const currDate = new Date();
+    const dueDate = new Date(task.due_date);
+
+    let overdue = false;
+    if (dueDate.getTime() < currDate.getTime()) {
+        overdue = true;
+    }
+
     const taskDoers = task.taskDoers.map((doer) => doer.name);
     const rewards = ["apples", "berries"];
 
-    // Adds truncate class to text if option selected in props
-    const conditionalTruncate = (className) => {
-        return className.concat(shouldTruncate ? " truncate" : " expanded-text");
+    // Adds truncate class to text if option selected in props and makes text red if overdue
+    const resolveClassName = (className) => {
+        let resolvedClass = className.concat(shouldTruncate ? " truncate" : " expanded-text");
+        if (overdue) {
+            resolvedClass = resolvedClass.concat(" red");
+        }
+        return resolvedClass;
     }
 
     return (
         <>
             <div className="task-text">
-                <div className={conditionalTruncate("task-title")}><b>{task.title}</b></div>
-                <div className={conditionalTruncate("task-description")}>
+                <div className={resolveClassName("task-title")}><b>{task.title}</b></div>
+                <div className={resolveClassName("task-description")}>
                     <b>Description: </b>
                     <i>{task.description}</i>
                 </div>
-                <div className={conditionalTruncate("task-date")}>
+                <div className={resolveClassName("task-date")}>
                     <b>Due: </b>
-                    <i>{dueDate}</i>
+                    <i>{dueDate.toLocaleDateString('en-AU')}</i>
                 </div>
-                <div className={conditionalTruncate("task-assigned")}>
+                <div className={resolveClassName("task-assigned")}>
                     <b>Assigned To: </b>
                     <i>{taskDoers.join(', ')}</i>
                 </div>
-                <div className={conditionalTruncate("task-difficulty")}>
+                <div className={resolveClassName("task-difficulty")}>
                     <b>Difficulty: </b>
                     <i>{task.difficulty}/10</i>
                 </div>
-                <div className={conditionalTruncate("task-rewards")}>
+                <div className={resolveClassName("task-rewards")}>
                     <b>Rewards: </b>
                     <i>{rewards.join(', ')}</i>
                 </div>
-                <div className={conditionalTruncate("task-status")}>
+                <div className={resolveClassName("task-status")}>
                     <b>Status: </b>
-                    <i>{task.task_status}</i>
+                    <i>{overdue ? "overdue" : task.task_status}</i>
                 </div>
             </div>
         </>
