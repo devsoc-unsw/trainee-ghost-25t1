@@ -1,4 +1,5 @@
-import './Task.css'
+import rewardMap from '../../utils/rewardMap';
+import './Task.css';
 
 function TaskText({task, shouldTruncate}) {
     const currDate = new Date();
@@ -10,7 +11,7 @@ function TaskText({task, shouldTruncate}) {
     }
 
     const taskDoers = task.taskDoers.map((doer) => doer.name);
-    const rewards = ["apples", "berries"];
+    const reward = rewardMap[task.difficulty];
 
     // Adds truncate class to text if option selected in props and makes text red if overdue
     const resolveClassName = (className) => {
@@ -41,9 +42,9 @@ function TaskText({task, shouldTruncate}) {
                     <b>Difficulty: </b>
                     <i>{task.difficulty}/10</i>
                 </div>
-                <div className={resolveClassName("task-rewards")}>
+                <div className={resolveClassName("task-reward")}>
                     <b>Rewards: </b>
-                    <i>{rewards.join(', ')}</i>
+                    <img className={shouldTruncate ? "small-reward" : "large-reward"} src={reward}/>
                 </div>
                 <div className={resolveClassName("task-status")}>
                     <b>Status: </b>
