@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { HomeContext } from "./homeContext";
+import { HomeContext } from "./HomeContext";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const HomeProvider = ({ children }) => {

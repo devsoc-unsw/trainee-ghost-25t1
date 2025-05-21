@@ -17,7 +17,7 @@ import { motion } from "motion/react";
 import HomeTasks from "./HomeTasks";
 import ViewTask from "../ViewTask/ViewTask";
 import MusicPlayer from "../../components/MusicPlayer";
-import { HomeContext } from "../../context/homeContext";
+import { HomeContext } from "../../context/HomeContext";
 
 function Home() {
   const navigate = useNavigate();
