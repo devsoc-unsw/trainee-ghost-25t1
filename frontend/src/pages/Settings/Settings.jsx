@@ -13,7 +13,7 @@ const Settings = () => {
   const [joinCode, setJoinCode] = useState(null);
 
   const [teamName, setTeamName] = useState("");
-  const [courseCode, setCourseCode] = useState("");
+  const [classCode, setClassCode] = useState("");
   const [assignmentName, setAssignmentName] = useState("");
 
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const Settings = () => {
 
       // initialise controlled states
       setTeamName(data.team.name);
-      setCourseCode(data.team.class_code);
+      setClassCode(data.team.class_code);
       setAssignmentName(data.team.assignment);
 
       // Only admins will be able to access the access code
@@ -46,7 +46,7 @@ const Settings = () => {
   const handleSaveChanges = () => {
     const res = editTeamData({
       name: teamName,
-      courseCode,
+      classCode: classCode,
       assignment: assignmentName,
     });
     if (!res.ok) {
@@ -90,13 +90,13 @@ const Settings = () => {
           </div>
 
           <div className="input-and-label-container">
-            <label htmlFor="course-code">Course code</label>
+            <label htmlFor="class-code">Class code</label>
             <input
-              className="course-code"
-              id="course-code"
+              className="class-code"
+              id="class-code"
               placeholder="COMP1511"
-              value={courseCode}
-              onChange={(e) => setCourseCode(e.target.value)}
+              value={classCode}
+              onChange={(e) => setClassCode(e.target.value)}
               disabled={!isAdmin}
             />
           </div>
