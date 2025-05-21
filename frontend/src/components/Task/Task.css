@@ -106,3 +106,13 @@
 .button-toptext {
     margin: 0 auto;
 }
+
+.small-reward {
+    height: 35px;
+    width: 35px;
+}
+
+.large-reward {
+    height: 60px;
+    width: 60px;
+}
