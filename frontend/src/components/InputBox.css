@@ -20,6 +20,7 @@ button, input {
 }
 
 button {
+    margin-top: -1vh;
     border-radius: 40px;
 }
 
@@ -29,7 +30,7 @@ button {
     flex-basis: 70vh;
     align-items: center;
     justify-content: flex-end;
-    gap: 1vh;
+    gap: 2vh;
 
     background-color: rgba(0, 0, 0, 50%);
     border-radius: 15px;
