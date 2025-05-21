@@ -1,0 +1,73 @@
+import { useEffect, useState } from "react";
+import { getAllPokemon } from "../../api/poke";
+import upperCase from "../../utils/upperCase";
+
+const PokemonMenu = ({ pokemon, setPokemon, setActive }) => {
+  const [pokemonList, setPokemonList] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const res = await getAllPokemon();
+      setPokemonList(res);
+    })();
+  }, []);
+
+  // Generaet a link that gets a pokemon image based on an id
+  const getLink = (id) => {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+  };
+
+  const filtered = pokemonList?.results
+    ?.filter((p) => p.name.includes(search))
+    .filter((_, idx) => idx < 15);
+
+    console.log(filtered)
+
+  // get in this format {name: img: linkstr}
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  // Extract the id from an object with name and url
+  const extractId = (obj) => {
+    const segments = obj.url.split("/");
+    return Number(segments[segments.length - 2]);
+  };
+
+  const handleClick = (pokemonName) => {
+    setPokemon(pokemonName);
+    setActive(false)
+
+  }
+
+  return (
+    <div className="background-mask" onClick={() => setActive(false)}>
+      {/*Prevent popup from closing when you click the input box*/}
+      <div
+        className="create input-box pokemenu"
+        onClick={(e) => e.stopPropagation()}
+      >
+        Choose your pokemon!
+        <input
+          value={search}
+          onChange={handleSearchChange}
+          type="text"
+          className="search"
+          placeholder="Search..."
+        />
+        <div className="poke-container">
+          {filtered?.map((p) => (
+            <div className="pokemon-tile" onClick={() => handleClick(p.name)}>
+              <img src={getLink(extractId(p))} />
+              <p>{upperCase(p.name)}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PokemonMenu;
