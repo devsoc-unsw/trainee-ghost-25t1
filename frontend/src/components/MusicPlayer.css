@@ -14,7 +14,7 @@
     padding: 30px;
 
     color: white;
-    font-size: calc(max(2.5vh, 1.3vw));
+    font-size: 30px;
     text-align: center;
 
     background: linear-gradient(180deg,rgba(42, 123, 155, 1) 0%, rgba(128, 126, 126, 1) 0%, rgba(61, 60, 60, 1) 100%);
@@ -33,7 +33,7 @@
 }
 
 .music-btn {
-    width: 3vw;
+    width: 60px;
     object-fit: contain;
 }
 
