@@ -18,6 +18,7 @@ import HomeTasks from "./HomeTasks";
 import ViewTask from "../ViewTask/ViewTask";
 import MusicPlayer from "../../components/MusicPlayer";
 import { HomeContext } from "../../context/HomeContext";
+import TaskProvider from "../../context/TaskProvider";
 
 function Home() {
   const navigate = useNavigate();
@@ -50,7 +51,6 @@ function Home() {
     if (!loading && !user?.team_id) {
       navigate("/team-selection");
     }
-
   }, [user, loading, navigate]);
 
   useEffect(() => {
@@ -67,8 +67,6 @@ function Home() {
     })();
   }, [homeData]);
 
-  
-
   if (loading) {
     return <Loading />;
   }
@@ -81,7 +79,7 @@ function Home() {
   const statObj = extractStatsFromHomeData(homeData);
   const teamData = homeData?.team?.team;
 
-  console.log(homeData)
+  console.log(homeData);
 
   return (
     <>
@@ -104,9 +102,7 @@ function Home() {
               )}
             </div>
             <div className="row-2">
-              {clicked === "home" && (
-                <MusicPlayer/>
-              )}
+              {clicked === "home" && <MusicPlayer />}
               {clicked === "home" && teamData && (
                 <TeamDetail teamData={teamData} />
               )}
@@ -141,7 +137,11 @@ function Home() {
             <Popup active={true}>
               {clicked === "newTask" && <CreateTask />}
               {clicked === "profile" && <Settings />}
-              {clicked === "viewTask" && <ViewTask title="My Tasks" />}
+              {clicked === "viewTask" && (
+                <TaskProvider>
+                  <ViewTask title="My Tasks" />
+                </TaskProvider>
+              )}
             </Popup>
           </div>
         )}

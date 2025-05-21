@@ -1,36 +1,38 @@
-import { useContext } from 'react';
-import { AuthContext } from "../../context/authContext";
-import TaskContainer from './TaskContainer';
-import './ViewTask.css';
+import { useContext  } from "react";
+import TaskContainer from "./TaskContainer";
+import "./ViewTask.css";
+import { TaskContext } from "../../context/taskContext";
+import Loading from "../../components/Loading";
 
 function ViewTask() {
-    const { user, loading } = useContext(AuthContext);
+  const { tasks, loading } = useContext(TaskContext);
 
-    // Only show incomplete tasks assigned to the user
-    const incompleteFilter = {
-        assignedTo: user.id,
-        taskStatus: 'incomplete'
-    };
+  const incomplete = tasks ? tasks.filter((t) => t.task_status === "incomplete") : [];
+  const pending = tasks ? tasks.filter((t) => t.task_status === "pending") : [];
+  const complete = tasks ? tasks.filter((t) => t.task_status === "complete") : [];
 
-    // Show all pending tasks, regardless of who it was assigned to
-    const pendingFilter = {
-        taskStatus: 'pending'
-    };
+  if (loading) {
+    return <Loading/>
+  }
 
-    // Show all completed tasks, regardless of who it was assigned to
-    const completeFilter = {
-        taskStatus: 'complete'
-    };
-
+  // If the import failed (Even empty arrays are truthy so dont worry about this)
+  if (!tasks) {
     return (
-        <>
-            <div className="task-viewer">
-                <TaskContainer title="My Tasks" filter={incompleteFilter}/>
-                <TaskContainer title="Tasks For Review" filter={pendingFilter}/>
-                <TaskContainer title="Completed Tasks" filter={completeFilter}/>
-            </div>
-        </>
-    );
+        <div className="task-viewer">
+            <p>Something went wrong fetching tasks</p>
+        </div>
+    )
+  }
+  return (
+    <>
+      <div className="task-viewer">
+        {/* I changed this to incomplete tasks because I think you should be able to see all the tasks in your team */}
+        <TaskContainer status="incomplete" tasks={incomplete} />
+        <TaskContainer status="pending" tasks={pending} />
+        <TaskContainer status="complete" tasks={complete} />
+      </div>
+    </>
+  );
 }
 
 export default ViewTask;
