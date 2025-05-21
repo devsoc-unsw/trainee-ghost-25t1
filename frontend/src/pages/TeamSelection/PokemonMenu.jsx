@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { getAllPokemon } from "../../api/poke";
 import upperCase from "../../utils/upperCase";
+import useDebounce from "../../hooks/useDebounce";
 
-const PokemonMenu = ({ pokemon, setPokemon, setActive }) => {
+const PokemonMenu = ({ setPokemon, setActive }) => {
   const [pokemonList, setPokemonList] = useState([]);
   const [search, setSearch] = useState("");
+  const [filtered, setFiltered] = useState([])
 
   useEffect(() => {
     (async () => {
       const res = await getAllPokemon();
       setPokemonList(res);
+      setFiltered(res.results.slice(0, 15));
     })();
   }, []);
 
@@ -18,13 +21,15 @@ const PokemonMenu = ({ pokemon, setPokemon, setActive }) => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
   };
 
-  const filtered = pokemonList?.results
+  const filterResults = () => {
+  const data = pokemonList?.results
     ?.filter((p) => p.name.includes(search))
     .filter((_, idx) => idx < 15);
+    setFiltered(data);
+  }
 
-    console.log(filtered)
 
-  // get in this format {name: img: linkstr}
+  useDebounce(filterResults, 300, search)
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
