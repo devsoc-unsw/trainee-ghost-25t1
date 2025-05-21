@@ -136,7 +136,7 @@ li img:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    font-family: "Audiowide", system-ui, Avenir, Helvetica, Arial, sans-serif;;
     font-size: calc(max(2.5vh, 2vw));
     color: white;
     border-radius: 15px;
