@@ -79,8 +79,6 @@ function Home() {
   const statObj = extractStatsFromHomeData(homeData);
   const teamData = homeData?.team?.team;
 
-  console.log(homeData);
-
   return (
     <>
       <NavBar clicked={clicked} setClicked={setClicked} />

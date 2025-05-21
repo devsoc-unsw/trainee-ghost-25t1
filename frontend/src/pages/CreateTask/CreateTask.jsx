@@ -4,6 +4,7 @@ import taskCreationOptions from "./taskCreationOptions";
 import { createTaskApiCall, getTeamData } from "../../api/tasks";
 import { useEffect, useState } from "react";
 import oak from '../../assets/professoroak_2x.png'
+import Button from "../../components/Button";
 
 const CreateTask = () => {
     const {
@@ -13,6 +14,7 @@ const CreateTask = () => {
     } = useForm();
 
     const [teamData, setTeamData] = useState(null);
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -21,10 +23,13 @@ const CreateTask = () => {
         })();
     }, []);
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         data.assignedTo = data.assignedTo.map(num => Number(num));
         data.difficulty = Number(data.difficulty);
-        createTaskApiCall(data);
+        const resData = await createTaskApiCall(data);
+        if (!resData.success) {
+            setErrorMsg(resData.error);
+        }
     };
 
     return (
@@ -88,7 +93,7 @@ const CreateTask = () => {
                             <p className="error">{errors.assignedTo.message}</p>
                         )}
                     </div>
-                    <button>Create</button>
+                    <Button topText={errorMsg} innerText="Create"/>
                 </form>
                 <img className="professor-oak-img" src={oak} alt="Professor oak" />
             </div>
