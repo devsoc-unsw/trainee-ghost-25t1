@@ -126,11 +126,20 @@ const Settings = () => {
           <div className="input-and-label-container">
             <h3>Admin Name</h3>
             <div
-              className="pokemon-character input-like-div"
-              id="pokemon-character"
+              className="admin-name input-like-div"
+              id="admin-name"
             >
               {adminName.name}
             </div>
+          </div>
+
+          <div className="input-and-label-container">
+            <h3>Group Members</h3>
+            {teamData?.members.map((member) =>
+              (<div className="group-members input-like-div">
+                {member.name}
+              </div>)
+            )}
           </div>
         </div>
       )}
