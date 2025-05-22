@@ -64,7 +64,7 @@ const PokemonMenu = ({ setPokemon, setActive }) => {
         />
         <div className="poke-container">
           {filtered?.length > 0 ? filtered?.map((p) => (
-            <div className="pokemon-tile" onClick={() => handleClick(p.name)}>
+            <div key={p.name} className="pokemon-tile" onClick={() => handleClick(p.name)}>
               <img src={getLink(extractId(p))} />
               <p>{upperCase(p.name)}</p>
             </div>
