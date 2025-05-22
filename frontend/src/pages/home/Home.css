@@ -139,7 +139,7 @@ li img:active {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    justify-content: center;
+    align-items: flex-end;
 }
 
 .placeholder-task{

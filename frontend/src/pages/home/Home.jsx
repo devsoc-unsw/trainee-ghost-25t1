@@ -71,11 +71,6 @@ function Home() {
     return <Loading />;
   }
 
-  // "Stubs for now"
-  var temporary_completed_tasks = {
-    key: "Will and Kevin just completed a difficult task!",
-  };
-
   const statObj = extractStatsFromHomeData(homeData);
   const teamData = homeData?.team?.team;
 
@@ -88,7 +83,7 @@ function Home() {
           <>
             <div className="row-1">
               {/* Modify below later on to handle not just completed tasks but approval, overdue*/}
-              <CompletedTaskSummary fields={temporary_completed_tasks} />
+              <CompletedTaskSummary setClicked={setClicked}/>
               {statObj && <StatsTextBox stats={statObj} />}
               {homeData?.tasks?.length > 0 ? (
                 <HomeTasks tasks={homeData.tasks} />

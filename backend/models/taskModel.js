@@ -35,7 +35,7 @@ const getData = async (teamId, cols, params) => {
   const values = [...selectedCols, teamId];
 
   if (params.taskStatus) {
-    query += ` AND task_status = ?`;
+    query += ` AND task_status = ?`
     values.push(params.taskStatus);
   }
 
@@ -63,6 +63,8 @@ const getData = async (teamId, cols, params) => {
     query += ` OFFSET ?`;
     values.push(parseInt(params.offset, 10));
   }
+
+  console.log("\n\n My query: ", query)
 
   const [rows] = await db.query(query, values);
   return rows;

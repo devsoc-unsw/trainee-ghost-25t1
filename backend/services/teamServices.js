@@ -120,15 +120,25 @@ const alterCoreTeamData = async (userId, newData) => {
 
 const getHomePage = async (userId) => {
   const team = await teamModel.viewTeamData(userId);
-  const taskParams = {
+  const incompleteTaskParams = {
     assignedTo: [userId],
     orderBy: "due_date",
     sortDirection: "DESC",
     limit: "2",
+    taskStatus: "incomplete"
   };
-  const tasks = await taskServices.getTaskData(userId, taskParams);
+
+  const completeTaskParams = {
+    orderBy: "completed_at",
+    sortDirection: "ASC",
+    limit: "1",
+    taskStatus: "complete"
+  }
+
+  const tasks = await taskServices.getTaskData(userId, incompleteTaskParams);
+  const finished = await taskServices.getTaskData(userId, completeTaskParams);
   // Maybe add notifcations here
-  return { team, tasks };
+  return { team, tasks, finished};
 };
 
 module.exports = {
