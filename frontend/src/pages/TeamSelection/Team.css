@@ -35,7 +35,7 @@
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
     background-color: rgb(57, 57, 160);
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .pokemon-tile {
@@ -84,6 +84,10 @@
     color: rgb(199, 199, 199);
 }
 
+.search {
+    width: 85%;
+}
+
 .missing-no {
     width: 200px;
     animation: spin 1s linear infinite;
@@ -94,8 +98,6 @@
     animation: back-and-forth 1s ease-in-out infinite;
     filter: drop-shadow(10px 10px 10px rgba(50,50,50, 0.5));
 }
-
-
 
 @keyframes back-and-forth {
     0% {
