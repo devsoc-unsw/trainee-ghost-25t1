@@ -13,30 +13,45 @@
     filter: drop-shadow(var(--dark-shadow));
     min-width: 26vw;
 }
+
 .detail-text-row {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    text-align: center;
     gap: 5vw;
     border-bottom: 2px solid rgb(105, 104, 104);
     margin-bottom: 8px;
     padding: 4px 0;
-    text-align: center;
-    align-items: center;
 }
+
 .team-name {
     font-weight: 600;
     font-size: 36px;
     color: #000000;
-    text-align: center;
+}
+
+.welcome-text {
+    color: rgb(129, 129, 129);
+    font-style: italic;
+    font-size: 24px;
 }
 
 .vert-text {
+    display: flex;
+    flex-direction: column;
+
     font-weight: 600;
     font-size: 26px;
     color: #000000;
-    align-items: end;
-    display: flex;
-    flex-direction: column;
+}
+
+#vert-text-1 {
+    align-items: flex-start;
+}
+
+#vert-text-2 {
+    align-items: flex-end;
 }
 
 .vert-text > * {

@@ -102,7 +102,7 @@ function Home() {
             <div className="row-2">
               {clicked === "home" && <MusicPlayer />}
               {clicked === "home" && teamData && (
-                <TeamDetail teamData={teamData} />
+                <TeamDetail user={user} teamData={teamData} />
               )}
               {pokemon && (
                 <div className="pokemon-container" ref={constraintsRef}>
