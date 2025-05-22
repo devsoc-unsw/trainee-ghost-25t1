@@ -21,7 +21,6 @@
     margin-bottom: 8px;
     padding: 4px 0;
     text-align: center;
-    display: flex;
     align-items: center;
 }
 .team-name {
@@ -55,11 +54,27 @@
     text-align: center;
 }
 
+.progress {
+    background-color: rgb(216, 218, 221) !important;
+    border-radius: 10px;
+}
+
 .progress-bar {
     width: 80%;
     height: 40px;
-    font-size: 20px;
+    border-radius: 10px;
+    overflow: visible;
+
+    background-color: rgb(56, 117, 187);
+
+    font-size: 18px;
     font-weight: bold;
+    text-shadow: var(--standard-shadow);
+    filter: drop-shadow(var(--standard-shadow));
+}
+
+.no-progress .progress-bar {
+    color: rgb(131, 130, 130);
 }
 
 .poke-image {
@@ -67,7 +82,6 @@
     height: auto;
     object-fit: contain;
     filter: drop-shadow(var(--light-shadow));
-
 }
 
 .detail-progress-row {

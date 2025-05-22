@@ -20,7 +20,13 @@ function TeamDetail({teamData}) {
             </div>
             <div className="detail-progress-row">
                 <img className="poke-image" src={pokeball} />
-                <ProgressBar className="progress-bar" variant="success" now={percentToNextLevel} label={percentToNextLevel + '%'} />
+                <ProgressBar
+                    className={`progress-bar ${percentToNextLevel === 0 ? "no-progress" : ""}`}
+                    striped
+                    animated
+                    now={percentToNextLevel}
+                    label={percentToNextLevel + '%'}
+                />
             </div>
         </section>
     )
