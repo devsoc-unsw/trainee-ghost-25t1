@@ -11,6 +11,9 @@
 {
     text-align: left;
     font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .access-code-container,
@@ -81,4 +84,28 @@
 
 .leave-btn:hover {
     background-color: rgb(216, 97, 97);
+}
+
+.group-members {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.remove-member-btn {
+    display: block;
+    margin-left: auto;
+    align-items: center;
+    background-color: transparent;
+    margin-top: 0px;
+    min-width: 60px;
+    min-height: 60px;
+    width: 32px;
+    height: 32px; 
+}
+
+.cross-image {
+    width: 24px;
+    height: auto;
 }

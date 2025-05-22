@@ -31,6 +31,17 @@ const taskCreationOptions = {
             message: "Difficulty must be between 1 and 10"
         }
     },
+    approval: {
+        required: "Please enter the number of users needed to approve the  task",
+        max: {
+            value: 1024,
+            message: "Users needed to approve the task must be less than the total team size"
+        },
+        min: {
+            value: 0,
+            message: "Users needed to approve the task must be at least 0"
+        }
+    },
     assignedTo: {
         required: "Please assign the task to at least one user",
         validate: value => {

@@ -7,8 +7,10 @@ import {
   editTeamData,
   generateNewRandomCode,
   getRandomCode,
-  leaveTeam
+  leaveTeam,
+  kickPlayerFromTeam,
 } from "../../api/teams";
+import cross from "../../assets/cross.svg";
 
 const Settings = () => {
   const [teamData, setTeamData] = useState(null);
@@ -65,6 +67,15 @@ const Settings = () => {
     if (resData.sucess) {
       console.log(resData.message);
       navigate("/team-selection");
+    } else {
+      setError(resData.message || "Something went wrong, please try again");
+    }
+  }
+
+  const kickFromTeam = async (userId) => {
+    const resData = await kickPlayerFromTeam(userId);
+    if (resData.sucess) {
+      console.log(resData.message);
     } else {
       setError(resData.message || "Something went wrong, please try again");
     }
@@ -152,9 +163,14 @@ const Settings = () => {
           <div className="input-and-label-container">
             <h3>Group Members</h3>
             {teamData?.members.map((member) => (member.name !== adminName.name ?
-              <div key={member.name} className="group-members input-like-div">
-                {member.name}
-              </div> : null
+              <div className="input-like-div">
+                <div key={member.name} className="group-members">
+                  {member.name}
+                </div>
+                <button className="remove-member-btn" onClick={() => kickFromTeam(member.id)}>
+                  <img src={cross} className="cross-image" alt="Remove" />
+                </button>
+              </div>: null
             ))}
           </div>
         </div>

@@ -86,7 +86,7 @@ const kickFromTeam = async (adminId, kickedId) => {
     throw err;
   }
 
-  await removeUserFromTeam(kickedId);
+  await teamModel.removeUserFromTeam(adminId, kickedId);
 };
 
 const leaveTeam = async (userId) => {

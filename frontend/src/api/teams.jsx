@@ -87,9 +87,10 @@ const leaveTeam = async () => {
  * @returns response parsed as JSON object
  */
 const kickPlayerFromTeam = async (kickedUserId) => {
+  console.log(kickedUserId);
   try {
     const response = await fetch(
-      `${apiUrl}/teams/kick/:${kickedUserId}`,
+      `${apiUrl}/teams/kick/${kickedUserId}`,
       {
         method: "DELETE",
         headers: {
