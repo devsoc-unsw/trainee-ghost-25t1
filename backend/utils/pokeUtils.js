@@ -14,7 +14,7 @@ const taskDifficultyToXp = (difficulty) => {
 const getStartingXp = () => {
   const { minStartLevel, maxStartLevel } = pokeConstants;
   const range = maxStartLevel - minStartLevel;
-  const xp = Math.floor(Math.random() * range * 100 + 1) + minStartLevel;
+  const xp = Math.floor(Math.random() * range * 100 + 1) + minStartLevel * 100;
   return xp;
 }
 

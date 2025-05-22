@@ -58,12 +58,16 @@
 .progress-bar {
     width: 80%;
     height: 40px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .poke-image {
     max-width: 64px;
     height: auto;
     object-fit: contain;
+    filter: drop-shadow(var(--light-shadow));
+
 }
 
 .detail-progress-row {
@@ -72,5 +76,4 @@
     margin-bottom: 8px;
     display: flex;
     align-items: center;
-    filter: drop-shadow(var(--dark-shadow));
 }
