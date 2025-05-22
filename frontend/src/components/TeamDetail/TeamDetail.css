@@ -85,7 +85,7 @@
     font-size: 18px;
     font-weight: bold;
     text-shadow: var(--standard-shadow);
-    filter: drop-shadow(var(--standard-shadow));
+    filter: drop-shadow(var(--light-shadow));
 }
 
 .no-progress .progress-bar {

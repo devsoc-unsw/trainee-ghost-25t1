@@ -131,7 +131,7 @@ function Home() {
             </div>
           </>
         ) : (
-          <div className="pop-up">
+          <div className="pop-up full-height">
             <Popup active={true}>
               {clicked === "newTask" && <CreateTask />}
               {clicked === "profile" && <Settings />}
