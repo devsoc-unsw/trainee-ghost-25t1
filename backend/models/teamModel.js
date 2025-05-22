@@ -72,7 +72,7 @@ const userIsAdminForAnother = async (adminId, otherId) => {
     SELECT t.admin_user_id
     FROM users u
     JOIN teams t
-      ON u.team_id = t.id
+    ON u.team_id = t.id
     WHERE u.id = ?
   `;
   const params = [otherId];
@@ -123,6 +123,40 @@ const changeTeamData = async (data, teamId) => {
 
   return result;
 };
+
+/**
+ * Remove a user from a team
+ * Note: It will auto remove the user from all tasks are reallocate it to the admin
+ * @param {int} adminId 
+ * @param {int} kickedId 
+ */
+const removeUserFromTeam = async (adminId, kickedId) => {
+  const removeUserQuery = `
+    UPDATE users u
+    JOIN teams t ON u.team_id = t.id
+    SET u.team_id = NULL
+    WHERE u.id = ? AND t.admin_user_id = ?;
+    `
+
+  const params = [kickedId, adminId];
+  const [result] = await db.query(removeUserQuery, params);
+  if (result.affectedRows === 0) {
+    const err = new Error("User you are attempting to kick is not in your team or you are not the admin");
+    err.code = "USER_NOT_ADMIN";
+    throw err;
+  }
+
+  // remove the user from all tasks
+  const reassignTasksQuery = `
+      INSERT INTO task_doers (task_id, user_id)
+      SELECT task_id, ? FROM task_doers
+      WHERE user_id = ?
+      ON DUPLICATE KEY UPDATE user_id = VALUES(user_id);
+    `;
+  await db.query(reassignTasksQuery, [adminId, kickedId]);
+  const deleteTasksQuery = `DELETE FROM task_doers WHERE user_id = ?;`;
+  await db.query(deleteTasksQuery, [kickedId]);
+}
 
 // Add a given amount of xp to a teams total xp and return that
 const updateAndGetXp = async (teamId, addedVal) => {
@@ -256,5 +290,6 @@ module.exports = {
   getTeamSize,
   viewTeamData,
   getTeamCode,
-  updateAndGetXp
+  updateAndGetXp,
+  removeUserFromTeam
 };

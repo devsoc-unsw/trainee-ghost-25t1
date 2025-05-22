@@ -26,6 +26,7 @@ const CreateTask = () => {
     const onSubmit = async (data) => {
         data.assignedTo = data.assignedTo.map(num => Number(num));
         data.difficulty = Number(data.difficulty);
+        data.approval = Number(data.approval);
         const resData = await createTaskApiCall(data);
         if (resData.success) {
             setBtnMsg("Task successfully created!");
@@ -65,6 +66,26 @@ const CreateTask = () => {
                         />
                         {errors.difficulty && (
                             <p className="error">{errors.difficulty.message}</p>
+                        )}
+                    </div>
+                    <div className="input-container">
+                        <input
+                            type="number"
+                            placeholder="Number of approvals needed"
+                            {...register("approval", {
+                                required: "Please enter the number of users needed to approve the task",
+                                min: {
+                                    value: 0,
+                                    message: "Users needed to approve the task must be at least 0"
+                                },
+                                validate: (value) => {
+                                    const max = teamData.members.length;
+                                    return (Number(value) <= max || `Approvals cannot exceed team size (${max})`);
+                                }
+                            })}
+                        />
+                        {errors.approval && (
+                            <p className="error">{errors.approval.message}</p>
                         )}
                     </div>
                     <div className="input-container">

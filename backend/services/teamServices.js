@@ -20,6 +20,7 @@ const createTeam = async (userId, teamData) => {
     ...fullTeamData,
     adminUserId: userId,
   });
+  console.log(baseStats, teamData)
   // The user is the admin of the team on the team table, but their user table
   // does not store that they are a member of the team. We must change that
   await userModel.addUserToTeam(userId, teamId);
@@ -86,7 +87,7 @@ const kickFromTeam = async (adminId, kickedId) => {
     throw err;
   }
 
-  await removeUserFromTeam(kickedId);
+  await teamModel.removeUserFromTeam(adminId, kickedId);
 };
 
 const leaveTeam = async (userId) => {

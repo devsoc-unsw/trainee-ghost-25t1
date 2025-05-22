@@ -110,8 +110,8 @@ const getTaskDoers = async (taskIds) => {
 
 const postTask = async (data) => {
   const query = `
-      INSERT INTO tasks (title, description, due_date, difficulty, team_id)
-      VALUES (?, ?, ?, ?, ?)`;
+      INSERT INTO tasks (title, description, due_date, difficulty, team_id, approval_votes)
+      VALUES (?, ?, ?, ?, ?, ?)`;
 
   const params = [
     data.title,
@@ -119,6 +119,7 @@ const postTask = async (data) => {
     data.dueDate,
     data.difficulty,
     data.teamId,
+    data.approval
   ];
 
   const [result] = await db.query(query, params);
@@ -200,25 +201,21 @@ const voteOnCompletion = async (userId, taskId) => {
     const err = new Error("User is attempting to vote twice");
     err.code = "REPEAT_VOTE";
     throw err;
-  } else {
-    const approvateIncrementQuery =`UPDATE tasks SET approval_votes = approval_votes + 1 WHERE id = ?`;
-    await db.query(approvateIncrementQuery, [taskId]);
   }
+
   return { userId, taskId };
 };
 
 // Determine how many people have voted for a task as being completed
 const getTaskVoteCount = async (taskId) => {
-  const query = `SELECT approval_votes FROM tasks WHERE id = ?`;
-  // const query = `
-  //   SELECT COUNT(*) AS vote_count
-  //   FROM task_votes
-  //   WHERE task_id = ?
-  //   `;
+  const query = `
+    SELECT COUNT(*) as count
+    FROM task_completion_votes
+    WHERE task_id = ?
+    `;
 
   const [rows] = await db.query(query, [taskId]);
-  // return rows[0].vote_count;
-  return rows[0].approval_votes;
+  return rows[0].count;
 };
 
 // Mark a task as completed
@@ -254,6 +251,22 @@ const getTaskView = async (taskId, teamId) => {
   return rows[0];
 };
 
+const getTeamApprovalThreshold = async (taskId) => {
+  const query = `
+  SELECT approval_votes
+  FROM tasks
+  WHERE id = ?
+  `
+
+  const [rows] = await db.query(query, [taskId]);
+  if (rows.length !== 1) {
+    const err = new Error("Task does not exist or forbidden access");
+    err.code = "RESOURCE_NOT_FOUND";
+    throw err;
+  }
+  return rows[0].approval_votes;
+}
+
 module.exports = {
   getData,
   postTask,
@@ -263,5 +276,6 @@ module.exports = {
   voteOnCompletion,
   getTaskVoteCount,
   handleTaskCompletion,
-  getTaskView
+  getTaskView,
+  getTeamApprovalThreshold
 };
