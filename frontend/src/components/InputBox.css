@@ -65,7 +65,7 @@ button {
     background-color: rgb(255, 222, 0);
 }
 
-.createteam-button:hover, .jointeam-button:hover {
+.createteam-button:hover:enabled, .jointeam-button:hover {
     background-color: rgb(194, 168, 2);
 }
 

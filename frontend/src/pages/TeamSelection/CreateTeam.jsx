@@ -55,6 +55,7 @@ function CreateTeam({ setActive }) {
             buttonText="Create Team"
             buttonTopText={errorMsg}
             onSubmit={onSubmit}
+            disableIf={!pokemon}
           />
         </div>
             <div className="pop-up">

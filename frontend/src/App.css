@@ -91,3 +91,7 @@ main {
   align-items: center  !important;
 
 }
+
+button:disabled {
+  cursor: not-allowed;
+}

@@ -7,7 +7,7 @@ img {
   -ms-user-select: none;
 }
 
-.create-team-button:hover,
+.create-team-button:hover:enabled,
 .join-team-button:hover {
   filter:brightness(75%);
   cursor: pointer;

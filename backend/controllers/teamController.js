@@ -9,13 +9,6 @@ const teamServices = require("../services/teamServices");
  * @param {string} req.body.classCode - UNSW class code  (like COMP1511)
  * @param {string} req.body.assignment - Name of the assignment
  * @param {string} [req.body.pokemonName]
- * @param {number} [req.body.xp]
- * @param {number} [req.body.hp]
- * @param {number} [req.body.attack]
- * @param {number} [req.body.defense]
- * @param {number} [req.body.specialAttack]
- * @param {number} [req.body.specialDefense]
- * @param {number} [req.body.speed]
  */
 
 const createTeam = async (req, res) => {

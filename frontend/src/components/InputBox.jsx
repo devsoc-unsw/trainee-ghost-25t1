@@ -3,7 +3,7 @@ import Button from './Button';
 import './InputBox.css';
 
 // Component containing a form with a dynamic number of input fields and a submit button
-function InputBox({fields, buttonText, buttonTopText, onSubmit}) {
+function InputBox({fields, buttonText, buttonTopText, onSubmit, disableIf}) {
     const {register, handleSubmit, formState: {errors}} = useForm();
 
     // Retrieve the first error message from all the provided fields
@@ -27,6 +27,7 @@ function InputBox({fields, buttonText, buttonTopText, onSubmit}) {
                 className={buttonText.replace(/\s+/g, '').toLowerCase() + '-button'}
                 topText={firstError || buttonTopText}
                 innerText={buttonText}
+                disableIf={disableIf}
             />
         </form>
         </>

@@ -3,6 +3,8 @@ import Task from "../../components/Task/Task";
 import "./ViewTask.css";
 import Popup from "../../components/Popup";
 import ExpandedTask from "../../components/Task/ExpandedTask";
+import missingno from "../../assets/missingno.png"
+
 
 function TaskContainer({ status, tasks }) {
   const [taskActive, setTaskActive] = useState(false);
@@ -25,7 +27,10 @@ function TaskContainer({ status, tasks }) {
       <div className="task-container">
         <div className="task-container-title">{statusToTitle[status]}</div>
         {tasks.length === 0 ? (
-          <span className="empty-text">Nothing here!</span>
+                     <div className="missing-poke-div">
+                        <p className="nothing-txt">Nothing here!</p>
+                        <img src={missingno} alt="" className="missing-no"/>
+                      </div>
         ) : (
           tasks.map((task, index) => (
             <Task

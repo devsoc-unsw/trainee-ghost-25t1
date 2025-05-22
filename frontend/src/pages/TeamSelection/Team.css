@@ -88,14 +88,10 @@
     width: 85%;
 }
 
-.missing-no {
-    width: 200px;
-    animation: spin 1s linear infinite;
-}
 
 .missing-no {
     width: 200px;
-    animation: back-and-forth 1s ease-in-out infinite;
+    animation: back-and-forth 2s ease-in-out infinite;
     filter: drop-shadow(10px 10px 10px rgba(50,50,50, 0.5));
 }
 
