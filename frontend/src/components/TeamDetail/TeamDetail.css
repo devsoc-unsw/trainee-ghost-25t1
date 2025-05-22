@@ -8,10 +8,10 @@
     align-self: flex-start;
     margin: 0;
     position: absolute;
-    bottom: 10%;
-    right: 8%;
+    bottom: 3%;
+    right: 1%;
     filter: drop-shadow(var(--dark-shadow));
-    min-width: 25vw;
+    min-width: 26vw;
 }
 
 .detail-text-row {
