@@ -11,7 +11,7 @@
     bottom: 10%;
     right: 8%;
     filter: drop-shadow(var(--dark-shadow));
-    width: fit-content;
+    min-width: 25vw;
 }
 .detail-text-row {
     display: flex;
