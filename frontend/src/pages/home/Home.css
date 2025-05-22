@@ -10,11 +10,15 @@
     display: flex;
     flex-direction: row;
     align-items: start;
-    justify-content: center;
-    gap: 6vw;
-    width: 100vw;
-    margin-left: 1vw;
+    justify-content: space-between;
+    gap: 10px;
+    width: 97.5vw;
+    margin: 0 20vw;
 }
+
+.row-1 > * {
+    width: 25vw;
+} 
 
 .row-2 {
     display: flex;
@@ -171,4 +175,10 @@ li img:active {
 
 .navigation-bar li {
     padding: 5px 0;
+    transition: 0.05s ease-in-out;
+}
+
+.navigation-bar li,
+.navigation-bar img {
+    transition: 0.2s ease-in-out;
 }
