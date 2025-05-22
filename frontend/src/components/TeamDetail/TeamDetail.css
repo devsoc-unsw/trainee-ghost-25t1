@@ -11,7 +11,7 @@
     bottom: 10%;
     right: 8%;
     filter: drop-shadow(var(--dark-shadow));
-    width: fit-content
+    width: fit-content;
 }
 .detail-text-row {
     display: flex;
@@ -57,10 +57,10 @@
 .progress {
     background-color: rgb(216, 218, 221) !important;
     border-radius: 10px;
+    width: 80%;
 }
 
 .progress-bar {
-    width: 80%;
     height: 40px;
     border-radius: 10px;
     overflow: visible;
@@ -85,9 +85,10 @@
 }
 
 .detail-progress-row {
-    gap: 10px;
-    justify-content: space-between;
-    margin-bottom: 8px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+
+    gap: 10px;
+    margin-bottom: 8px;
 }
