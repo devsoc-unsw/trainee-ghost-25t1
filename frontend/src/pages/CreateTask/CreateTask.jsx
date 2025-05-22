@@ -14,7 +14,7 @@ const CreateTask = () => {
     } = useForm();
 
     const [teamData, setTeamData] = useState(null);
-    const [errorMsg, setErrorMsg] = useState("");
+    const [btnMsg, setBtnMsg] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -27,8 +27,10 @@ const CreateTask = () => {
         data.assignedTo = data.assignedTo.map(num => Number(num));
         data.difficulty = Number(data.difficulty);
         const resData = await createTaskApiCall(data);
-        if (!resData.success) {
-            setErrorMsg(resData.error);
+        if (resData.success) {
+            setBtnMsg("Task successfully created!");
+        } else {
+            setBtnMsg(resData.error);
         }
     };
 
@@ -93,7 +95,7 @@ const CreateTask = () => {
                             <p className="error">{errors.assignedTo.message}</p>
                         )}
                     </div>
-                    <Button topText={errorMsg} innerText="Create"/>
+                    <Button topText={btnMsg} innerText="Create"/>
                 </form>
                 <img className="professor-oak-img" src={oak} alt="Professor oak" />
             </div>
