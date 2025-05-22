@@ -32,7 +32,7 @@ const fetchPokemon = async (pokeName) => {
 const getBaseStats = async (pokeName) => {
   const pokemon = await fetchPokemon(pokeName);
   const baseStatsArr = pokemon.stats.map((obj) => [
-    obj.stat.name,
+    obj.stat.name.replace("-", "_"), // Convert to snake case for db (pokeapi uses special-attack instead of special_attack)
     obj.base_stat,
   ]);
   return Object.fromEntries(baseStatsArr);
