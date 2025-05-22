@@ -9,15 +9,16 @@ import { AuthContext } from "../../context/authContext";
 function Login() {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
-  const { refetchUser } = useContext(AuthContext);
+  const { user, refetchUser } = useContext(AuthContext);
 
   const onSubmit = async (data) => {
     const resData = await loginUser(data.email, data.password);
 
     if (resData.success) {
+      await refetchUser();
+
       // Route to home page if a team is joined. Otherwise, go to team selection
-      if (resData.user.team_id) {
-        await refetchUser();
+      if (user.team_id) {
         navigate("/");
       } else {
         navigate("/team-selection");
