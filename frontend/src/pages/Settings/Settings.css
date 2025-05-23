@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+#settings-container {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
 .input-and-label-container > label,
 .input-and-label-container > h3,
 .input-and-label-container > .team-name,

@@ -86,7 +86,7 @@ const Settings = () => {
   );
 
   return (
-    <section className="will-popup-menu-style">
+    <section id="settings-container" className="will-popup-menu-style">
       <h1>Settings</h1>
       {teamData && (
         <div className="core-settings-data">
