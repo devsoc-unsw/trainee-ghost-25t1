@@ -223,22 +223,36 @@ const getTeamSize = async (teamId) => {
 //  Obtains all data required for settings in an object form
 const viewTeamData = async (userId) => {
   const query = `
-    SELECT *
-    FROM teams
-    WHERE id IN (
-      SELECT team_id
-      FROM users
-      WHERE u.id = ?
-    )`;
+    SELECT
+      t.id,
+      t.name,
+      t.admin_user_id,
+      t.class_code,
+      t.assignment,
+      t.xp,
+      t.hp,
+      t.attack,
+      t.defense,
+      t.special_attack,
+      t.special_defense,
+      t.speed,
+      t.pokemon_name
+    FROM
+      teams t
+    JOIN users u on t.id = u.team_id
+    WHERE u.id = ?`;
 
   const [rows] = await db.query(query, [userId]);
 
   if (rows.length === 0) {
     const err = new Error("Team does not exist");
-    err.code = 'TEAM_NOT_FOUND';
+    err.code = "TEAM_NOT_FOUND";
     throw err;
   }
-  return rows[0];
+  const team = rows[0];
+  const members = await getTeamMembers(rows[0].id);
+
+  return { team, members };
 };
 
 // A method to get all team members with the corresponding team id
@@ -265,6 +279,23 @@ const getTeamCode = async (teamId) => {
   return rows[0].random_code;
 };
 
+const getOverdueTaskNotifications = async (userId) => {
+  const query = `
+  SELECT id
+  FROM tasks
+  WHERE due_date < NOW()
+  AND team_id IN (
+    SELECT team_id
+    FROM users
+    WHERE id = ?
+  )
+  AND task_status = 'incomplete';
+  `
+
+  const [rows] = await db.query(query, [userId]);
+  rows.forEach(task => notifyTeamMembers(task.id, teamId, 'incomplete'));
+}
+
 const notifyTeamMembers = async (taskId, teamId, type) => {
   const query = `
   SELECT u.id
@@ -282,7 +313,7 @@ const notifyTeamMembers = async (taskId, teamId, type) => {
   `
 
   for (const user of rows) {
-    await db.query(query2, [taskId, user.id, type]);
+    await db.query(query2, [user.id, taskId, type]);
     // extension: send email to each user when task_status = 'pending'
   }
 };
@@ -299,5 +330,6 @@ module.exports = {
   getTeamCode,
   updateAndGetXp,
   removeUserFromTeam,
+  getOverdueTaskNotifications,
   notifyTeamMembers
 };

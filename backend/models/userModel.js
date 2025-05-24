@@ -161,8 +161,8 @@ exports.getNotifications = async (userId) => {
   JOIN users u on d.user_id = u.id
   JOIN notifications n on t.id = n.task_id
   WHERE n.user_id = ?
-  GROUP BY (n.task_id, n.type, n.created_at)
-  ORDER BY n.created_at
+  GROUP BY n.task_id
+  ORDER BY n.created_at DESC
   `
   const [rows] = await db.query(query, [userId]);
   return rows;

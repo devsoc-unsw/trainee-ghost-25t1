@@ -102,13 +102,9 @@ const changeTeamCode = async (adminId) => {
 };
 
 const getTeamSettings = async (userId) => {
-  var team = await teamModel.viewTeamData(userId);
-  if (userId !== team.admin_user_id) {
-    delete team.random_code;
-  }
-  const members = await getTeamMembers(team.id);
-  return {team, members};
-}
+  const data = await teamModel.viewTeamData(userId);
+  return data;
+};
 
 const getJoinCode = async (userId) => {
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
@@ -133,7 +129,7 @@ const getHomePage = async (userId) => {
   };
 
   const tasks = await taskServices.getTaskData(userId, incompleteTaskParams);
-  const notifications = await userServices.getNotifications(userId);
+  const notifications = await userModel.getNotifications(userId);
   return { team, tasks, notifications };
 };
 
