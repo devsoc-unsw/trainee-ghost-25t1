@@ -10,5 +10,7 @@ router.post('/signup', userController.signup);
 router.post('/login', userController.login);
 // Route to fetch data about yourself from sql
 router.get('/self', verifyToken, userController.getSelf);
+// Close your notification panel in homepage
+router.delete('/notifications', verifyToken, userController.closeNotification)
 
 module.exports = router;

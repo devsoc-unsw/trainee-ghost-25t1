@@ -127,18 +127,11 @@ const getHomePage = async (userId) => {
     limit: "2",
     taskStatus: "incomplete"
   };
-
-  const completeTaskParams = {
-    orderBy: "completed_at",
-    sortDirection: "ASC",
-    limit: "1",
-    taskStatus: "complete"
-  }
+  await getOverdueTaskNotifications(userId);
 
   const tasks = await taskServices.getTaskData(userId, incompleteTaskParams);
-  const finished = await taskServices.getTaskData(userId, completeTaskParams);
-  // Maybe add notifcations here
-  return { team, tasks, finished};
+  const notifications = await userModel.getNotifications(userId);
+  return { team, tasks, notifications };
 };
 
 module.exports = {
