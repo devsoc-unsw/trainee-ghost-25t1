@@ -53,7 +53,7 @@ function ExpandedTask({task, setTaskActive, status}) {
                     )}
                     {/* If we have time turn this into a FUN Button -> It does absolutely nothing but maybe can make it shoot confetti?? */}
                     {status === 'complete' && (
-                        <Button className="mark-done-btn" topText={buttonMsg} innerText="N/A"/>
+                        <Button className="mark-done-btn" topText={buttonMsg} innerText="All Done!"/>
                     )}
 
                 </div>
