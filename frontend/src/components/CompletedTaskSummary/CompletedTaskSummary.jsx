@@ -10,25 +10,18 @@ function CompletedTaskSummary({setClicked}) {
   const { homeData } = useContext(HomeContext);
 
   console.log(homeData);
-  const task = homeData?.finished?.[0] || null;
+  const task = homeData?.notifications?.[0] || null;
 
-  let difficulty_str;
-if (task) {
-    if (task.difficulty < 4) {
-        difficulty_str = "easy";
-    } else if (task.difficulty <= 6) {
-        difficulty_str = "medium";
-    } else if (task.difficulty <= 10) {
-        difficulty_str = "hard";
-    } else {
-        difficulty_str = "unknown";
+  var text;
+  if (task) {
+    if (task.type = 'complete') {
+      text = `${task.assignees} completed a task!`
+    } else if (task.type = 'pending') {
+      text = `${task.assignees} need you to approve a task for completion`
+    } else if (task.type = 'overdue') {
+      text = `${task.assignees} might need your help finishing a task...`
     }
-}
-
-//   Could maybe make it so it only appears if done recently
-  const taskDoers = task?.taskDoers?.map(p => p.name).join(", ")
-  const text = `${taskDoers} completed a ${difficulty_str} task!`
-
+  }
   return task ? (
     <section className="summary-box" onClick={() => setClicked("viewTask")}>
       <>

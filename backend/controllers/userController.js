@@ -82,4 +82,17 @@ const getSelf = async (req, res) => {
     }
 }
 
-module.exports = { signup, login, getSelf }
+const closeNotification = async (req, res) => {
+    try {
+        await userServices.getNofitications(req.user.id, req.params.taskId)
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        console.error("Error logging in: ", err)
+        let status = errorMap[err.code]?.httpStatus || 500;
+        let message = err.message || "Internal server error"
+        
+        return res.status(status).json({ success: false, error: message })
+    }
+}
+
+module.exports = { signup, login, getSelf, closeNotification }

@@ -223,41 +223,25 @@ const getTeamSize = async (teamId) => {
 //  Obtains all data required for settings in an object form
 const viewTeamData = async (userId) => {
   const query = `
-    SELECT
-      t.id,
-      t.name,
-      t.admin_user_id,
-      t.class_code,
-      t.assignment,
-      t.xp,
-      t.hp,
-      t.attack,
-      t.defense,
-      t.special_attack,
-      t.special_defense,
-      t.speed,
-      t.pokemon_name
-    FROM
-      teams t
-    JOIN users u on t.id = u.team_id
-    WHERE u.id = ?`;
+    SELECT *
+    FROM teams
+    WHERE id IN (
+      SELECT team_id
+      FROM users
+      WHERE u.id = ?
+    )`;
 
   const [rows] = await db.query(query, [userId]);
 
   if (rows.length === 0) {
     const err = new Error("Team does not exist");
-    err.code = "TEAM_NOT_FOUND";
+    err.code = 'TEAM_NOT_FOUND';
     throw err;
   }
-
-  const team = rows[0];
-  const members = await getTeamMembers(rows[0].id);
-
-  return { team, members };
+  return rows[0];
 };
 
 // A method to get all team members with the corresponding team id
-// currently is unimported since it's a helper function for viewTeamData
 const getTeamMembers = async (teamId) => {
   const query = `
   SELECT name, id
@@ -281,6 +265,28 @@ const getTeamCode = async (teamId) => {
   return rows[0].random_code;
 };
 
+const notifyTeamMembers = async (taskId, teamId, type) => {
+  const query = `
+  SELECT u.id
+  FROM Tasks t
+  JOIN Users u ON t.team_id = u.team_id
+  WHERE t.id = ?;
+  `
+  const [rows] = await db.query(query, [teamId]);
+  const query2 = `
+  INSERT INTO notifications (user_id, task_id, type)
+  VALUES (?, ?, ?)
+  ON DUPLICATE KEY UPDATE 
+    type = VALUES(type),
+    created_at = NOW();
+  `
+
+  for (const user of rows) {
+    await db.query(query2, [taskId, user.id, type]);
+    // extension: send email to each user when task_status = 'pending'
+  }
+};
+
 module.exports = {
   createTeam,
   getTeamByCode,
@@ -289,7 +295,9 @@ module.exports = {
   getTeamOfAdmin,
   getTeamSize,
   viewTeamData,
+  getTeamMembers,
   getTeamCode,
   updateAndGetXp,
-  removeUserFromTeam
+  removeUserFromTeam,
+  notifyTeamMembers
 };

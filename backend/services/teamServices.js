@@ -102,9 +102,13 @@ const changeTeamCode = async (adminId) => {
 };
 
 const getTeamSettings = async (userId) => {
-  const data = await teamModel.viewTeamData(userId);
-  return data;
-};
+  var team = await teamModel.viewTeamData(userId);
+  if (userId !== team.admin_user_id) {
+    delete team.random_code;
+  }
+  const members = await getTeamMembers(team.id);
+  return {team, members};
+}
 
 const getJoinCode = async (userId) => {
   const { team_id: teamId } = await userModel.getData(userId, ["team_id"]);
@@ -128,17 +132,9 @@ const getHomePage = async (userId) => {
     taskStatus: "incomplete"
   };
 
-  const completeTaskParams = {
-    orderBy: "completed_at",
-    sortDirection: "ASC",
-    limit: "1",
-    taskStatus: "complete"
-  }
-
   const tasks = await taskServices.getTaskData(userId, incompleteTaskParams);
-  const finished = await taskServices.getTaskData(userId, completeTaskParams);
-  // Maybe add notifcations here
-  return { team, tasks, finished};
+  const notifications = await userServices.getNotifications(userId);
+  return { team, tasks, notifications };
 };
 
 module.exports = {
