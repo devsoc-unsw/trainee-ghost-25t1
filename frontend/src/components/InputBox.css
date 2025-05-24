@@ -27,9 +27,9 @@ button {
 .input-box {
     display: flex;
     flex-direction: column;
-    flex-basis: 70vh;
+    flex-basis: 700px;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space;
     gap: 2vh;
 
     background-color: rgba(0, 0, 0, 50%);
@@ -62,7 +62,7 @@ button {
 }
 
 .createteam-button, .jointeam-button {
-    background-color: rgb(255, 222, 0);
+    background-color: rgb(255, 222, 0);   
 }
 
 .createteam-button:hover:enabled, .jointeam-button:hover {
