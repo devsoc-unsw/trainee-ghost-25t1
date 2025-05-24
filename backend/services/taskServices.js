@@ -264,6 +264,7 @@ const voteOnCompletion = async (userId, taskId) => {
   if (percentApproved >= numNeededToApprove / teamSize) {
     await taskModel.handleTaskCompletion(taskId, teamId, userId);
     completed = true;
+    await teamModel.notifyTeamMembers(taskId, teamId, "completed");
   }
 
   return { vote, totalVotes, completed };

@@ -249,7 +249,6 @@ const viewTeamData = async (userId) => {
     err.code = "TEAM_NOT_FOUND";
     throw err;
   }
-
   const team = rows[0];
   const members = await getTeamMembers(rows[0].id);
 
@@ -257,7 +256,6 @@ const viewTeamData = async (userId) => {
 };
 
 // A method to get all team members with the corresponding team id
-// currently is unimported since it's a helper function for viewTeamData
 const getTeamMembers = async (teamId) => {
   const query = `
   SELECT name, id
@@ -281,6 +279,45 @@ const getTeamCode = async (teamId) => {
   return rows[0].random_code;
 };
 
+const getOverdueTaskNotifications = async (userId) => {
+  const query = `
+  SELECT id
+  FROM tasks
+  WHERE due_date < NOW()
+  AND team_id IN (
+    SELECT team_id
+    FROM users
+    WHERE id = ?
+  )
+  AND task_status = 'incomplete';
+  `
+
+  const [rows] = await db.query(query, [userId]);
+  rows.forEach(task => notifyTeamMembers(task.id, teamId, 'incomplete'));
+}
+
+const notifyTeamMembers = async (taskId, teamId, type) => {
+  const query = `
+  SELECT u.id
+  FROM Tasks t
+  JOIN Users u ON t.team_id = u.team_id
+  WHERE t.id = ?;
+  `
+  const [rows] = await db.query(query, [teamId]);
+  const query2 = `
+  INSERT INTO notifications (user_id, task_id, type)
+  VALUES (?, ?, ?)
+  ON DUPLICATE KEY UPDATE 
+    type = VALUES(type),
+    created_at = NOW();
+  `
+
+  for (const user of rows) {
+    await db.query(query2, [user.id, taskId, type]);
+    // extension: send email to each user when task_status = 'pending'
+  }
+};
+
 module.exports = {
   createTeam,
   getTeamByCode,
@@ -289,7 +326,10 @@ module.exports = {
   getTeamOfAdmin,
   getTeamSize,
   viewTeamData,
+  getTeamMembers,
   getTeamCode,
   updateAndGetXp,
-  removeUserFromTeam
+  removeUserFromTeam,
+  getOverdueTaskNotifications,
+  notifyTeamMembers
 };

@@ -71,3 +71,13 @@ CREATE TABLE IF NOT EXISTS task_doers (
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, task_id)
 );
+
+CREATE TABLE IF NOT EXISTS notifications (
+    task_id INT NOT NULL,
+    user_id INT NOT NULL,
+    type ENUM('completed','pending','overdue'),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, task_id)
+);

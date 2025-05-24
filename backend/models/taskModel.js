@@ -2,6 +2,7 @@ const db = require("../config/db.js");
 const { sqlColumns } = require("../constants/sqlColumns");
 const { filterValidKeys } = require("../utils/validationUtils.js");
 const caseUtils = require("../utils/caseUtils.js");
+const { notifyTeamMembers } = require("../models/teamModel.js");
 
 /**
  * Retrieves task data from the database for a given task ID with optional
@@ -173,6 +174,10 @@ const editTaskOnTeam = async (data, taskId, teamId) => {
     const err = new Error("Task does not exist or data was the same or prior");
     err.code = "NO_UPDATE_OCCURRED";
     throw err;
+  }
+
+  if (secureData.task_status) {
+    await notifyTeamMembers(taskId, teamId, secureData.task_status);
   }
 
   return result;

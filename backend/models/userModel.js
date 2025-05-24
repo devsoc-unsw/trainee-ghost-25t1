@@ -146,3 +146,33 @@ exports.getUserData = async (userId) => {
   const [result] = await db.query(query, [userId]);
   return result[0];
 };
+
+exports.getNotifications = async (userId) => {
+  const query = `
+  SELECT 
+    n.task_id, n.type, n.created_at,
+    CASE
+      WHEN COUNT(DISTINCT u.name) = 1 THEN MIN(u.name)
+      WHEN COUNT(DISTINCT u.name) = 2 THEN GROUP_CONCAT(u.name SEPARATOR ' and ')
+      ELSE CONCAT(MIN(u.name), 'and others')
+    END as asignees
+  FROM tasks t
+  JOIN task_doers d on t.id = d.task_id
+  JOIN users u on d.user_id = u.id
+  JOIN notifications n on t.id = n.task_id
+  WHERE n.user_id = ?
+  GROUP BY n.task_id
+  ORDER BY n.created_at DESC
+  `
+  const [rows] = await db.query(query, [userId]);
+  return rows;
+};
+
+exports.closeNotification = async (userId, taskId) => {
+  const query =`
+  DELETE FROM notifications
+  WHERE task_id = ?
+  AND user_id = ?
+  `
+  await db.query(query, [taskId, userId]);
+};

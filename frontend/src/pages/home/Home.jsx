@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
 import Popup from "../../components/Popup";
 import StatsTextBox from "../../components/StatsTextBox/StatsTextBox";
-import CompletedTaskSummary from "../../components/CompletedTaskSummary/CompletedTaskSummary";
+import CompletedTaskSummary from "../../components/Notifications/Notifications";
 import CreateTask from "../CreateTask/CreateTask";
 import Settings from "../Settings/Settings";
 import Loading from "../../components/Loading";

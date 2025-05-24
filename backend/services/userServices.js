@@ -132,3 +132,11 @@ exports.getUser = async (userId) => {
   const user = await userModel.getUserData(userId);
   return user;
 }
+
+exports.getNofitications = async (userId) => {
+  return await userModel.getNotifications(userId);
+}
+
+exports.closeNotifications = async (userId, taskId) => {
+  return await userModel.closeNotification(userId, taskId);
+}
