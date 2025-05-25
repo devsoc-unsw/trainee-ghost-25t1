@@ -299,8 +299,8 @@ const getOverdueTaskNotifications = async (userId) => {
 const notifyTeamMembers = async (taskId, teamId, type) => {
   const query = `
   SELECT u.id
-  FROM Tasks t
-  JOIN Users u ON t.team_id = u.team_id
+  FROM tasks t
+  JOIN users u ON t.team_id = u.team_id
   WHERE t.id = ?;
   `
   const [rows] = await db.query(query, [teamId]);

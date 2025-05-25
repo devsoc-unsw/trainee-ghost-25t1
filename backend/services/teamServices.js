@@ -127,7 +127,7 @@ const getHomePage = async (userId) => {
     limit: "2",
     taskStatus: "incomplete"
   };
-  await getOverdueTaskNotifications(userId);
+  await teamModel.getOverdueTaskNotifications(userId);
 
   const tasks = await taskServices.getTaskData(userId, incompleteTaskParams);
   const notifications = await userModel.getNotifications(userId);

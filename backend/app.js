@@ -14,7 +14,7 @@ const app = express();
 // We need cors (Cross origin resource requests) for development at least
 // because we will locally host the backend and frontend on different ports
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'https://williammilletwebsite.site',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 }

@@ -1,7 +1,7 @@
 import "./Settings.css";
 import resetImg from "../../assets/reset.png";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { data, useNavigate } from "react-router";
 import { getTeamData } from "../../api/tasks";
 import {
   editTeamData,
@@ -11,6 +11,7 @@ import {
   kickPlayerFromTeam,
 } from "../../api/teams";
 import cross from "../../assets/cross.svg";
+import Modal from 'react-bootstrap/Modal';
 
 const Settings = () => {
   const [teamData, setTeamData] = useState(null);
@@ -21,6 +22,12 @@ const Settings = () => {
   const [assignmentName, setAssignmentName] = useState("");
 
   const [error, setError] = useState(null);
+  
+  // Modal state for export pokemon
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [pokemonText, setPokemonText] = useState("");
 
   const navigate = useNavigate();
 
@@ -70,6 +77,38 @@ const Settings = () => {
     } else {
       setError(resData.message || "Something went wrong, please try again");
     }
+  }
+
+  // Exports the pokemon for pokemon showdown
+  const exportPokemon = async () => {
+    try {
+      console.log(teamData.team.pokemon_name)
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${teamData.team.pokemon_name}`);
+      const data = await response.json();
+
+      const pokemonData = {
+        name: data.name.replace("-", " "),
+        ability: data.abilities[0].ability.name.replace("-", " "),
+        moves: data.moves.slice(0, 4).map(move => move.move.name.replace("-", " ")),
+      };
+
+      const exportString = 
+        `${pokemonData.name} @ \n` +
+        `Ability: ${pokemonData.ability}\n` +
+        `EVs: 84 HP / 84 Atk / 84 Def / 84 SpA / 84 SpD / 84 Spe\n` +
+        `Bashful Nature: \n` +
+        `- ${pokemonData.moves[0]}\n` +
+        `- ${pokemonData.moves[1]}\n` +
+        `- ${pokemonData.moves[2]}\n` +
+        `- ${pokemonData.moves[3]}\n`;
+
+      handleShow();
+      setPokemonText(exportString);
+      return exportString;
+    } catch (error) {
+      console.error('Error fetching Pokémon:', error);
+      setPokemonText("Error fetching Pokémon data. Please try again.");
+    };
   }
 
   const kickFromTeam = async (userId) => {
@@ -173,6 +212,9 @@ const Settings = () => {
               </div>: null
             ))}
           </div>
+          <button className="save-changes" onClick={exportPokemon}>
+            Export Pokemon
+          </button>
         </div>
       )}
       {error && <div className="error">{error}</div>}
@@ -182,6 +224,15 @@ const Settings = () => {
       <button className="leave-btn" onClick={handleLeaveTeam}>
         Leave Group
       </button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Export Pokemon</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Copy Paste the below text into Pokemon Showdown to finish exporting your pokemon!</Modal.Body>
+        <Modal.Body><pre>{pokemonText}</pre></Modal.Body>
+      </Modal>
+
     </section>
   );
 };
