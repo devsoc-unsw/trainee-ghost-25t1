@@ -229,7 +229,7 @@ const getTaskVoteCount = async (taskId) => {
 const handleTaskCompletion = async (taskId) => {
   const completingQuery = `
     UPDATE tasks
-    SET task_status = 'complete'
+    SET task_status = 'complete', completed_at = CURRENT_TIMESTAMP 
     WHERE id = ?
   `;
   const [completingResults] = await db.query(completingQuery, [taskId]);
