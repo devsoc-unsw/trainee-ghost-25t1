@@ -150,7 +150,17 @@ exports.getUserData = async (userId) => {
 exports.getNotifications = async (userId) => {
   const query = `
   SELECT 
-    n.task_id, n.type, n.created_at,
+    n.type,
+    t.id,
+    t.difficulty,
+    t.title,
+    t.description,
+    t.due_date,
+    t.created_at,
+    t.approval_votes,
+    t.task_status,
+    t.completed_at,
+    t.team_id,
     CASE
       WHEN COUNT(DISTINCT u.name) = 1 THEN MIN(u.name)
       WHEN COUNT(DISTINCT u.name) = 2 THEN GROUP_CONCAT(u.name SEPARATOR ' and ')
@@ -165,7 +175,7 @@ exports.getNotifications = async (userId) => {
   ORDER BY n.created_at DESC
   `
   const [rows] = await db.query(query, [userId]);
-  return rows;
+  return rows[0];
 };
 
 exports.closeNotification = async (userId, taskId) => {

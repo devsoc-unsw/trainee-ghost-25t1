@@ -25,4 +25,4 @@ dist-ssr
 
 # imports and private data
 node_modules/
-.gitignore
+.env

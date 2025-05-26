@@ -131,6 +131,8 @@ const getHomePage = async (userId) => {
 
   const tasks = await taskServices.getTaskData(userId, incompleteTaskParams);
   const notifications = await userModel.getNotifications(userId);
+  const taskDoers = await taskModel.getTaskDoers([notifications.id]);
+  notifications.taskDoers = taskDoers[notifications.id];
   return { team, tasks, notifications };
 };
 
